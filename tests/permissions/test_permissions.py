@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
 import pytest
@@ -18,14 +20,14 @@ if TYPE_CHECKING:
 
 
 class LocalPermission(BasePermission):
-    def has_permission(self, request: "Request", apiview: "APIGateHandler"):
+    def has_permission(self, request: Request, apiview: APIGateHandler):
         if not request.headers.get("allow_all"):
             return False
         return True
 
 
 class ApplicationPermission(BasePermission):
-    def has_permission(self, request: "Request", apiview: "APIGateHandler"):
+    def has_permission(self, request: Request, apiview: APIGateHandler):
         if not request.headers.get("Authorization"):
             return False
         return True

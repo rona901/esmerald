@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Type, Union
+from typing import Any, Dict, Type, Union
 
 from lilya import status
 from lilya.exceptions import (
@@ -52,7 +52,7 @@ class HTTPException(LilyaHTTPException, EsmeraldAPIException):
             ),
         ],
         detail: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 A string text with the details of the error being thrown.
@@ -60,7 +60,7 @@ class HTTPException(LilyaHTTPException, EsmeraldAPIException):
             ),
         ] = None,
         status_code: Annotated[
-            Optional[int],
+            int | None,
             Doc(
                 """
                 An integer with the status code to be raised.
@@ -68,7 +68,7 @@ class HTTPException(LilyaHTTPException, EsmeraldAPIException):
             ),
         ] = None,
         headers: Annotated[
-            Optional[Dict[str, Any]],
+            Dict[str, Any] | None,
             Doc(
                 """
                 Any python dictionary containing headers.

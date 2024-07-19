@@ -9,10 +9,8 @@ from typing import (
     Dict,
     Generator,
     List,
-    Optional,
     Set,
     Type,
-    Union,
     _GenericAlias,
     get_args,
     get_origin,
@@ -74,13 +72,13 @@ class Parameter(ArbitraryBaseModel):
         - `default_defined` property checks if a default value is defined for the parameter.
     """
 
-    annotation: Optional[Any] = None
-    default: Optional[Any] = None
-    name: Optional[str] = None
-    optional: Optional[bool] = None
-    fn_name: Optional[str] = None
-    param_name: Optional[str] = None
-    parameter: Optional[InspectParameter] = None
+    annotation: Any | None = None
+    default: Any | None = None
+    name: str | None = None
+    optional: bool | None = None
+    fn_name: str | None = None
+    param_name: str | None = None
+    parameter: InspectParameter | None = None
 
     def __init__(
         self, fn_name: str, param_name: str, parameter: InspectParameter, **kwargs: Any
@@ -173,7 +171,7 @@ class SignatureModel(ArbitraryBaseModel):
 
     @classmethod
     def parse_values_for_connection(
-        cls, connection: Union[Request, WebSocket], **kwargs: Dict[str, Any]
+        cls, connection: Request | WebSocket, **kwargs: Dict[str, Any]
     ) -> Any:
         """
         Parses keyword arguments for connection, applies encoders if defined,
@@ -205,7 +203,7 @@ class SignatureModel(ArbitraryBaseModel):
 
     @classmethod
     def build_encoder_exception(
-        cls, connection: Union[Request, WebSocket], exception: Exception
+        cls, connection: Request | WebSocket, exception: Exception
     ) -> Exception:
         """
         Constructs an exception for encoder-related errors.
@@ -249,8 +247,8 @@ class SignatureModel(ArbitraryBaseModel):
 
     @classmethod
     def build_base_system_exception(
-        cls, connection: Union[Request, WebSocket], exception: ValidationError
-    ) -> Union[InternalServerError, ValidationErrorException, Exception]:
+        cls, connection: Request | WebSocket, exception: ValidationError
+    ) -> InternalServerError | ValidationErrorException | Exception:
         """
         Constructs a system exception based on validation errors, categorizing them
         as server or client errors, and providing detailed context.
@@ -416,7 +414,7 @@ class SignatureFactory(ArbitraryExtraBaseModel):
         return param.name in VALIDATION_NAMES or should_skip_dependency_validation(param.default)
 
     def extract_arguments(
-        self, param: Union[Parameter, None] = None, argument_list: Union[List[Any], None] = None
+        self, param: Parameter | None = None, argument_list: List[Any] | None = None
     ) -> List[Type[type]]:
         """
         Recursively extracts unique types from a parameter's type annotation.

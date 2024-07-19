@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from functools import cached_property
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Sequence, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Sequence
 
 from lilya.types import Lifespan
 from pydantic import AnyUrl
@@ -88,7 +88,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = False
     environment: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             Optional string indicating the environment where the settings are running.
@@ -143,7 +143,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = "Highly scalable, performant, easy to learn and for every application."
     contact: Annotated[
-        Optional[Contact],
+        Contact | None,
         Doc(
             """
             A dictionary or an object of type `esmerald.openapi.schemas.v3_1_0.Contact` containing the contact information of the application/API.
@@ -158,7 +158,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = Contact(name="admin", email="admin@myapp.com")
     terms_of_service: Annotated[
-        Optional[AnyUrl],
+        AnyUrl | None,
         Doc(
             """
             A URL pointing to the Terms of Service of the application.
@@ -167,7 +167,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = None
     license: Annotated[
-        Optional[License],
+        License | None,
         Doc(
             """
             A dictionary or an object of type `esmerald.openapi.schemas.v3_1_0.License` containing the license information of the application/API.
@@ -181,7 +181,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = None
     security: Annotated[
-        Optional[List[SecurityScheme]],
+        List[SecurityScheme] | None,
         Doc(
             """
             Used by OpenAPI definition, the security must be compliant with the norms.
@@ -197,7 +197,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = None
     servers: Annotated[
-        List[Dict[str, Union[str, Any]]],
+        List[Dict[str, str | Any]],
         Doc(
             """
             A `list` of python dictionaries with the information regarding the connectivity
@@ -229,7 +229,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = [{"url": "/"}]
     secret_key: Annotated[
-        Union[str, Secret],
+        str | Secret,
         Doc(
             """
             A unique string value used for the cryptography. This value is also
@@ -258,7 +258,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = "3.1.0"
     allowed_hosts: Annotated[
-        Optional[List[str]],
+        List[str] | None,
         Doc(
             """
             A `list` of allowed hosts for the application. The allowed hosts when not specified
@@ -270,7 +270,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = ["*"]
     allow_origins: Annotated[
-        Optional[List[str]],
+        List[str] | None,
         Doc(
             """
             A `list` of allowed origins hosts for the application.
@@ -284,7 +284,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = None
     response_class: Annotated[
-        Optional[ResponseType],
+        ResponseType | None,
         Doc(
             """
             Global default response class to be used within the
@@ -296,7 +296,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = None
     response_cookies: Annotated[
-        Optional[ResponseCookies],
+        ResponseCookies | None,
         Doc(
             """
             A global sequence of `esmerald.datastructures.Cookie` objects.
@@ -306,7 +306,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = None
     response_headers: Annotated[
-        Optional[ResponseHeaders],
+        ResponseHeaders | None,
         Doc(
             """
             A global mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -335,7 +335,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = True
     tags: Annotated[
-        Optional[List[str]],
+        List[str] | None,
         Doc(
             """
             A list of strings tags to be applied to the *path operation*.
@@ -361,7 +361,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = "UTC"
     root_path: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             A path prefix that is handled by a proxy not seen in the
@@ -422,7 +422,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = True
     x_frame_options: Annotated[
-        Union[str, None],
+        str | None,
         Doc(
             """
             Set the X-Frame-Options HTTP header in HTTP responses.
@@ -445,7 +445,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = True
     webhooks: Annotated[
-        Optional[Sequence[gateways.WebhookGateway]],
+        Sequence[gateways.WebhookGateway] | None,
         Doc(
             """
             This is the same principle of the `routes` but for OpenAPI webhooks.
@@ -458,7 +458,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = None
     openapi_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             The URL where the OpenAPI schema will be served from.
@@ -475,7 +475,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = "/openapi.json"
     docs_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default relative URL where the Swagger documentation
@@ -486,7 +486,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = "/docs/swagger"
     redoc_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default relative URL where the ReDoc documentation
@@ -497,7 +497,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = "/docs/redoc"
     swagger_ui_oauth2_redirect_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default relative URL where the Swagger UI OAuth Redirect URL
@@ -530,7 +530,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = "https://esmerald.dev/statics/images/favicon.ico"
     swagger_ui_init_oauth: Annotated[
-        Optional[Dict[str, Any]],
+        Dict[str, Any] | None,
         Doc(
             """
             String default relative URL where the Swagger Init Auth documentation
@@ -541,7 +541,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = None
     swagger_ui_parameters: Annotated[
-        Optional[Dict[str, Any]],
+        Dict[str, Any] | None,
         Doc(
             """
             A mapping with parameters to be passed onto Swagger.
@@ -595,7 +595,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = True
     stoplight_js_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default URL where the Stoplight Javascript is located
@@ -606,7 +606,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = "https://unpkg.com/@stoplight/elements/web-components.min.js"
     stoplight_css_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default URL where the Stoplight CSS is located
@@ -617,7 +617,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = "https://unpkg.com/@stoplight/elements/styles.min.css"
     stoplight_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default relative URL where the Stoplight documentation
@@ -639,7 +639,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = "https://esmerald.dev/statics/images/favicon.ico"
     rapidoc_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default relative URL where the Rapidoc documentation
@@ -650,7 +650,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = "/docs/rapidoc"
     rapidoc_js_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default URL where the RapiDoc Javascript is located
@@ -661,7 +661,7 @@ class EsmeraldAPISettings(BaseSettings):
         ),
     ] = "https://unpkg.com/rapidoc@9.3.4/dist/rapidoc-min.js"
     rapidoc_favicon_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default URL where the RapiDoc favicon is located
@@ -738,7 +738,7 @@ class EsmeraldAPISettings(BaseSettings):
         ]
 
     @property
-    def routes(self) -> List[Union[APIGateHandler, Include]]:
+    def routes(self) -> List[APIGateHandler | Include]:
         """
         A global `list` of esmerald routes. Those routes may vary and those can
         be `Gateway`, `WebSocketGateWay` or even `Include`.
@@ -787,7 +787,7 @@ class EsmeraldAPISettings(BaseSettings):
         return []
 
     @property
-    def csrf_config(self) -> Optional[CSRFConfig]:
+    def csrf_config(self) -> CSRFConfig | None:
         """
         An instance of [CRSFConfig](https://esmerald.dev/configurations/csrf/).
 
@@ -849,7 +849,7 @@ class EsmeraldAPISettings(BaseSettings):
         return AsyncExitConfig()
 
     @property
-    def template_config(self) -> Optional[TemplateConfig]:
+    def template_config(self) -> TemplateConfig | None:
         """
         An instance of [TemplateConfig](https://esmerald.dev/configurations/template/).
         This configuration is a simple set of configurations that when passed enables the template engine.
@@ -877,7 +877,7 @@ class EsmeraldAPISettings(BaseSettings):
         return None
 
     @property
-    def static_files_config(self) -> Optional[StaticFilesConfig]:
+    def static_files_config(self) -> StaticFilesConfig | None:
         """
         An instance of [StaticFilesConfig](https://esmerald.dev/configurations/staticfiles/).
 
@@ -901,7 +901,7 @@ class EsmeraldAPISettings(BaseSettings):
         return None
 
     @property
-    def cors_config(self) -> Optional[CORSConfig]:
+    def cors_config(self) -> CORSConfig | None:
         """
         An instance of [CORSConfig](https://esmerald.dev/configurations/cors/).
 
@@ -929,7 +929,7 @@ class EsmeraldAPISettings(BaseSettings):
         return CORSConfig(allow_origins=self.allow_origins)
 
     @property
-    def session_config(self) -> Optional[SessionConfig]:
+    def session_config(self) -> SessionConfig | None:
         """
         An instance of [SessionConfig](https://esmerald.dev/configurations/session/).
 
@@ -1238,7 +1238,7 @@ class EsmeraldAPISettings(BaseSettings):
         return {}
 
     @property
-    def on_startup(self) -> Union[List[LifeSpanHandler], None]:
+    def on_startup(self) -> List[LifeSpanHandler] | None:
         """
         A `list` of events that are trigger upon the application
         starts.
@@ -1275,7 +1275,7 @@ class EsmeraldAPISettings(BaseSettings):
         return None
 
     @property
-    def on_shutdown(self) -> Union[List[LifeSpanHandler], None]:
+    def on_shutdown(self) -> List[LifeSpanHandler] | None:
         """
         A `list` of events that are trigger upon the application
         shuts down.
@@ -1312,7 +1312,7 @@ class EsmeraldAPISettings(BaseSettings):
         return None
 
     @property
-    def lifespan(self) -> Optional[Lifespan]:
+    def lifespan(self) -> Lifespan | None:
         """
         A `lifespan` context manager handler. This is an alternative
         to `on_startup` and `on_shutdown` and you **cannot used all combined**.
@@ -1377,7 +1377,7 @@ class EsmeraldAPISettings(BaseSettings):
         return {}
 
     @property
-    def encoders(self) -> Union[List[Encoder], None]:
+    def encoders(self) -> List[Encoder] | None:
         """
         A `list` of encoders to be used by the application once it
         starts.

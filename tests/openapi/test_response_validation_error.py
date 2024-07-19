@@ -1,4 +1,6 @@
-from typing import Dict, List, Union
+from __future__ import annotations
+
+from typing import Dict, List
 
 from pydantic import BaseModel
 
@@ -24,7 +26,7 @@ class JsonResponse(JSONResponse):
 
 
 class Item(BaseModel):
-    sku: Union[int, str]
+    sku: int | str
 
 
 @get()

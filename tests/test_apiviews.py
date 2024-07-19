@@ -1,4 +1,6 @@
-from typing import Any, Type, Union
+from __future__ import annotations
+
+from typing import Any, Type
 
 import pytest
 from lilya.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_204_NO_CONTENT
@@ -56,7 +58,7 @@ def test_can_generate_views(test_client_factory):
     ],
 )
 def test_controller_http_method(
-    http_verb: Union[Type[get], Type[post], Type[put], Type[patch], Type[delete]],
+    http_verb: Type[get] | Type[post] | Type[put] | Type[patch] | Type[delete],
     http_method: HttpMethod,
     expected_status_code: int,
     return_value: Any,
@@ -105,7 +107,7 @@ def test_controller_http_method(
     ],
 )
 def test_controller_http_method_with_include(
-    http_verb: Union[Type[get], Type[post], Type[put], Type[patch], Type[delete]],
+    http_verb: Type[get] | Type[post] | Type[put] | Type[patch] | Type[delete],
     http_method: HttpMethod,
     expected_status_code: int,
     return_value: Any,
@@ -156,7 +158,7 @@ def test_controller_http_method_with_include(
     ],
 )
 def test_controller_http_method_with_nested_include(
-    http_verb: Union[Type[get], Type[post], Type[put], Type[patch], Type[delete]],
+    http_verb: Type[get] | Type[post] | Type[put] | Type[patch] | Type[delete],
     http_method: HttpMethod,
     expected_status_code: int,
     return_value: Any,
@@ -212,7 +214,7 @@ def test_controller_http_method_with_nested_include(
     ],
 )
 def test_controller_http_method_with_super_nested_include(
-    http_verb: Union[Type[get], Type[post], Type[put], Type[patch], Type[delete]],
+    http_verb: Type[get] | Type[post] | Type[put] | Type[patch] | Type[delete],
     http_method: HttpMethod,
     expected_status_code: int,
     return_value: Any,

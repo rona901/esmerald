@@ -1,4 +1,6 @@
-from typing import Any, Literal, Optional, Union
+from __future__ import annotations
+
+from typing import Any, Literal
 
 from pydantic import AnyUrl, ConfigDict
 
@@ -15,14 +17,14 @@ class HTTPBase(SecurityScheme):
     def __init__(
         self,
         *,
-        type_: Optional[Literal["apiKey", "http", "mutualTLS", "oauth2", "openIdConnect"]] = None,
-        bearerFormat: Optional[str] = None,
-        scheme_name: Optional[str] = None,
-        description: Optional[str] = None,
-        in_: Optional[Literal["query", "header", "cookie"]] = None,
-        name: Optional[str] = None,
-        scheme: Optional[str] = None,
-        openIdConnectUrl: Optional[Union[AnyUrl, str]] = None,
+        type_: Literal["apiKey", "http", "mutualTLS", "oauth2", "openIdConnect"] | None = None,
+        bearerFormat: str | None = None,
+        scheme_name: str | None = None,
+        description: str | None = None,
+        in_: Literal["query", "header", "cookie"] | None = None,
+        name: str | None = None,
+        scheme: str | None = None,
+        openIdConnectUrl: AnyUrl | str | None = None,
         **kwargs: Any,
     ):
         super().__init__(  # type: ignore

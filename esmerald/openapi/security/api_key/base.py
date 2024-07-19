@@ -1,4 +1,6 @@
-from typing import Any, Literal, Optional
+from __future__ import annotations
+
+from typing import Any, Literal
 
 from esmerald.openapi.enums import APIKeyIn, SecuritySchemeType
 from esmerald.openapi.security.base import HTTPBase
@@ -11,10 +13,10 @@ class APIKeyInQuery(HTTPBase):
         type_: Literal[
             "apiKey", "http", "mutualTLS", "oauth2", "openIdConnect"
         ] = SecuritySchemeType.apiKey.value,
-        scheme_name: Optional[str] = None,
-        description: Optional[str] = None,
-        in_: Optional[Literal["query", "header", "cookie"]] = APIKeyIn.query.value,
-        name: Optional[str] = None,
+        scheme_name: str | None = None,
+        description: str | None = None,
+        in_: Literal["query", "header", "cookie"] | None = APIKeyIn.query.value,
+        name: str | None = None,
         **kwargs: Any,
     ):
         super().__init__(
@@ -34,10 +36,10 @@ class APIKeyInHeader(HTTPBase):
         type_: Literal[
             "apiKey", "http", "mutualTLS", "oauth2", "openIdConnect"
         ] = SecuritySchemeType.apiKey.value,
-        scheme_name: Optional[str] = None,
-        description: Optional[str] = None,
-        in_: Optional[Literal["query", "header", "cookie"]] = APIKeyIn.header.value,
-        name: Optional[str] = None,
+        scheme_name: str | None = None,
+        description: str | None = None,
+        in_: Literal["query", "header", "cookie"] | None = APIKeyIn.header.value,
+        name: str | None = None,
         **kwargs: Any,
     ):
         super().__init__(
@@ -57,10 +59,10 @@ class APIKeyInCookie(HTTPBase):
         type_: Literal[
             "apiKey", "http", "mutualTLS", "oauth2", "openIdConnect"
         ] = SecuritySchemeType.apiKey.value,
-        scheme_name: Optional[str] = None,
-        description: Optional[str] = None,
-        in_: Optional[Literal["query", "header", "cookie"]] = APIKeyIn.cookie.value,
-        name: Optional[str] = None,
+        scheme_name: str | None = None,
+        description: str | None = None,
+        in_: Literal["query", "header", "cookie"] | None = APIKeyIn.cookie.value,
+        name: str | None = None,
         **kwargs: Any,
     ):
         super().__init__(

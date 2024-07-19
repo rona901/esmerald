@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List
 from unittest.mock import MagicMock
 
 import pytest
@@ -35,8 +37,8 @@ class DummyTrigger(BaseTrigger):  # pragma: no cover
         self.args = args
 
     def get_next_trigger_time(
-        self, previous_time: datetime, now: Optional[datetime] = None
-    ) -> Union[datetime, None]: ...
+        self, previous_time: datetime, now: datetime | None = None
+    ) -> datetime | None: ...
 
 
 class DummyExecutor(BaseExecutor):  # pragma: no cover
@@ -47,7 +49,7 @@ class DummyExecutor(BaseExecutor):  # pragma: no cover
         self.shutdown = MagicMock()
         self.send_task = MagicMock()
 
-    def do_send_task(self, task: "TaskType", run_times: List[datetime]) -> Any:
+    def do_send_task(self, task: TaskType, run_times: List[datetime]) -> Any:
         return super().do_send_task(task, run_times)
 
 
@@ -58,21 +60,21 @@ class DummyStore(BaseStore):  # pragma: no cover
         self.start = MagicMock()
         self.shutdown = MagicMock()
 
-    def get_due_tasks(self, now: datetime) -> List["TaskType"]: ...
+    def get_due_tasks(self, now: datetime) -> List[TaskType]: ...
 
-    def lookup_task(self, task_id: Union[str, int]) -> "TaskType": ...
+    def lookup_task(self, task_id: str | int) -> TaskType: ...
 
-    def delete_task(self, task_id: Union[str, int]): ...
+    def delete_task(self, task_id: str | int): ...
 
     def remove_all_tasks(self): ...
 
     def get_next_run_time(self) -> datetime: ...
 
-    def get_all_tasks(self) -> List["TaskType"]: ...
+    def get_all_tasks(self) -> List[TaskType]: ...
 
-    def add_task(self, task: "TaskType"): ...
+    def add_task(self, task: TaskType): ...
 
-    def update_task(self, task: "TaskType"): ...
+    def update_task(self, task: TaskType): ...
 
 
 def scheduler_tasks() -> Dict[str, str]:
@@ -120,15 +122,15 @@ def scheduler_class(monkeypatch):
             "asyncz.task_defaults.mistrigger_grace_time": "5",
             "asyncz.task_defaults.coalesce": "false",
             "asyncz.task_defaults.max_instances": "9",
-            "asyncz.executors.default.class": "%s:DummyExecutor" % __name__,
+            "asyncz.executors.default.class": f"{__name__}:DummyExecutor",
             "asyncz.executors.default.arg1": "3",
             "asyncz.executors.default.arg2": "a",
-            "asyncz.executors.alter.class": "%s:DummyExecutor" % __name__,
+            "asyncz.executors.alter.class": f"{__name__}:DummyExecutor",
             "asyncz.executors.alter.arg": "true",
-            "asyncz.stores.default.class": "%s:DummyStore" % __name__,
+            "asyncz.stores.default.class": f"{__name__}:DummyStore",
             "asyncz.stores.default.arg1": "3",
             "asyncz.stores.default.arg2": "a",
-            "asyncz.stores.bar.class": "%s:DummyStore" % __name__,
+            "asyncz.stores.bar.class": f"{__name__}:DummyStore",
             "asyncz.stores.bar.arg": "false",
         },
         {
@@ -139,12 +141,12 @@ def scheduler_class(monkeypatch):
                 "max_instances": "9",
             },
             "asyncz.executors": {
-                "default": {"class": "%s:DummyExecutor" % __name__, "arg1": "3", "arg2": "a"},
-                "alter": {"class": "%s:DummyExecutor" % __name__, "arg": "true"},
+                "default": {"class": f"{__name__}:DummyExecutor", "arg1": "3", "arg2": "a"},
+                "alter": {"class": f"{__name__}:DummyExecutor", "arg": "true"},
             },
             "asyncz.stores": {
-                "default": {"class": "%s:DummyStore" % __name__, "arg1": "3", "arg2": "a"},
-                "bar": {"class": "%s:DummyStore" % __name__, "arg": "false"},
+                "default": {"class": f"{__name__}:DummyStore", "arg1": "3", "arg2": "a"},
+                "bar": {"class": f"{__name__}:DummyStore", "arg": "false"},
             },
         },
     ],
@@ -169,12 +171,12 @@ def test_esmerald_scheduler_configurations(scheduler_class, global_config):
                 "max_instances": "9",
             },
             "executors": {
-                "default": {"class": "%s:DummyExecutor" % __name__, "arg1": "3", "arg2": "a"},
-                "alter": {"class": "%s:DummyExecutor" % __name__, "arg": "true"},
+                "default": {"class": f"{__name__}:DummyExecutor", "arg1": "3", "arg2": "a"},
+                "alter": {"class": f"{__name__}:DummyExecutor", "arg": "true"},
             },
             "stores": {
-                "default": {"class": "%s:DummyStore" % __name__, "arg1": "3", "arg2": "a"},
-                "bar": {"class": "%s:DummyStore" % __name__, "arg": "false"},
+                "default": {"class": f"{__name__}:DummyStore", "arg1": "3", "arg2": "a"},
+                "bar": {"class": f"{__name__}:DummyStore", "arg": "false"},
             },
         }
     )

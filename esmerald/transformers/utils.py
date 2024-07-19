@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Dict, List, NamedTuple, Set, Tuple, Type, Union, cast
+from typing import TYPE_CHECKING, Any, Dict, List, NamedTuple, Set, Tuple, Type, cast
 
 from lilya.datastructures import URL
 from pydantic.fields import FieldInfo
@@ -116,7 +116,7 @@ def create_parameter_setting(
 
     field_alias = extra.get(ParamType.QUERY) or field_name
     param_type = getattr(field_info, "in_", ParamType.QUERY)
-    param: Union[Path, Header, Cookie, Query]
+    param: Path | Header | Cookie | Query
 
     if field_name in path_parameters:
         field_alias = field_name

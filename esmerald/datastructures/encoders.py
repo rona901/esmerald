@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Dict, Optional, Type, Union
+from typing import TYPE_CHECKING, Any, Dict, Type
 
 from typing_extensions import Annotated, Doc
 
@@ -23,7 +23,7 @@ except ImportError:  # pragma: no cover
 
 class OrJSON(ResponseContainer[ORJSONResponse]):
     content: Annotated[
-        Optional[Dict[str, Any]],
+        Dict[str, Any] | None,
         Doc(
             """
             The content being sent to the response.
@@ -31,7 +31,7 @@ class OrJSON(ResponseContainer[ORJSONResponse]):
         ),
     ] = None
     status_code: Annotated[
-        Optional[int],
+        int | None,
         Doc(
             """
             The status code of the response. It will default to the
@@ -50,8 +50,8 @@ class OrJSON(ResponseContainer[ORJSONResponse]):
 
     def __init__(
         self,
-        content: Optional[Dict[str, Any]] = None,
-        status_code: Optional[int] = None,
+        content: Dict[str, Any] | None = None,
+        status_code: int | None = None,
         **kwargs: Any,
     ) -> None:
         super().__init__(**kwargs)
@@ -61,7 +61,7 @@ class OrJSON(ResponseContainer[ORJSONResponse]):
     def to_response(
         self,
         headers: Dict[str, Any],
-        media_type: Union[MediaType, str],
+        media_type: MediaType | str,
         status_code: int,
         app: Type[Esmerald],
     ) -> ORJSONResponse:
@@ -81,7 +81,7 @@ class OrJSON(ResponseContainer[ORJSONResponse]):
 
 class UJSON(ResponseContainer[UJSONResponse]):
     content: Annotated[
-        Optional[Dict[str, Any]],
+        Dict[str, Any] | None,
         Doc(
             """
             The content being sent to the response.
@@ -89,7 +89,7 @@ class UJSON(ResponseContainer[UJSONResponse]):
         ),
     ] = None
     status_code: Annotated[
-        Optional[int],
+        int | None,
         Doc(
             """
             The status code of the response. It will default to the
@@ -108,8 +108,8 @@ class UJSON(ResponseContainer[UJSONResponse]):
 
     def __init__(
         self,
-        content: Optional[Dict[str, Any]] = None,
-        status_code: Optional[int] = None,
+        content: Dict[str, Any] | None = None,
+        status_code: int | None = None,
         **kwargs: Any,
     ) -> None:
         super().__init__(**kwargs)
@@ -119,7 +119,7 @@ class UJSON(ResponseContainer[UJSONResponse]):
     def to_response(
         self,
         headers: Dict[str, Any],
-        media_type: Union[MediaType, str],
+        media_type: MediaType | str,
         status_code: int,
         app: Type[Esmerald],
     ) -> UJSONResponse:

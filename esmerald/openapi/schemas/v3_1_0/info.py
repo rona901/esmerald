@@ -1,4 +1,4 @@
-from typing import Optional
+from __future__ import annotations
 
 from pydantic import AnyUrl, BaseModel, ConfigDict
 
@@ -43,29 +43,29 @@ class Info(BaseModel):
     **REQUIRED**. The title of the API.
     """
 
-    summary: Optional[str] = None
+    summary: str | None = None
     """
     A short summary of the API.
     """
 
-    description: Optional[str] = None
+    description: str | None = None
     """
     A description of the API.
     [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
     """
 
-    termsOfService: Optional[AnyUrl] = None
+    termsOfService: AnyUrl | None = None
     """
     A URL to the Terms of Service for the API.
     MUST be in the form of a URL.
     """
 
-    contact: Optional[Contact] = None
+    contact: Contact | None = None
     """
     The contact information for the exposed API.
     """
 
-    license: Optional[License] = None
+    license: License | None = None
     """
     The license information for the exposed API.
     """

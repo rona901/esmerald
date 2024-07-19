@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import os
 import sys
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING
 
 import click
 
@@ -75,7 +75,7 @@ def runserver(
     debug: bool,
     log_level: str,
     lifespan: str,
-    settings: Union[str, None] = None,
+    settings: str | None = None,
 ) -> None:
     """Starts the Esmerald development server.
 

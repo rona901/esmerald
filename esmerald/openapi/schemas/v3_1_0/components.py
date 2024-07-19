@@ -1,4 +1,6 @@
-from typing import Dict, Optional, Union
+from __future__ import annotations
+
+from typing import Dict
 
 from pydantic import BaseModel, ConfigDict
 
@@ -99,32 +101,32 @@ class Components(BaseModel):
         },
     )
 
-    schemas: Optional[Dict[str, Schema]] = None
+    schemas: Dict[str, Schema] | None = None
     """An object to hold reusable [Schema Objects](https://spec.openapis.org/oas/v3.1.0#schemaObject)."""
 
-    responses: Optional[Dict[str, Union[Response, Reference]]] = None
+    responses: Dict[str, Response | Reference] | None = None
     """An object to hold reusable [Response Objects](https://spec.openapis.org/oas/v3.1.0#responseObject)."""
 
-    parameters: Optional[Dict[str, Union[Parameter, Reference]]] = None
+    parameters: Dict[str, Parameter | Reference] | None = None
     """An object to hold reusable [Parameter Objects](https://spec.openapis.org/oas/v3.1.0#parameterObject)."""
 
-    examples: Optional[Dict[str, Union[Example, Reference]]] = None
+    examples: Dict[str, Example | Reference] | None = None
     """An object to hold reusable [Example Objects](https://spec.openapis.org/oas/v3.1.0#exampleObject)."""
 
-    requestBodies: Optional[Dict[str, Union[RequestBody, Reference]]] = None
+    requestBodies: Dict[str, RequestBody | Reference] | None = None
     """An object to hold reusable [Request Body Objects](https://spec.openapis.org/oas/v3.1.0#requestBodyObject)."""
 
-    headers: Optional[Dict[str, Union[Header, Reference]]] = None
+    headers: Dict[str, Header | Reference] | None = None
     """An object to hold reusable [Header Objects](https://spec.openapis.org/oas/v3.1.0#headerObject)."""
 
-    securitySchemes: Optional[Dict[str, Union[SecurityScheme, Reference]]] = None
+    securitySchemes: Dict[str, SecurityScheme | Reference] | None = None
     """An object to hold reusable [Security Scheme Objects](https://spec.openapis.org/oas/v3.1.0#securitySchemeObject)."""
 
-    links: Optional[Dict[str, Union[Link, Reference]]] = None
+    links: Dict[str, Link | Reference] | None = None
     """An object to hold reusable [Link Objects](https://spec.openapis.org/oas/v3.1.0#linkObject)."""
 
-    callbacks: Optional[Dict[str, Union[Callback, Reference]]] = None
+    callbacks: Dict[str, Callback | Reference] | None = None
     """An object to hold reusable [Callback Objects](https://spec.openapis.org/oas/v3.1.0#callbackObject)."""
 
-    pathItems: Optional[Dict[str, Union[PathItem, Reference]]] = None
+    pathItems: Dict[str, PathItem | Reference] | None = None
     """An object to hold reusable [Path Item Object](https://spec.openapis.org/oas/v3.1.0#pathItemObject)."""

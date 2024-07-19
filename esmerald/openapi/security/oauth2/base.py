@@ -1,4 +1,6 @@
-from typing import Any, Dict, Literal, Optional, Union
+from __future__ import annotations
+
+from typing import Any, Dict, Literal
 
 from esmerald.openapi.enums import SecuritySchemeType
 from esmerald.openapi.models import OAuthFlows
@@ -31,10 +33,10 @@ class OAuth2(HTTPBase):
         type_: Literal[
             "apiKey", "http", "mutualTLS", "oauth2", "openIdConnect"
         ] = SecuritySchemeType.oauth2.value,
-        scheme_name: Optional[str] = None,
-        description: Optional[str] = None,
-        name: Optional[str] = None,
-        flows: Union[OAuthFlows, Dict[str, Dict[str, Any]]] = OAuthFlows(),
+        scheme_name: str | None = None,
+        description: str | None = None,
+        name: str | None = None,
+        flows: OAuthFlows | Dict[str, Dict[str, Any]] = OAuthFlows(),
         **kwargs: Any,
     ):
         extra: Dict[Any, Any] = {}

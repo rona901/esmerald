@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Dict, Optional, Type, Union
+from typing import TYPE_CHECKING, Any, Dict, Type
 
 from typing_extensions import Annotated, Doc
 
@@ -30,7 +30,7 @@ class Template(ResponseContainer[TemplateResponse]):
         ),
     ]
     context: Annotated[
-        Optional[Dict[str, Any]],
+        Dict[str, Any] | None,
         Doc(
             """
             Any context that should be sent to the templates to be rendered.
@@ -62,7 +62,7 @@ class Template(ResponseContainer[TemplateResponse]):
         ),
     ] = {}
     alternative_template: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             An alternative template name if the `name` is not found.
@@ -76,7 +76,7 @@ class Template(ResponseContainer[TemplateResponse]):
     def to_response(
         self,
         headers: Dict[str, Any],
-        media_type: Union[MediaType, str],
+        media_type: MediaType | str,
         status_code: int,
         app: Type[Esmerald],
     ) -> TemplateResponse:

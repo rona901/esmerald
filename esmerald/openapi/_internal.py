@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from inspect import Signature
-from typing import Any, Optional, Union
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict
 
@@ -13,11 +13,11 @@ class InternalResponse(BaseModel):
     Response generated for non common return types.
     """
 
-    media_type: Optional[Union[str, MediaType]] = None
-    return_annotation: Optional[Any] = None
-    signature: Optional[Signature] = None
-    description: Optional[str] = None
-    encoding: Optional[str] = None
+    media_type: str | MediaType | None = None
+    return_annotation: Any | None = None
+    signature: Signature | None = None
+    description: str | None = None
+    encoding: str | None = None
 
     model_config = ConfigDict(extra="allow", arbitrary_types_allowed=True)
 

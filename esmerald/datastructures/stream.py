@@ -12,7 +12,6 @@ from typing import (
     Iterable,
     Iterator,
     Type,
-    Union,
 )
 
 from lilya.responses import StreamingResponse  # noqa
@@ -27,13 +26,7 @@ if TYPE_CHECKING:  # pragma: no cover
 
 class Stream(ResponseContainer[StreamingResponse]):
     iterator: Annotated[
-        Union[
-            Iterator[Union[str, bytes]],
-            AsyncIterator[Union[str, bytes]],
-            AsyncGenerator[Union[str, bytes], Any],
-            Callable[[], AsyncGenerator[Union[str, bytes], Any]],
-            Callable[[], Generator[Union[str, bytes], Any, Any]],
-        ],
+        Iterator[str | bytes] | AsyncIterator[str | bytes] | AsyncGenerator[str | bytes, Any] | Callable[[], AsyncGenerator[str | bytes, Any]] | Callable[[], Generator[str | bytes, Any, Any]],
         Doc(
             """
             Any iterable function.
@@ -44,7 +37,7 @@ class Stream(ResponseContainer[StreamingResponse]):
     def to_response(
         self,
         headers: Dict[str, Any],
-        media_type: Union[MediaType, str],
+        media_type: MediaType | str,
         status_code: int,
         app: Type[Esmerald],
     ) -> StreamingResponse:  # pragma: no cover

@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Union
-
 from lilya import status
 from lilya.exceptions import HTTPException as LilyaHTTPException
 from lilya.requests import Request
@@ -15,8 +13,8 @@ from esmerald.responses import JSONResponse, Response
 
 
 async def http_exception_handler(
-    request: Request, exc: Union[HTTPException, LilyaHTTPException]
-) -> Union[JSONResponse, Response]:  # pragma: no cover
+    request: Request, exc: HTTPException | LilyaHTTPException
+) -> JSONResponse | Response:  # pragma: no cover
     """
     Default exception handler for LilyaHTTPException and Esmerald HTTPException.
     """

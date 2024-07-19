@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 import sys
 from enum import Enum
-from typing import TYPE_CHECKING, Any, Optional, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 import click
 from lilya.compat import run_sync
@@ -61,7 +61,7 @@ def run(env: DirectiveEnv, directive: str, directive_args: Any) -> None:
     # Loads the directive object
     directive = fetch_directive(name, env.command_path, True)
     if not directive:
-        printer.write_error("Unknown directive: %r" % name)
+        printer.write_error(f"Unknown directive: {name!r}")
         sys.exit(1)
 
     # Execute the directive
@@ -88,7 +88,7 @@ def get_position() -> int:
 
 
 async def execute_lifespan(
-    app: Optional[Union[Esmerald, ChildEsmerald]],
+    app: Esmerald | ChildEsmerald | None,
     lifespan: Lifespan,
     directive: Any,
     program_name: str,

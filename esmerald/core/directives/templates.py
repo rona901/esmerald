@@ -5,7 +5,7 @@ import shutil
 import stat
 from importlib import import_module
 from pathlib import Path
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -113,7 +113,7 @@ class TemplateDirective(BaseDirective):
         template_dir: str,
         context: Dict[str, Any],
         with_deployment: bool = False,
-        deployment_folder_name: Union[str, None] = None,
+        deployment_folder_name: str | None = None,
     ) -> None:
         """
         Iterates through a specific template directory and populates with the corresponding
@@ -151,34 +151,29 @@ class TemplateDirective(BaseDirective):
 
                 if os.path.exists(new_path):
                     raise DirectiveError(
-                        "%s already exists. Overlaying %s %s into an existing "
+                        f"{new_path} already exists. Overlaying {self.a_or_an} {app_or_project} into an existing "
                         "directory won't replace conflicting files."
-                        % (
-                            new_path,
-                            self.a_or_an,
-                            app_or_project,
-                        )
                     )
 
                 shutil.copyfile(old_path, new_path)
                 if self.verbosity >= 2:
-                    printer.write_info("Creating %s" % new_path)
+                    printer.write_info(f"Creating {new_path}")
                 try:
                     self.manage_template_variables(template_name, new_path, project_dir, context)
                     self.apply_umask(old_path, new_path)
                     self.make_file_writable(new_path)
                 except OSError:
                     printer.write_error(
-                        "Notice: Couldn't set permission bits on %s. You're "
+                        f"Notice: Couldn't set permission bits on {new_path}. You're "
                         "probably using an uncommon filesystem setup. No "
-                        "problem." % new_path,
+                        "problem.",
                     )
 
     def manage_template_variables(
         self,
-        template: Union[str, Path],
-        destination: Union[str, Path],
-        template_dir: Union[str, Path],
+        template: str | Path,
+        destination: str | Path,
+        template_dir: str | Path,
         context: Dict[str, Any],
     ) -> None:
         """
@@ -193,7 +188,7 @@ class TemplateDirective(BaseDirective):
         with open(destination, "w") as f:
             f.write(rendered_template)
 
-    def validate_name(self, name: Optional[str], name_or_dir: str = "name") -> None:
+    def validate_name(self, name: str | None, name_or_dir: str = "name") -> None:
         if name is None:
             raise DirectiveError(
                 f"you must provide {self.a_or_an} {self.app_or_project} name"
@@ -215,7 +210,7 @@ class TemplateDirective(BaseDirective):
                 f"another {name_or_dir}."
             )
 
-    def apply_umask(self, old_path: Union[str, Path], new_path: Union[str, Path]) -> None:
+    def apply_umask(self, old_path: str | Path, new_path: str | Path) -> None:
         current_umask = os.umask(0)
         os.umask(current_umask)
         current_mode = stat.S_IMODE(os.stat(old_path).st_mode)

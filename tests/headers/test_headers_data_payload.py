@@ -1,4 +1,4 @@
-from typing import Union
+from __future__ import annotations
 
 from pydantic import BaseModel
 
@@ -40,7 +40,7 @@ def test_headers_missing_field(test_client_factory):
 
 
 class Item(BaseModel):
-    sku: Union[str, int]
+    sku: str | int
 
 
 @post(

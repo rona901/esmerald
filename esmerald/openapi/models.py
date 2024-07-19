@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Union
 
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Literal
@@ -57,7 +57,7 @@ class HTTPBase(SecurityScheme):
 
 class HTTPBearer(HTTPBase):
     scheme: Literal["bearer"] = "bearer"
-    bearerFormat: Optional[str] = None
+    bearerFormat: str | None = None
 
 
 class OAuthFlow(OpenOAuthFlow):
@@ -82,23 +82,23 @@ class SecurityBase(BaseModel):
     model_config = ConfigDict(extra="allow")
 
     type: SecuritySchemeType = Field(alias="type")
-    description: Optional[str] = None
+    description: str | None = None
 
 
 SecuritySchemeUnion = Union[APIKey, HTTPBase, OAuth2, OpenIdConnect, HTTPBearer]
 
 
 class Components(BaseModel):
-    schemas: Optional[Dict[str, Union[Schema, Reference]]] = None
-    responses: Optional[Dict[str, Union[Response, Reference]]] = None
-    parameters: Optional[Dict[str, Union[Parameter, Reference]]] = None
-    examples: Optional[Dict[str, Union[Example, Reference]]] = None
-    requestBodies: Optional[Dict[str, Union[RequestBody, Reference]]] = None
-    headers: Optional[Dict[str, Union[Header, Reference]]] = None
-    securitySchemes: Optional[Dict[str, Union[SecurityScheme, Reference]]] = None
-    links: Optional[Dict[str, Union[Link, Reference]]] = None
-    callbacks: Optional[Dict[str, Union[Dict[str, PathItem], Reference, Any]]] = None
-    pathItems: Optional[Dict[str, Union[PathItem, Reference]]] = None
+    schemas: Dict[str, Schema | Reference] | None = None
+    responses: Dict[str, Response | Reference] | None = None
+    parameters: Dict[str, Parameter | Reference] | None = None
+    examples: Dict[str, Example | Reference] | None = None
+    requestBodies: Dict[str, RequestBody | Reference] | None = None
+    headers: Dict[str, Header | Reference] | None = None
+    securitySchemes: Dict[str, SecurityScheme | Reference] | None = None
+    links: Dict[str, Link | Reference] | None = None
+    callbacks: Dict[str, Dict[str, PathItem] | Reference | Any] | None = None
+    pathItems: Dict[str, PathItem | Reference] | None = None
 
     model_config = ConfigDict(extra="allow")
 
@@ -106,12 +106,12 @@ class Components(BaseModel):
 class OpenAPI(BaseModel):
     openapi: str
     info: Info
-    jsonSchemaDialect: Optional[str] = None
-    servers: Optional[List[Dict[str, Union[str, Any]]]] = None
-    paths: Optional[Dict[str, Union[PathItem, Any]]] = None
-    webhooks: Optional[Dict[str, Union[PathItem, Reference]]] = None
-    components: Optional[Components] = None
-    security: Optional[List[Dict[str, List[str]]]] = None
-    tags: Optional[List[str]] = None
-    externalDocs: Optional[ExternalDocumentation] = None
+    jsonSchemaDialect: str | None = None
+    servers: List[Dict[str, str | Any]] | None = None
+    paths: Dict[str, PathItem | Any] | None = None
+    webhooks: Dict[str, PathItem | Reference] | None = None
+    components: Components | None = None
+    security: List[Dict[str, List[str]]] | None = None
+    tags: List[str] | None = None
+    externalDocs: ExternalDocumentation | None = None
     model_config = ConfigDict(extra="allow")

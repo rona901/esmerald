@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from datetime import datetime
-from typing import Dict, List, Union
+from typing import Dict, List
 
 from pydantic import BaseModel
 
@@ -21,7 +23,7 @@ class CustomResponse(BaseModel):
 
 
 class Item(BaseModel):
-    sku: Union[str, int]
+    sku: str | int
     description: str
     created_at: datetime
 

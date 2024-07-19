@@ -1,4 +1,6 @@
-from typing import Any, Dict, List, Optional
+from __future__ import annotations
+
+from typing import Any, Dict, List
 
 import pytest
 from lilya.status import HTTP_200_OK, HTTP_500_INTERNAL_SERVER_ERROR
@@ -28,9 +30,9 @@ def test_is_dependency_inserted_into_field_extra() -> None:
         (Injects(default=13), 13),
     ],
 )
-def test_dependency_defaults(field_info: Any, exp: Optional[int]) -> None:
+def test_dependency_defaults(field_info: Any, exp: int | None) -> None:
     @get("/")
-    def handler(value: Optional[int] = field_info) -> Dict[str, Optional[int]]:
+    def handler(value: int | None = field_info) -> Dict[str, int | None]:
         return {"value": value}
 
     with create_client(routes=[Gateway(handler=handler)]) as client:

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Optional, Sequence, TypeVar
+from typing import TYPE_CHECKING, Any, Sequence, TypeVar
 
 from lilya.compat import is_async_callable
 from lilya.types import Lifespan, Receive, Scope, Send
@@ -24,8 +24,8 @@ class AyncLifespanContextManager:  # pragma: no cover
 
     def __init__(
         self,
-        on_shutdown: Optional[Sequence[LifeSpanHandler]] = None,
-        on_startup: Optional[Sequence[LifeSpanHandler]] = None,
+        on_shutdown: Sequence[LifeSpanHandler] | None = None,
+        on_startup: Sequence[LifeSpanHandler] | None = None,
     ) -> None:
         self.on_startup = [] if on_startup is None else list(on_startup)
         self.on_shutdown = [] if on_shutdown is None else list(on_shutdown)
@@ -51,9 +51,9 @@ class AyncLifespanContextManager:  # pragma: no cover
 
 
 def handle_lifespan_events(
-    on_startup: Optional[Sequence[LifeSpanHandler]] = None,
-    on_shutdown: Optional[Sequence[LifeSpanHandler]] = None,
-    lifespan: Optional[Lifespan[Any]] = None,
+    on_startup: Sequence[LifeSpanHandler] | None = None,
+    on_shutdown: Sequence[LifeSpanHandler] | None = None,
+    lifespan: Lifespan[Any] | None = None,
 ) -> Any:  # pragma: no cover
     """Handles with the lifespan events in the new Lilya format of lifespan.
     This adds a mask that keeps the old `on_startup` and `on_shutdown` events variable
@@ -68,9 +68,9 @@ def handle_lifespan_events(
 
 
 def generate_lifespan_events(
-    on_startup: Optional[Sequence[LifeSpanHandler]] = None,
-    on_shutdown: Optional[Sequence[LifeSpanHandler]] = None,
-    lifespan: Optional[Lifespan[Any]] = None,
+    on_startup: Sequence[LifeSpanHandler] | None = None,
+    on_shutdown: Sequence[LifeSpanHandler] | None = None,
+    lifespan: Lifespan[Any] | None = None,
 ) -> Any:  # pragma: no cover
     if lifespan:
         return lifespan

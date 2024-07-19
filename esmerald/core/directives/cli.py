@@ -37,7 +37,7 @@ printer = Print()
 class DirectiveGroup(click.Group):
     """Custom directive group to handle with the context and directives commands"""
 
-    def add_command(self, cmd: click.Command, name: typing.Optional[str] = None) -> None:
+    def add_command(self, cmd: click.Command, name: str | None = None) -> None:
         if cmd.callback:
             cmd.callback = self.wrap_args(cmd.callback)
         return super().add_command(cmd, name)
@@ -104,7 +104,7 @@ class DirectiveGroup(click.Group):
 @click.pass_context
 def esmerald_cli(
     ctx: click.Context,
-    path: typing.Optional[str],
+    path: str | None,
     name: str,
 ) -> None:
     """

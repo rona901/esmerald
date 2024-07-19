@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, cast
 
 from asyncz.triggers.types import TriggerType
 
@@ -10,18 +10,18 @@ from esmerald.contrib.schedulers.asyncz.config import Task
 
 def scheduler(
     *,
-    name: Optional[str] = None,
-    trigger: Optional[TriggerType] = None,
-    id: Optional[str] = None,
-    mistrigger_grace_time: Optional[int] = None,
-    coalesce: Optional[bool] = None,
-    max_instances: Optional[int] = None,
-    next_run_time: Optional[datetime] = None,
-    store: Optional[str] = "default",
-    executor: Optional[str] = "default",
+    name: str | None = None,
+    trigger: TriggerType | None = None,
+    id: str | None = None,
+    mistrigger_grace_time: int | None = None,
+    coalesce: bool | None = None,
+    max_instances: int | None = None,
+    next_run_time: datetime | None = None,
+    store: str | None = "default",
+    executor: str | None = "default",
     replace_existing: bool = True,
-    extra_args: Optional[Any] = None,
-    extra_kwargs: Optional[Dict[str, Any]] = None,
+    extra_args: Any | None = None,
+    extra_kwargs: Dict[str, Any] | None = None,
     is_enabled: bool = True,
 ) -> Task:
 

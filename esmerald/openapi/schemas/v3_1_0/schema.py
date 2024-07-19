@@ -1,4 +1,6 @@
-from typing import Any, Dict, List, Optional, Union
+from __future__ import annotations
+
+from typing import Any, Dict, List
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -28,7 +30,7 @@ class Schema(BaseModel):
     and follow the same specifications:
     """
 
-    allOf: Optional[List[Union[Reference, "Schema"]]] = None
+    allOf: List[Reference | Schema] | None = None
     """
     This keyword's value MUST be a non-empty array.  Each item of the
     array MUST be a valid JSON Schema.
@@ -38,7 +40,7 @@ class Schema(BaseModel):
     value.
     """
 
-    anyOf: Optional[List[Union[Reference, "Schema"]]] = None
+    anyOf: List[Reference | Schema] | None = None
     """
     This keyword's value MUST be a non-empty array.  Each item of the
     array MUST be a valid JSON Schema.
@@ -50,7 +52,7 @@ class Schema(BaseModel):
     each subschema that validates successfully.
     """
 
-    oneOf: Optional[List[Union[Reference, "Schema"]]] = None
+    oneOf: List[Reference | Schema] | None = None
     """
     This keyword's value MUST be a non-empty array.  Each item of the
     array MUST be a valid JSON Schema.
@@ -60,7 +62,7 @@ class Schema(BaseModel):
     keyword's value.
     """
 
-    schema_not: Optional[Union[Reference, "Schema"]] = Field(default=None, alias="not")
+    schema_not: Reference | Schema | None = Field(default=None, alias="not")
     """
     This keyword's value MUST be a valid JSON Schema.
 
@@ -68,7 +70,7 @@ class Schema(BaseModel):
     successfully against the schema defined by this keyword.
     """
 
-    schema_if: Optional[Union[Reference, "Schema"]] = Field(default=None, alias="if")
+    schema_if: Reference | Schema | None = Field(default=None, alias="if")
     """
     This keyword's value MUST be a valid JSON Schema.
 
@@ -89,7 +91,7 @@ class Schema(BaseModel):
     keyword is present without either "then" or "else".
     """
 
-    then: Optional[Union[Reference, "Schema"]] = None
+    then: Reference | Schema | None = None
     """
     This keyword's value MUST be a valid JSON Schema.
 
@@ -104,7 +106,7 @@ class Schema(BaseModel):
     annotation collection purposes, in such cases.
     """
 
-    schema_else: Optional[Union[Reference, "Schema"]] = Field(default=None, alias="else")
+    schema_else: Reference | Schema | None = Field(default=None, alias="else")
     """
     This keyword's value MUST be a valid JSON Schema.
 
@@ -118,7 +120,7 @@ class Schema(BaseModel):
     or annotation collection purposes, in such cases.
     """
 
-    dependentSchemas: Optional[Dict[str, Union[Reference, "Schema"]]] = None
+    dependentSchemas: Dict[str, Reference | Schema] | None = None
     """
     This keyword specifies subschemas that are evaluated if the instance
     is an object and contains a certain property.
@@ -133,7 +135,7 @@ class Schema(BaseModel):
     Omitting this keyword has the same behavior as an empty object.
     """
 
-    prefixItems: Optional[List[Union[Reference, "Schema"]]] = None
+    prefixItems: List[Reference | Schema] | None = None
     """
     The value of "prefixItems" MUST be a non-empty array of valid JSON
     Schemas.
@@ -154,7 +156,7 @@ class Schema(BaseModel):
     array.
     """
 
-    items: Optional[Union[Reference, "Schema"]] = None
+    items: Reference | Schema | None = None
     """
     The value of "items" MUST be a valid JSON Schema.
 
@@ -182,7 +184,7 @@ class Schema(BaseModel):
     Implementations that do not support annotation collection MUST do so.
     """
 
-    contains: Optional[Union[Reference, "Schema"]] = None
+    contains: Reference | Schema | None = None
     """
     The value of this keyword MUST be a valid JSON Schema.
 
@@ -204,7 +206,7 @@ class Schema(BaseModel):
     array to which this keyword's schema applies is empty.
     """
 
-    properties: Optional[Dict[str, Union[Reference, "Schema"]]] = None
+    properties: Dict[str, Reference | Schema] | None = None
     """
     The value of "properties" MUST be an object.  Each value of this
     object MUST be a valid JSON Schema.
@@ -221,7 +223,7 @@ class Schema(BaseModel):
     object.
     """
 
-    patternProperties: Optional[Dict[str, Union[Reference, "Schema"]]] = None
+    patternProperties: Dict[str, Reference | Schema] | None = None
     """
     The value of "patternProperties" MUST be an object.  Each property
     name of this object SHOULD be a valid regular expression, according
@@ -241,7 +243,7 @@ class Schema(BaseModel):
     object.
     """
 
-    additionalProperties: Optional[Union[Reference, "Schema", bool]] = None
+    additionalProperties: Reference | Schema | bool | None = None
     """
     The value of "additionalProperties" MUST be a valid JSON Schema.
 
@@ -267,7 +269,7 @@ class Schema(BaseModel):
     Implementations that do not support annotation collection MUST do so.
     """
 
-    propertyNames: Optional[Union[Reference, "Schema"]] = None
+    propertyNames: Reference | Schema | None = None
     """
     The value of "propertyNames" MUST be a valid JSON Schema.
 
@@ -279,7 +281,7 @@ class Schema(BaseModel):
     Omitting this keyword has the same behavior as an empty schema.
     """
 
-    unevaluatedItems: Optional[Union[Reference, "Schema"]] = None
+    unevaluatedItems: Reference | Schema | None = None
     """
     The value of "unevaluatedItems" MUST be a valid JSON Schema.
 
@@ -314,7 +316,7 @@ class Schema(BaseModel):
     schema.
     """
 
-    unevaluatedProperties: Optional[Union[Reference, "Schema"]] = None
+    unevaluatedProperties: Reference | Schema | None = None
     """
     The value of "unevaluatedProperties" MUST be a valid JSON Schema.
 
@@ -354,7 +356,7 @@ class Schema(BaseModel):
     and follow the same specifications:
     """
 
-    type: Optional[Union[str, List[str]]] = None
+    type: str | List[str] | None = None
     """
     The value of this keyword MUST be either a string or an array.  If it
     is an array, elements of the array MUST be strings and MUST be
@@ -368,7 +370,7 @@ class Schema(BaseModel):
     sets listed for this keyword.
     """
 
-    enum: Optional[List[Any]] = Field(default=None, min_length=1)
+    enum: List[Any] | None = Field(default=None, min_length=1)
     """
     The value of this keyword MUST be an array.  This array SHOULD have
     at least one element.  Elements in the array SHOULD be unique.
@@ -379,7 +381,7 @@ class Schema(BaseModel):
     Elements in the array might be of any type, including null.
     """
 
-    const: Optional[Any] = None
+    const: Any | None = None
     """
     The value of this keyword MAY be of any type, including null.
 
@@ -390,7 +392,7 @@ class Schema(BaseModel):
     is equal to the value of the keyword.
     """
 
-    multipleOf: Optional[float] = Field(default=None, gt=0.0)
+    multipleOf: float | None = Field(default=None, gt=0.0)
     """
     The value of "multipleOf" MUST be a number, strictly greater than 0.
 
@@ -398,7 +400,7 @@ class Schema(BaseModel):
     results in an integer.
     """
 
-    maximum: Optional[float] = None
+    maximum: float | None = None
     """
     The value of "maximum" MUST be a number, representing an inclusive
     upper limit for a numeric instance.
@@ -407,7 +409,7 @@ class Schema(BaseModel):
     instance is less than or exactly equal to "maximum".
     """
 
-    exclusiveMaximum: Optional[float] = None
+    exclusiveMaximum: float | None = None
     """
     The value of "exclusiveMaximum" MUST be a number, representing an
     exclusive upper limit for a numeric instance.
@@ -416,7 +418,7 @@ class Schema(BaseModel):
     has a value strictly less than (not equal to) "exclusiveMaximum".
     """
 
-    minimum: Optional[float] = None
+    minimum: float | None = None
     """
     The value of "minimum" MUST be a number, representing an inclusive
     lower limit for a numeric instance.
@@ -425,7 +427,7 @@ class Schema(BaseModel):
     instance is greater than or exactly equal to "minimum".
     """
 
-    exclusiveMinimum: Optional[float] = None
+    exclusiveMinimum: float | None = None
     """
     The value of "exclusiveMinimum" MUST be a number, representing an
     exclusive lower limit for a numeric instance.
@@ -434,7 +436,7 @@ class Schema(BaseModel):
     has a value strictly greater than (not equal to) "exclusiveMinimum".
     """
 
-    maxLength: Optional[int] = Field(default=None, ge=0)
+    maxLength: int | None = Field(default=None, ge=0)
     """
     The value of this keyword MUST be a non-negative integer.
 
@@ -445,7 +447,7 @@ class Schema(BaseModel):
     characters as defined by RFC 8259 [RFC8259].
     """
 
-    minLength: Optional[int] = Field(default=None, ge=0)
+    minLength: int | None = Field(default=None, ge=0)
     """
     The value of this keyword MUST be a non-negative integer.
 
@@ -458,7 +460,7 @@ class Schema(BaseModel):
     Omitting this keyword has the same behavior as a value of 0.
     """
 
-    pattern: Optional[str] = None
+    pattern: str | None = None
     """
     The value of this keyword MUST be a string.  This string SHOULD be a
     valid regular expression, according to the ECMA-262 regular
@@ -469,7 +471,7 @@ class Schema(BaseModel):
     not implicitly anchored.
     """
 
-    maxItems: Optional[int] = Field(default=None, ge=0)
+    maxItems: int | None = Field(default=None, ge=0)
     """
     The value of this keyword MUST be a non-negative integer.
 
@@ -477,7 +479,7 @@ class Schema(BaseModel):
     than, or equal to, the value of this keyword.
     """
 
-    minItems: Optional[int] = Field(default=None, ge=0)
+    minItems: int | None = Field(default=None, ge=0)
     """
     The value of this keyword MUST be a non-negative integer.
 
@@ -487,7 +489,7 @@ class Schema(BaseModel):
     Omitting this keyword has the same behavior as a value of 0.
     """
 
-    uniqueItems: Optional[bool] = None
+    uniqueItems: bool | None = None
     """
     The value of this keyword MUST be a boolean.
 
@@ -498,7 +500,7 @@ class Schema(BaseModel):
     Omitting this keyword has the same behavior as a value of false.
     """
 
-    maxContains: Optional[int] = Field(default=None, ge=0)
+    maxContains: int | None = Field(default=None, ge=0)
     """
     The value of this keyword MUST be a non-negative integer.
 
@@ -514,7 +516,7 @@ class Schema(BaseModel):
     or equal to the "maxContains" value.
     """
 
-    minContains: Optional[int] = Field(default=None, ge=0)
+    minContains: int | None = Field(default=None, ge=0)
     """
     The value of this keyword MUST be a non-negative integer.
 
@@ -536,7 +538,7 @@ class Schema(BaseModel):
     Omitting this keyword has the same behavior as a value of 1.
     """
 
-    maxProperties: Optional[int] = Field(default=None, ge=0)
+    maxProperties: int | None = Field(default=None, ge=0)
     """
     The value of this keyword MUST be a non-negative integer.
 
@@ -544,7 +546,7 @@ class Schema(BaseModel):
     properties is less than, or equal to, the value of this keyword.
     """
 
-    minProperties: Optional[int] = Field(default=None, ge=0)
+    minProperties: int | None = Field(default=None, ge=0)
     """
     The value of this keyword MUST be a non-negative integer.
 
@@ -554,7 +556,7 @@ class Schema(BaseModel):
     Omitting this keyword has the same behavior as a value of 0.
     """
 
-    required: Optional[List[str]] = None
+    required: List[str] | None = None
     """
     The value of this keyword MUST be an array.  Elements of this array,
     if any, MUST be strings, and MUST be unique.
@@ -565,7 +567,7 @@ class Schema(BaseModel):
     Omitting this keyword has the same behavior as an empty array.
     """
 
-    dependentRequired: Optional[Dict[str, List[str]]] = None
+    dependentRequired: Dict[str, List[str]] | None = None
     """
     The value of this keyword MUST be an object.  Properties in this
     object, if any, MUST be arrays.  Elements in each array, if any, MUST
@@ -582,7 +584,7 @@ class Schema(BaseModel):
     Omitting this keyword has the same behavior as an empty object.
     """
 
-    schema_format: Optional[str] = Field(default=None, alias="format")
+    schema_format: str | None = Field(default=None, alias="format")
     """
     From OpenAPI:
     See [Data Type Formats<https://spec.openapis.org/oas/v3.1.0#dataTypeFormat) for further details.
@@ -613,7 +615,7 @@ class Schema(BaseModel):
     integers.  ]]
     """
 
-    contentEncoding: Optional[str] = None
+    contentEncoding: str | None = None
     """
     If the instance value is a string, this property defines that the
     string SHOULD be interpreted as binary data and decoded using the
@@ -635,7 +637,7 @@ class Schema(BaseModel):
     UTF-8 string.
     """
 
-    contentMediaType: Optional[str] = None
+    contentMediaType: str | None = None
     """
     If the instance is a string, this property indicates the media type
     of the contents of the string.  If "contentEncoding" is present, this
@@ -645,7 +647,7 @@ class Schema(BaseModel):
     type, as defined by RFC 2046 [RFC2046].
     """
 
-    contentSchema: Optional[Union[Reference, "Schema"]] = None
+    contentSchema: Reference | Schema | None = None
     """
     If the instance is a string, and if "contentMediaType" is present,
     this property contains a schema which describes the structure of the
@@ -658,7 +660,7 @@ class Schema(BaseModel):
     ignored if "contentMediaType" is not present.
     """
 
-    title: Optional[str] = None
+    title: str | None = None
     """
     The value of "title" MUST be a string.
 
@@ -667,7 +669,7 @@ class Schema(BaseModel):
     A title will preferably be short.
     """
 
-    description: Optional[str] = None
+    description: str | None = None
     """
     From OpenAPI:
     [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
@@ -681,7 +683,7 @@ class Schema(BaseModel):
     the instance described by this schema.
     """
 
-    default: Optional[Any] = None
+    default: Any | None = None
     """
     There are no restrictions placed on the value of this keyword.  When
     multiple occurrences of this keyword are applicable to a single sub-
@@ -692,7 +694,7 @@ class Schema(BaseModel):
     valid against the associated schema.
     """
 
-    deprecated: Optional[bool] = None
+    deprecated: bool | None = None
     """
     The value of this keyword MUST be a boolean.  When multiple
     occurrences of this keyword are applicable to a single sub-instance,
@@ -715,7 +717,7 @@ class Schema(BaseModel):
     Omitting this keyword has the same behavior as a value of false.
     """
 
-    readOnly: Optional[bool] = None
+    readOnly: bool | None = None
     """
     The value of "readOnly" MUST be a boolean.  When multiple
     occurrences of this keyword are applicable to a single sub-instance,
@@ -743,7 +745,7 @@ class Schema(BaseModel):
     Omitting these keywords has the same behavior as values of false.
     """
 
-    writeOnly: Optional[bool] = None
+    writeOnly: bool | None = None
     """
     The value of "writeOnly" MUST be a boolean.  When multiple
     occurrences of this keyword are applicable to a single sub-instance,
@@ -774,7 +776,7 @@ class Schema(BaseModel):
     Omitting these keywords has the same behavior as values of false.
     """
 
-    examples: Optional[List[Any]] = None
+    examples: List[Any] | None = None
     """
     The value of this keyword MUST be an array.  There are no
     restrictions placed on the values within the array.  When multiple
@@ -794,7 +796,7 @@ class Schema(BaseModel):
     The OpenAPI Specification's base vocabulary is comprised of the following keywords:
     """
 
-    discriminator: Optional[Discriminator] = None
+    discriminator: Discriminator | None = None
     """
     Adds support for polymorphism.
     The discriminator is an object name that is used to differentiate between other schemas
@@ -802,19 +804,19 @@ class Schema(BaseModel):
     See [Composition and Inheritance](https://spec.openapis.org/oas/v3.1.0#schemaComposition) for more details.
     """
 
-    xml: Optional[XML] = None
+    xml: XML | None = None
     """
     This MAY be used only on properties schemas.
     It has no effect on root schemas.
     Adds additional metadata to describe the XML representation of this property.
     """
 
-    externalDocs: Optional[ExternalDocumentation] = None
+    externalDocs: ExternalDocumentation | None = None
     """
     Additional external documentation for this schema.
     """
 
-    example: Optional[Any] = None
+    example: Any | None = None
     """
     A free-form property to include an example of an instance for this schema.
     To represent examples that cannot be naturally represented in JSON or YAML,

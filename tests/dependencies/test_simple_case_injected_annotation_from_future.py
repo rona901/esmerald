@@ -17,9 +17,7 @@ class DocumentAPIView(APIView):
     }
 
     @post("/")
-    async def create(
-        self, data: DocumentCreateDTO, service: DocumentService
-    ) -> DocumentCreateDTO:
+    async def create(self, data: DocumentCreateDTO, service: DocumentService) -> DocumentCreateDTO:
         return await service.create(data)
 
 

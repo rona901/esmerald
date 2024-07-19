@@ -1,4 +1,4 @@
-from typing import Optional, Union
+from __future__ import annotations
 
 from pydantic import AnyUrl, BaseModel, ConfigDict, Field
 from typing_extensions import Literal
@@ -26,25 +26,25 @@ class SecurityScheme(BaseModel):
     **REQUIRED**. The type of the security scheme.
     """
 
-    description: Optional[str] = None
+    description: str | None = None
     """
     A description for security scheme.
     [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
     """
 
-    name: Optional[str] = None
+    name: str | None = None
     """
     **REQUIRED** for `apiKey`. The name of the header, query or cookie parameter to be used.
     """
 
-    security_scheme_in: Optional[Literal["query", "header", "cookie"]] = Field(
+    security_scheme_in: Literal["query", "header", "cookie"] | None = Field(
         alias="in", default=None
     )
     """
     **REQUIRED** for `apiKey`. The location of the API key.
     """
 
-    scheme: Optional[str] = None
+    scheme: str | None = None
     """
     **REQUIRED** for `http`. The name of the HTTP Authorization scheme to be used in the
     [Authorization header as defined in RFC7235](https://tools.ietf.org/html/rfc7235#section-5.1).
@@ -53,7 +53,7 @@ class SecurityScheme(BaseModel):
     [IANA Authentication Scheme registry](https://www.iana.org/assignments/http-authschemes/http-authschemes.xhtml).
     """
 
-    bearerFormat: Optional[str] = None
+    bearerFormat: str | None = None
     """
     A hint to the client to identify how the bearer token is formatted.
 
@@ -61,12 +61,12 @@ class SecurityScheme(BaseModel):
     so this information is primarily for documentation purposes.
     """
 
-    flows: Optional[OAuthFlows] = None
+    flows: OAuthFlows | None = None
     """
     **REQUIRED** for `oauth2`. An object containing configuration information for the flow types supported.
     """
 
-    openIdConnectUrl: Optional[Union[AnyUrl, str]] = None
+    openIdConnectUrl: AnyUrl | str | None = None
     """
     **REQUIRED** for `openIdConnect`. OpenId Connect URL to discover OAuth2 configuration values.
     This MUST be in the form of a URL. The OpenID Connect standard requires the use of TLS.

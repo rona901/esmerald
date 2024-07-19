@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any
 
 import pytest
@@ -11,7 +13,7 @@ from esmerald.websockets import WebSocket
 
 
 @pytest.mark.parametrize("mode", ["text", "binary"])
-def test_websocket_send_receive_json(mode: "Literal['text', 'binary']") -> None:
+def test_websocket_send_receive_json(mode: Literal['text', 'binary']) -> None:
     @websocket(path="/")
     async def websocket_handler(socket: WebSocket) -> None:
         await socket.accept()

@@ -17,7 +17,7 @@ from lilya.types import ASGIApp, Message, Receive, Scope, Send
 from lilya.websockets import WebSocket
 
 
-def wrap_app_handling_exceptions(app: ASGIApp, conn: typing.Union[Request, WebSocket]) -> ASGIApp:
+def wrap_app_handling_exceptions(app: ASGIApp, conn: Request | WebSocket) -> ASGIApp:
     exception_handlers: ExceptionHandlers
     status_handlers: StatusHandlers
     try:

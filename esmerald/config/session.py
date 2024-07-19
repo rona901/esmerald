@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Union
-
 from pydantic import BaseModel, ConfigDict, constr, field_validator
 from typing_extensions import Annotated, Doc, Literal
 
@@ -43,7 +41,7 @@ class SessionConfig(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     secret_key: Annotated[
-        Union[str, Secret],
+        str | Secret,
         Doc(
             """
             The string used for the encryption/decryption and used to create an HMAC to sign.

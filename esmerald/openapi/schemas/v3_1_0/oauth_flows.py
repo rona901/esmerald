@@ -1,4 +1,4 @@
-from typing import Optional
+from __future__ import annotations
 
 from pydantic import BaseModel, ConfigDict
 
@@ -8,24 +8,24 @@ from .oauth_flow import OAuthFlow
 class OAuthFlows(BaseModel):
     """Allows configuration of the supported OAuth Flows."""
 
-    implicit: Optional[OAuthFlow] = None
+    implicit: OAuthFlow | None = None
     """
     Configuration for the OAuth Implicit flow
     """
 
-    password: Optional[OAuthFlow] = None
+    password: OAuthFlow | None = None
     """
     Configuration for the OAuth Resource Owner Password flow
     """
 
-    clientCredentials: Optional[OAuthFlow] = None
+    clientCredentials: OAuthFlow | None = None
     """
     Configuration for the OAuth Client Credentials flow.
 
     Previously called `application` in OpenAPI 2.0.
     """
 
-    authorizationCode: Optional[OAuthFlow] = None
+    authorizationCode: OAuthFlow | None = None
     """
     Configuration for the OAuth Authorization Code flow.
 

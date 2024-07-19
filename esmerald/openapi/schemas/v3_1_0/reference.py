@@ -1,4 +1,4 @@
-from typing import Optional
+from __future__ import annotations
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -16,13 +16,13 @@ class Reference(BaseModel):
     ref: str = Field(alias="$ref")
     """**REQUIRED**. The reference identifier. This MUST be in the form of a URI."""
 
-    summary: Optional[str] = None
+    summary: str | None = None
     """
     A short summary which by default SHOULD override that of the referenced component.
     If the referenced object-type does not allow a `summary` field, then this field has no effect.
     """
 
-    description: Optional[str] = None
+    description: str | None = None
     """
     A description which by default SHOULD override that of the referenced component.
     [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.

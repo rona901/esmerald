@@ -4,7 +4,7 @@ import codecs
 import datetime
 import locale
 from decimal import Decimal
-from typing import Any, Optional, Union
+from typing import Any
 from urllib.parse import quote
 
 _PROTECTED_TYPES = (
@@ -48,7 +48,7 @@ def is_protected_type(obj: Any) -> bool:
 
 def force_str(
     s: Any, encoding: str = "utf-8", strings_only: bool = False, errors: str = "strict"
-) -> Union[Any, str]:
+) -> Any | str:
     """
     Similar to smart_str(), except that lazy instances are resolved to
     strings, rather than kept as lazy objects.
@@ -81,7 +81,7 @@ def smart_bytes(
 
 def force_bytes(
     s: Any, encoding: str = "utf-8", strings_only: bool = False, errors: str = "strict"
-) -> Union[Any, bytes]:
+) -> Any | bytes:
     """
     Similar to smart_bytes, except that lazy instances are resolved to
     strings, rather than kept as lazy objects.
@@ -116,7 +116,7 @@ _hexdig = "0123456789ABCDEFabcdef"
 _hextobyte.update({(a + b).encode(): bytes.fromhex(a + b) for a in _hexdig[8:] for b in _hexdig})
 
 
-def uri_to_iri(uri: Optional[Union[str, bytes]] = None) -> Union[str, bytes, None]:
+def uri_to_iri(uri: str | bytes | None = None) -> str | bytes | None:
     """
     Convert a Uniform Resource Identifier(URI) into an Internationalized
     Resource Identifier(IRI).
@@ -153,7 +153,7 @@ def uri_to_iri(uri: Optional[Union[str, bytes]] = None) -> Union[str, bytes, Non
     return repercent_broken_unicode(iri).decode()  # type: ignore
 
 
-def escape_uri_path(path: str) -> Union[str, bytes]:
+def escape_uri_path(path: str) -> str | bytes:
     """
     Escape the unsafe characters from the path portion of a Uniform Resource
     Identifier (URI).
@@ -194,7 +194,7 @@ def repercent_broken_unicode(path: str) -> str:
             return path
 
 
-def filepath_to_uri(path: Optional[str] = None) -> Union[str, None]:
+def filepath_to_uri(path: str | None = None) -> str | None:
     """Convert a file system path to a URI portion that is suitable for
     inclusion in a URL.
 

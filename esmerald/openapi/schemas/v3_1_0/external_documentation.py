@@ -1,4 +1,4 @@
-from typing import Optional
+from __future__ import annotations
 
 from pydantic import AnyUrl, BaseModel, ConfigDict
 
@@ -13,7 +13,7 @@ class ExternalDocumentation(BaseModel):
         },
     )
 
-    description: Optional[str] = None
+    description: str | None = None
     """
     A short description of the target documentation.
     [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.

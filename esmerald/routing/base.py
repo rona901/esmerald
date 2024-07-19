@@ -16,7 +16,6 @@ from typing import (
     Set,
     Type,
     TypeVar,
-    Union,
     cast,
 )
 from uuid import UUID
@@ -83,14 +82,14 @@ class PathParameterSchema(TypedDict):
 
 
 class OpenAPIDefinitionMixin:  # pragma: no cover
-    def parse_path(self, path: str) -> List[Union[str, PathParameterSchema]]:
+    def parse_path(self, path: str) -> List[str | PathParameterSchema]:
         """
         Using the Lilya TRANSFORMERS and the application registered convertors,
         transforms the path into a PathParameterSchema used for the OpenAPI definition.
         """
         _, path, variables, _ = compile_path(path)
 
-        parsed_components: List[Union[str, PathParameterSchema]] = []
+        parsed_components: List[str | PathParameterSchema] = []
 
         for name, convertor in variables.items():
             _type = CONV2TYPE[convertor]
@@ -661,7 +660,7 @@ class Dispatcher(BaseSignature, BaseDispatcher, OpenAPIDefinitionMixin):
         - The permissions are collected from all parent levels, ensuring that there are no duplicate permissions in the final list.
         """
         if self._permissions is Void:
-            self._permissions: Union[List[Permission], VoidType] = []
+            self._permissions: List[Permission] | VoidType = []
             for layer in self.parent_levels:
                 self._permissions.extend(layer.permissions or [])
             self._permissions = cast(
@@ -943,7 +942,7 @@ class Dispatcher(BaseSignature, BaseDispatcher, OpenAPIDefinitionMixin):
         - The AsyncCallable class provides a way to call the interceptor asynchronously.
         """
         if self._interceptors is Void:
-            self._interceptors: Union[List[Interceptor], VoidType] = []
+            self._interceptors: List[Interceptor] | VoidType = []
             for layer in self.parent_levels:
                 self._interceptors.extend(layer.interceptors or [])
             self._interceptors = cast(

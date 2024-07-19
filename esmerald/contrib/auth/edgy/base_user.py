@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from datetime import datetime
 from typing import Any
 
@@ -67,7 +69,7 @@ class AbstractUser(edgy.Model):
     @classmethod
     async def _create_user(
         cls, username: str, email: str, password: str, **extra_fields: Any
-    ) -> "AbstractUser":
+    ) -> AbstractUser:
         """
         Create and save a user with the given username, email, and password.
         """
@@ -86,7 +88,7 @@ class AbstractUser(edgy.Model):
         email: str,
         password: str,
         **extra_fields: Any,
-    ) -> "AbstractUser":
+    ) -> AbstractUser:
         extra_fields.setdefault("is_staff", False)
         extra_fields.setdefault("is_superuser", False)
         return await cls._create_user(username, email, password, **extra_fields)
@@ -98,7 +100,7 @@ class AbstractUser(edgy.Model):
         email: str,
         password: str,
         **extra_fields: Any,
-    ) -> "AbstractUser":
+    ) -> AbstractUser:
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
 

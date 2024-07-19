@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta
-from typing import List, Union
+from typing import List
 
 from pydantic import BaseModel
 from typing_extensions import Annotated, Doc
@@ -91,7 +91,7 @@ class JWTConfig(BaseModel):
         ),
     ] = "HS256"
     access_token_lifetime: Annotated[
-        Union[datetime, timedelta, str, float],
+        datetime | timedelta | str | float,
         Doc(
             """
             Lifetime of the token after generation.
@@ -99,7 +99,7 @@ class JWTConfig(BaseModel):
         ),
     ] = timedelta(minutes=5)
     refresh_token_lifetime: Annotated[
-        Union[datetime, timedelta, str, float],
+        datetime | timedelta | str | float,
         Doc(
             """
             Lifetime of the generated refresh token.
@@ -131,7 +131,7 @@ class JWTConfig(BaseModel):
         ),
     ] = ""
     leeway: Annotated[
-        Union[str, int],
+        str | int,
         Doc(
             """
             Used for when there is a clock skew times.
@@ -139,7 +139,7 @@ class JWTConfig(BaseModel):
         ),
     ] = 0
     sliding_token_lifetime: Annotated[
-        Union[datetime, timedelta, str, float],
+        datetime | timedelta | str | float,
         Doc(
             """
             A `datetime.timedelta` object which specifies how long sliding tokens are valid to prove authentication. This timedelta value is added to the current UTC time during token generation to obtain the token's default `exp` claim value.
@@ -147,7 +147,7 @@ class JWTConfig(BaseModel):
         ),
     ] = timedelta(minutes=5)
     sliding_token_refresh_lifetime: Annotated[
-        Union[datetime, timedelta, str, float],
+        datetime | timedelta | str | float,
         Doc(
             """
             A `datetime.timedelta` object which specifies how long sliding tokens are valid to be refreshed. This timedelta value is added to the current UTC time during token generation to obtain the token's default `exp` claim value.

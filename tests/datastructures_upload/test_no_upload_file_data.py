@@ -1,4 +1,6 @@
-from typing import Dict, Union
+from __future__ import annotations
+
+from typing import Dict
 
 from esmerald import Gateway, UploadFile, post, status
 from esmerald.params import File
@@ -6,7 +8,7 @@ from esmerald.testclient import create_client
 
 
 @post("/files", status_code=status.HTTP_200_OK)
-async def create_file(data: Union[UploadFile, None] = File()) -> Dict[str, str]:
+async def create_file(data: UploadFile | None = File()) -> Dict[str, str]:
     if not data:
         return {"details": "No file sent"}
 
@@ -15,7 +17,7 @@ async def create_file(data: Union[UploadFile, None] = File()) -> Dict[str, str]:
 
 
 @post("/upload", status_code=status.HTTP_200_OK)
-async def upload_file(data: Union[UploadFile, None] = File()) -> Dict[str, str]:
+async def upload_file(data: UploadFile | None = File()) -> Dict[str, str]:
     return {"size": data.filename}
 
 

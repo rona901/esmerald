@@ -1,4 +1,6 @@
-from typing import Dict, Optional, Union
+from __future__ import annotations
+
+from typing import Dict
 
 from pydantic import BaseModel, ConfigDict
 
@@ -18,14 +20,14 @@ class Response(BaseModel):
     [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
     """
 
-    headers: Optional[Dict[str, Union[Header, Reference]]] = None
+    headers: Dict[str, Header | Reference] | None = None
     """
     Maps a header name to its definition.
     [RFC7230](https://tools.ietf.org/html/rfc7230#page-22) states header names are case insensitive.
     If a response header is defined with the name `"Content-Type"`, it SHALL be ignored.
     """
 
-    content: Optional[Dict[str, MediaType]] = None
+    content: Dict[str, MediaType] | None = None
     """
     A map containing descriptions of potential response payloads.
     The key is a media type or [media type range](https://tools.ietf.org/html/rfc7231#appendix-D)
@@ -34,7 +36,7 @@ class Response(BaseModel):
     For responses that match multiple keys, only the most specific key is applicable. e.g. text/plain overrides text/*
     """
 
-    links: Optional[Dict[str, Union[Link, Reference]]] = None
+    links: Dict[str, Link | Reference] | None = None
     """
     A map of operations links that can be followed from the response.
     The key of the map is a short name for the link,

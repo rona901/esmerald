@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Callable, Dict, List, Mapping, Optional, Type, Union
+from typing import Any, Callable, Dict, List, Mapping, Type
 
 from lilya import status
 from lilya.exceptions import HTTPException as LilyaException
@@ -28,7 +28,7 @@ class ExceptionMiddleware(LilyaExceptionMiddleware):
     def __init__(
         self,
         app: ASGIApp,
-        handlers: Optional[Mapping[Any, Callable[[Request, Exception], Response]]] = None,
+        handlers: Mapping[Any, Callable[[Request, Exception], Response]] | None = None,
         debug: bool = False,
     ) -> None:
         self.app = app
@@ -55,7 +55,7 @@ class ExceptionMiddleware(LilyaExceptionMiddleware):
             self._status_handlers,
         )
 
-        conn: Union[Request, WebSocket]
+        conn: Request | WebSocket
         if scope["type"] == "http":
             conn = Request(scope, receive, send)
         else:
@@ -65,9 +65,9 @@ class ExceptionMiddleware(LilyaExceptionMiddleware):
 
 
 class ResponseContent(BaseModel):
-    detail: Optional[str]
-    extra: Optional[Union[Dict[str, Any], List[Any]]] = None
-    headers: Optional[Dict[str, str]] = None
+    detail: str | None
+    extra: Dict[str, Any] | List[Any] | None = None
+    headers: Dict[str, str] | None = None
     status_code: int = status.HTTP_500_INTERNAL_SERVER_ERROR
 
 
@@ -77,7 +77,7 @@ class EsmeraldAPIExceptionMiddleware:  # pragma: no cover
         app: ASGIApp,
         debug: bool,
         exception_handlers: ExceptionHandlerMap,
-        error_handler: Optional[Callable] = None,
+        error_handler: Callable | None = None,
     ) -> None:
         self.app = app
         self.exception_handlers = exception_handlers
@@ -142,7 +142,7 @@ class EsmeraldAPIExceptionMiddleware:  # pragma: no cover
         self,
         exception_handlers: ExceptionHandlerMap,
         exc: Exception,
-    ) -> Union[ExceptionHandler, None]:
+    ) -> ExceptionHandler | None:
         status_code = (
             exc.status_code
             if isinstance(exc, LilyaException)

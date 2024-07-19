@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Any, Set, Type, TypeVar, cast
 
 from pydantic import BaseModel, create_model

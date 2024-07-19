@@ -10,10 +10,8 @@ from typing import (
     Generic,
     Iterable,
     List,
-    Optional,
     Type,
     TypeVar,
-    Union,
     cast,
 )
 
@@ -86,15 +84,15 @@ class UploadFile(LilyaUploadFile):  # pragma: no cover
 
 class Cookie(BaseModel):
     key: str
-    value: Optional[str] = None
-    max_age: Optional[int] = None
-    expires: Optional[int] = None
+    value: str | None = None
+    max_age: int | None = None
+    expires: int | None = None
     path: str = "/"
-    domain: Optional[str] = None
-    secure: Optional[bool] = None
-    httponly: Optional[bool] = None
+    domain: str | None = None
+    secure: bool | None = None
+    httponly: bool | None = None
     samesite: Literal["lax", "strict", "none"] = "lax"
-    description: Optional[str] = None
+    description: str | None = None
 
     def to_header(self, **kwargs: Any) -> str:
         simple_cookie: SimpleCookie = SimpleCookie()
@@ -110,7 +108,7 @@ class Cookie(BaseModel):
 
 class ResponseContainer(BaseModel, ABC, Generic[R]):
     model_config = ConfigDict(arbitrary_types_allowed=True)
-    background: Optional[Union[BackgroundTask, BackgroundTasks]] = None
+    background: BackgroundTask | BackgroundTasks | None = None
     headers: Dict[str, Any] = {}
     cookies: List[Cookie] = []
 
@@ -118,7 +116,7 @@ class ResponseContainer(BaseModel, ABC, Generic[R]):
     def to_response(
         self,
         headers: Dict[str, Any],
-        media_type: Union[MediaType, str],
+        media_type: MediaType | str,
         status_code: int,
         app: Type[Esmerald],
     ) -> R:  # pragma: no cover
@@ -126,7 +124,7 @@ class ResponseContainer(BaseModel, ABC, Generic[R]):
 
 
 class ResponseHeader(BaseModel):
-    value: Optional[Any] = None
+    value: Any | None = None
 
     @field_validator("value")  # type: ignore
     def validate_value(cls, value: Any, values: Dict[str, Any]) -> Any:

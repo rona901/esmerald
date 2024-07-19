@@ -4,7 +4,7 @@ import http.client
 import inspect
 import json
 import warnings
-from typing import Any, Dict, List, Optional, Sequence, Set, Tuple, Union, cast
+from typing import Any, Dict, List, Sequence, Set, Tuple, cast
 
 from lilya._internal._path import clean_path
 from lilya.middleware import DefineMiddleware
@@ -45,7 +45,7 @@ from esmerald.utils.constants import DATA, PAYLOAD
 from esmerald.utils.helpers import is_class_and_subclass
 
 
-def get_flat_params(route: Union[router.HTTPHandler, Any]) -> List[Any]:
+def get_flat_params(route: router.HTTPHandler | Any) -> List[Any]:
     """Gets all the neded params of the request and route"""
     path_params = [param.field_info for param in route.transformer.get_path_params()]
     cookie_params = [param.field_info for param in route.transformer.get_cookie_params()]
@@ -83,7 +83,7 @@ def get_openapi_security_schemes(schemes: Any) -> Tuple[dict, list]:
 
 
 def get_fields_from_routes(
-    routes: Sequence[BasePath], request_fields: Optional[List[FieldInfo]] = None
+    routes: Sequence[BasePath], request_fields: List[FieldInfo] | None = None
 ) -> List[FieldInfo]:
     """Extracts the fields from the given routes of Esmerald"""
     body_fields: List[FieldInfo] = []
@@ -123,7 +123,7 @@ def get_fields_from_routes(
 
 
 def get_openapi_operation(
-    *, route: Union[router.HTTPHandler, Any], operation_ids: Set[str]
+    *, route: router.HTTPHandler | Any, operation_ids: Set[str]
 ) -> Dict[str, Any]:  # pragma: no cover
     operation = Operation()
     operation.tags = route.get_handler_tags()
@@ -194,9 +194,9 @@ def get_openapi_operation_parameters(
 
 def get_openapi_operation_request_body(
     *,
-    data_field: Optional[FieldInfo],
+    data_field: FieldInfo | None,
     field_mapping: Dict[Tuple[FieldInfo, Literal["validation", "serialization"]], JsonSchemaValue],
-) -> Optional[Dict[str, Any]]:  # pragma: no cover
+) -> Dict[str, Any] | None:  # pragma: no cover
     if not data_field:
         return None
 
@@ -221,7 +221,7 @@ def get_openapi_operation_request_body(
 
 def get_openapi_path(
     *,
-    route: Union[gateways.Gateway, gateways.WebhookGateway],
+    route: gateways.Gateway | gateways.WebhookGateway,
     operation_ids: Set[str],
     field_mapping: Dict[Tuple[FieldInfo, Literal["validation", "serialization"]], JsonSchemaValue],
     is_deprecated: bool = False,
@@ -318,7 +318,7 @@ def get_openapi_path(
                 openapi_response = operation_responses.setdefault(status_code_key, {})
 
                 field = handler.response_models.get(additional_status_code)
-                additional_field_schema: Optional[Dict[str, Any]] = None
+                additional_field_schema: Dict[str, Any] | None = None
                 model_schema = process_response.model_json_schema()
 
                 if field:
@@ -416,15 +416,15 @@ def get_openapi(
     title: str,
     version: str,
     openapi_version: str = "3.1.0",
-    summary: Optional[str] = None,
-    description: Optional[str] = None,
+    summary: str | None = None,
+    description: str | None = None,
     routes: Sequence[BasePath],
-    tags: Optional[List[str]] = None,
-    servers: Optional[List[Dict[str, Union[str, Any]]]] = None,
-    terms_of_service: Optional[Union[str, AnyUrl]] = None,
-    contact: Optional[Contact] = None,
-    license: Optional[License] = None,
-    webhooks: Optional[Sequence[BasePath]] = None,
+    tags: List[str] | None = None,
+    servers: List[Dict[str, str | Any]] | None = None,
+    terms_of_service: str | AnyUrl | None = None,
+    contact: Contact | None = None,
+    license: License | None = None,
+    webhooks: Sequence[BasePath] | None = None,
 ) -> Dict[str, Any]:  # pragma: no cover
     """
     Builds the whole OpenAPI route structure and object
@@ -468,7 +468,7 @@ def get_openapi(
         routes: Sequence[BasePath],
         definitions: Any = None,
         components: Any = None,
-        prefix: Optional[str] = "",
+        prefix: str | None = "",
         is_webhook: bool = False,
         is_deprecated: bool = False,
     ) -> Tuple[Dict[str, Any], Dict[str, Any]]:

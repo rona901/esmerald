@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from os import PathLike
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, List, Union
+from typing import TYPE_CHECKING, Any, List
 
 from esmerald.exceptions import MissingDependency, TemplateNotFound
 from esmerald.protocols.template import TemplateEngineProtocol
@@ -34,13 +34,13 @@ except ImportError:  # pragma: nocover
 
 class JinjaTemplateEngine(TemplateEngineProtocol[JinjaTemplate]):  # type: ignore
     def __init__(
-        self, directory: Union[DirectoryPath, List[DirectoryPath]], **env_options: Any
+        self, directory: DirectoryPath | List[DirectoryPath], **env_options: Any
     ) -> None:
         super().__init__(directory)
         self.env = self._create_environment(directory, **env_options)
 
     def _create_environment(
-        self, directory: Union[str, PathLike, List[Path]], **env_options: Any
+        self, directory: str | PathLike | List[Path], **env_options: Any
     ) -> Environment:
         @pass_context
         def url_for(context: dict, name: str, **path_params: Any) -> Any:

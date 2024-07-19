@@ -3,6 +3,8 @@
 https://github.com/encode/lilya/blob/master/tests/test_websockets.py
 """
 
+from __future__ import annotations
+
 import sys
 
 import anyio

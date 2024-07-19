@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import os
-from typing import TYPE_CHECKING, Any, Dict, Optional, Type, Union, cast
+from typing import TYPE_CHECKING, Any, Dict, Type, cast
 
 from lilya.responses import FileResponse  # noqa
 from pydantic import FilePath, model_validator  # noqa
@@ -32,7 +32,7 @@ class File(ResponseContainer[FileResponse]):
         ),
     ]
     stat_result: Annotated[
-        Optional[os.stat_result],
+        os.stat_result | None,
         Doc(
             """
             The equivalent of the `os.stat_result`.
@@ -49,7 +49,7 @@ class File(ResponseContainer[FileResponse]):
     def to_response(
         self,
         headers: Dict[str, Any],
-        media_type: Union[MediaType, str],
+        media_type: MediaType | str,
         status_code: int,
         app: Type[Esmerald],
     ) -> FileResponse:

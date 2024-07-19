@@ -1,4 +1,6 @@
-from typing import List, Optional
+from __future__ import annotations
+
+from typing import List
 
 from pydantic import BaseModel, ConfigDict
 
@@ -7,7 +9,7 @@ class ServerVariable(BaseModel):
     """An object representing a Server Variable for server URL template
     substitution."""
 
-    enum: Optional[List[str]] = None
+    enum: List[str] | None = None
     """
     An enumeration of string values to be used if the substitution options are from a limited set.
     The array SHOULD NOT be empty.
@@ -22,7 +24,7 @@ class ServerVariable(BaseModel):
     If the [enum](https://spec.openapis.org/oas/v3.1.0#serverVariableEnum) is defined, the value MUST exist in the enum's values.
     """
 
-    description: Optional[str] = None
+    description: str | None = None
     """
     An optional description for the server variable.
     [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.

@@ -1,4 +1,6 @@
-from typing import Dict, Union
+from __future__ import annotations
+
+from typing import Dict
 
 from flask import Flask, request
 from markupsafe import escape
@@ -20,7 +22,7 @@ def flask_main():  # pragma: no cover
 
 
 class Item(BaseModel):
-    sku: Union[int, str]
+    sku: int | str
 
 
 @get()

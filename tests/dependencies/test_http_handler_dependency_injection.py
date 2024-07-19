@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from asyncio import sleep
 from typing import Any, Dict
 
@@ -27,7 +29,7 @@ def controller_first_dependency(headers: Dict[str, Any]) -> dict:  # pragma: no 
     return {}
 
 
-async def controller_second_dependency(request: "Request") -> dict:
+async def controller_second_dependency(request: Request) -> dict:
     assert request
     await sleep(0.1)
     return {}

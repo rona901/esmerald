@@ -1,4 +1,6 @@
-from typing import Dict, Optional
+from __future__ import annotations
+
+from typing import Dict
 
 from pydantic import BaseModel, ConfigDict
 
@@ -8,7 +10,7 @@ from .media_type import MediaType
 class RequestBody(BaseModel):
     """Describes a single request body."""
 
-    description: Optional[str] = None
+    description: str | None = None
     """
     A brief description of the request body.
     This could contain examples of use.

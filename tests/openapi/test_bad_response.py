@@ -1,4 +1,6 @@
-from typing import Dict, Union
+from __future__ import annotations
+
+from typing import Dict
 
 import pytest
 from pydantic import BaseModel
@@ -10,7 +12,7 @@ from esmerald.testclient import create_client
 
 
 class Item(BaseModel):
-    sku: Union[int, str]
+    sku: int | str
 
 
 async def test_invalid_response(test_client_factory):

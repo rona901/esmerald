@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Dict
 
 from esmerald import Esmerald, Gateway, get

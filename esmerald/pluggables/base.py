@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import TYPE_CHECKING, Any, Iterator, Optional
+from typing import TYPE_CHECKING, Any, Iterator
 
 from typing_extensions import Annotated, Doc
 
@@ -77,7 +77,7 @@ class BaseExtension(ABC, ExtensionProtocol):  # pragma: no cover
     def __init__(
         self,
         app: Annotated[
-            Optional[Esmerald],
+            Esmerald | None,
             Doc(
                 """
                 An `Esmerald` application instance or subclasses of Esmerald.

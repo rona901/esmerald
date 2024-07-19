@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any, TypeVar
 
 import bson
@@ -20,8 +22,8 @@ class JWTAuthMiddleware(CommonJWTAuthMiddleware):
 
     def __init__(
         self,
-        app: "ASGIApp",
-        config: "JWTConfig",
+        app: ASGIApp,
+        config: JWTConfig,
         user_model: T,
     ):
         super().__init__(app, config, user_model)

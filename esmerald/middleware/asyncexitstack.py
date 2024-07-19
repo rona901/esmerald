@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import traceback
 from contextlib import AsyncExitStack
-from typing import Optional
 
 from lilya.types import ASGIApp, Receive, Scope, Send
 
@@ -33,7 +32,7 @@ class AsyncExitStackMiddleware(MiddlewareProtocol):
         if not AsyncExitStack:
             await self.app(scope, receive, send)  # pragma: no cover
 
-        exception: Optional[Exception] = None
+        exception: Exception | None = None
         async with AsyncExitStack() as stack:
             scope[self.config.context_name] = stack
             try:

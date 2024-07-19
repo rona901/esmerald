@@ -1,4 +1,6 @@
-from typing import Any, Dict, List, Union
+from __future__ import annotations
+
+from typing import Any, Dict, List
 
 from pydantic import BaseModel
 
@@ -8,14 +10,14 @@ from esmerald.testclient import EsmeraldTestClient, create_client
 
 
 class MultipleFile(BaseModel):
-    one: Union[UploadFile, Any]
-    two: Union[UploadFile, Any]
+    one: UploadFile | Any
+    two: UploadFile | Any
 
     model_config = {"arbitrary_types_allowed": True}
 
 
 @post("/upload", status_code=status.HTTP_200_OK)
-async def upload_file(data: List[Union[UploadFile, None]] = File()) -> Dict[str, str]:
+async def upload_file(data: List[UploadFile | None] = File()) -> Dict[str, str]:
     names = []
     for file in data:
         names.append(file.filename)
@@ -24,7 +26,7 @@ async def upload_file(data: List[Union[UploadFile, None]] = File()) -> Dict[str,
 
 @post("/upload-multiple", status_code=status.HTTP_200_OK)
 async def upload_list_multiple_file(
-    data: List[Union[UploadFile, None]] = File()
+    data: List[UploadFile | None] = File()
 ) -> Dict[str, str]:
     names = []
     for file in data:

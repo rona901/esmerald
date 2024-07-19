@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Dict, Mapping, Optional, Set, Tuple, Type, Union, cast
+from typing import TYPE_CHECKING, Any, Dict, Mapping, Set, Tuple, Type, Union, cast
 
 from pydantic.fields import FieldInfo
 
@@ -51,7 +51,7 @@ class TransformerModel(ArbitraryExtraBaseModel):
         self,
         cookies: Set[ParamSetting],
         dependencies: Set[Dependency],
-        form_data: Optional[Tuple[EncodingType, FieldInfo]],
+        form_data: Tuple[EncodingType, FieldInfo] | None,
         headers: Set[ParamSetting],
         path_params: Set[ParamSetting],
         query_params: Set[ParamSetting],
@@ -132,8 +132,8 @@ class TransformerModel(ArbitraryExtraBaseModel):
 
     def to_kwargs(
         self,
-        connection: Union[WebSocket, Request],
-        handler: Union[HTTPHandler, WebSocketHandler] = None,
+        connection: WebSocket | Request,
+        handler: HTTPHandler | WebSocketHandler = None,
     ) -> Any:
         connection_params = {}
         for key, value in connection.query_params.items():
@@ -194,7 +194,7 @@ class TransformerModel(ArbitraryExtraBaseModel):
         return parsed_form if parsed_form or not self.is_optional else None
 
     def get_request_context(
-        self, handler: Union[HTTPHandler, WebSocketHandler], request: Request
+        self, handler: HTTPHandler | WebSocketHandler, request: Request
     ) -> Context:
         """
         Get request context.
@@ -209,7 +209,7 @@ class TransformerModel(ArbitraryExtraBaseModel):
         return Context(__handler__=handler, __request__=request)
 
     async def get_dependencies(
-        self, dependency: Dependency, connection: Union[WebSocket, Request], **kwargs: Any
+        self, dependency: Dependency, connection: WebSocket | Request, **kwargs: Any
     ) -> Any:
         """
         Get dependencies asynchronously.
@@ -299,8 +299,8 @@ class TransformerModel(ArbitraryExtraBaseModel):
 
     def _get_request_params(
         self,
-        connection: Union[WebSocket, Request],
-        handler: Union[HTTPHandler, WebSocketHandler] = None,
+        connection: WebSocket | Request,
+        handler: HTTPHandler | WebSocketHandler = None,
     ) -> Any:
         """
         Get request parameters.
@@ -354,13 +354,13 @@ class TransformerModel(ArbitraryExtraBaseModel):
 
     def handle_reserved_kwargs(
         self,
-        connection: Union[WebSocket, Request],
+        connection: WebSocket | Request,
         connection_params: Any,
         path_params: Any,
         query_params: Any,
         headers: Any,
         cookies: Any,
-        handler: Optional[Any] = None,
+        handler: Any | None = None,
     ) -> Any:
         """
         Handle reserved keyword arguments.
@@ -485,7 +485,7 @@ def _filter_param_settings_by_type(
 
 def _get_form_data(
     signature_model: Type[SignatureModel],
-) -> Optional[Tuple[EncodingType, FieldInfo]]:
+) -> Tuple[EncodingType, FieldInfo] | None:
     """
     Get form data from the signature model.
 
@@ -681,7 +681,7 @@ def update_parameters(
 
 
 def validate_data(
-    form_data: Optional[Tuple[EncodingType, FieldInfo]],
+    form_data: Tuple[EncodingType, FieldInfo] | None,
     dependency_model: TransformerModel,
 ) -> None:
     """

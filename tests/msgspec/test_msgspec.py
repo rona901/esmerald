@@ -1,4 +1,4 @@
-from typing import Union
+from __future__ import annotations
 
 import msgspec
 from lilya import status
@@ -13,7 +13,7 @@ from esmerald.testclient import create_client
 
 class User(Struct):
     name: str
-    email: Union[str, None] = None
+    email: str | None = None
 
 
 class BaseUser(BaseModel):

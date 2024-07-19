@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from mimetypes import guess_type
 from pathlib import PurePath
-from typing import TYPE_CHECKING, Any, Dict, Optional, Union
+from typing import TYPE_CHECKING, Any, Dict
 
 from lilya.types import Receive, Scope, Send
 
@@ -21,11 +21,11 @@ class TemplateResponse(Response):
         template_name: str,
         template_engine: TemplateEngineProtocol,
         status_code: int = 200,
-        context: Optional[Dict[str, Any]] = None,
-        background: Optional[Union[BackgroundTask, BackgroundTasks]] = None,
-        headers: Optional[Dict[str, Any]] = None,
-        cookies: Optional[ResponseCookies] = None,
-        media_type: Union[MediaType, str] = MediaType.HTML,
+        context: Dict[str, Any] | None = None,
+        background: BackgroundTask | BackgroundTasks | None = None,
+        headers: Dict[str, Any] | None = None,
+        cookies: ResponseCookies | None = None,
+        media_type: MediaType | str = MediaType.HTML,
     ):
         if media_type == MediaType.JSON:  # we assume this is the default
             suffixes = PurePath(template_name).suffixes

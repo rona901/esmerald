@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Type, Union
+from typing import List, Type
 
 from pydantic import BaseModel, ConfigDict, DirectoryPath
 from typing_extensions import Annotated, Doc
@@ -48,7 +48,7 @@ class TemplateConfig(BaseModel):
     ] = JinjaTemplateEngine
 
     directory: Annotated[
-        Union[DirectoryPath, List[DirectoryPath]],
+        DirectoryPath | List[DirectoryPath],
         Doc(
             """
             The directory for the templates in the format of a path like.

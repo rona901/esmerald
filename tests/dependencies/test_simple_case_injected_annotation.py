@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, List
 
 from esmerald import post
@@ -19,8 +21,8 @@ class DocumentAPIView(APIView):
 
     @post("/")
     async def create(
-        self, data: "DocumentCreateDTO", service: "DocumentService"
-    ) -> "DocumentCreateDTO":
+        self, data: DocumentCreateDTO, service: DocumentService
+    ) -> DocumentCreateDTO:
         return await service.create(data)
 
 

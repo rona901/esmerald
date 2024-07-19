@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Type
 
 import pytest
@@ -37,7 +39,7 @@ def test_exception_handling(exc_to_raise: Exception, expected_layer: str) -> Non
 
     def create_named_handler(
         caller_name: str, expected_exception: Type[Exception]
-    ) -> "ExceptionHandlerMap":
+    ) -> ExceptionHandlerMap:
         def handler(req: Request, exc: Exception) -> Response:
             assert isinstance(exc, expected_exception)
 
@@ -92,7 +94,7 @@ def test_exception_handling_with_include(exc_to_raise: Exception, expected_layer
 
     def create_named_handler(
         caller_name: str, expected_exception: Type[Exception]
-    ) -> "ExceptionHandlerMap":
+    ) -> ExceptionHandlerMap:
         def handler(req: Request, exc: Exception) -> Response:
             assert isinstance(exc, expected_exception)
 
@@ -149,7 +151,7 @@ def test_exception_handling_with_nested_include(
 
     def create_named_handler(
         caller_name: str, expected_exception: Type[Exception]
-    ) -> "ExceptionHandlerMap":
+    ) -> ExceptionHandlerMap:
         def handler(req: Request, exc: Exception) -> Response:
             assert isinstance(exc, expected_exception)
 
@@ -260,7 +262,7 @@ def test_exception_handling_with_include_exception_handler(
 
     def create_named_handler(
         caller_name: str, expected_exception: Type[Exception]
-    ) -> "ExceptionHandlerMap":
+    ) -> ExceptionHandlerMap:
         def handler(req: Request, exc: Exception) -> Response:
             assert isinstance(exc, expected_exception)
 
@@ -325,7 +327,7 @@ def test_exception_handling_with_gateway_exception_handler(
 
     def create_named_handler(
         caller_name: str, expected_exception: Type[Exception]
-    ) -> "ExceptionHandlerMap":
+    ) -> ExceptionHandlerMap:
         def handler(req: Request, exc: Exception) -> Response:
             assert isinstance(exc, expected_exception)
 
@@ -396,7 +398,7 @@ def test_exception_handling_with_child_esmerald(
 
     def create_named_handler(
         caller_name: str, expected_exception: Type[Exception]
-    ) -> "ExceptionHandlerMap":
+    ) -> ExceptionHandlerMap:
         def handler(req: Request, exc: Exception) -> Response:
             assert isinstance(exc, expected_exception)
 

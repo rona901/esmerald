@@ -1,4 +1,6 @@
-from typing import Dict, List, Optional
+from __future__ import annotations
+
+from typing import Dict, List
 
 from polyfactory.factories.pydantic_factory import ModelFactory
 from pydantic import BaseModel
@@ -8,7 +10,7 @@ class Individual(BaseModel):
     first_name: str
     last_name: str
     id: str
-    optional: Optional[str]
+    optional: str | None
     complex: Dict[str, List[Dict[str, str]]]
 
 

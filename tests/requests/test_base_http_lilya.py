@@ -1,4 +1,6 @@
-from typing import Any, Optional
+from __future__ import annotations
+
+from typing import Any
 
 import anyio
 import pytest
@@ -15,7 +17,7 @@ from esmerald.testclient import EsmeraldTestClient
 
 
 def test_request_url(test_client_factory) -> None:
-    async def app(scope: Any, receive: "Receive", send: "Send") -> None:
+    async def app(scope: Any, receive: Receive, send: Send) -> None:
         request = Request(scope, receive)
         data = {"method": request.method, "url": str(request.url)}
         response = Response(content=data, status_code=HTTP_200_OK, media_type=MediaType.JSON)
@@ -30,7 +32,7 @@ def test_request_url(test_client_factory) -> None:
 
 
 def test_request_query_params(test_client_factory) -> None:
-    async def app(scope: Any, receive: "Receive", send: "Send") -> None:
+    async def app(scope: Any, receive: Receive, send: Send) -> None:
         request = Request(scope, receive)
         params = dict(request.query_params)
         response = Response(
@@ -46,7 +48,7 @@ def test_request_query_params(test_client_factory) -> None:
 
 
 def test_request_headers(test_client_factory) -> None:
-    async def app(scope: Any, receive: "Receive", send: "Send") -> None:
+    async def app(scope: Any, receive: Receive, send: Send) -> None:
         request = Request(scope, receive)
         headers = dict(request.headers)
         response = Response(
@@ -77,14 +79,14 @@ def test_request_headers(test_client_factory) -> None:
         ({}, None),
     ],
 )
-def test_request_client(scope: Any, expected_client: Optional[Address]) -> None:
+def test_request_client(scope: Any, expected_client: Address | None) -> None:
     scope.update({"type": "http"})  # required by Request's constructor
     client = Request(scope).client
     assert client == expected_client
 
 
 def test_request_body(test_client_factory) -> None:
-    async def app(scope: Any, receive: "Receive", send: "Send") -> None:
+    async def app(scope: Any, receive: Receive, send: Send) -> None:
         request = Request(scope, receive)
         body = await request.body()
         response = Response(
@@ -107,7 +109,7 @@ def test_request_body(test_client_factory) -> None:
 
 
 def test_request_stream(test_client_factory) -> None:
-    async def app(scope: Any, receive: "Receive", send: "Send") -> None:
+    async def app(scope: Any, receive: Receive, send: Send) -> None:
         request = Request(scope, receive)
         body = b""
         async for chunk in request.stream():
@@ -132,7 +134,7 @@ def test_request_stream(test_client_factory) -> None:
 
 
 def test_request_form_urlencoded(test_client_factory) -> None:
-    async def app(scope: Any, receive: "Receive", send: "Send") -> None:
+    async def app(scope: Any, receive: Receive, send: Send) -> None:
         request = Request(scope, receive)
         form = await request.form()
         response = JSONResponse({"form": dict(form)})
@@ -145,7 +147,7 @@ def test_request_form_urlencoded(test_client_factory) -> None:
 
 
 def test_request_body_then_stream(test_client_factory) -> None:
-    async def app(scope: "Any", receive: "Receive", send: "Send") -> None:
+    async def app(scope: Any, receive: Receive, send: Send) -> None:
         request = Request(scope, receive)
         body = await request.body()
         chunks = b""
@@ -161,7 +163,7 @@ def test_request_body_then_stream(test_client_factory) -> None:
 
 
 def test_request_json() -> None:
-    async def app(scope: Any, receive: "Receive", send: "Send") -> None:
+    async def app(scope: Any, receive: Receive, send: Send) -> None:
         request = Request(scope, receive)
         data = await request.json()
         response = Response(
@@ -232,7 +234,7 @@ def test_request_without_setting_receive() -> None:
     """If Request is instantiated without the 'receive' channel, then .body()
     is not available."""
 
-    async def app(scope: Any, receive: "Receive", send: "Send") -> None:
+    async def app(scope: Any, receive: Receive, send: Send) -> None:
         request = Request(scope)
         try:
             data = await request.json()
@@ -252,7 +254,7 @@ async def test_request_disconnect() -> None:  # pragma: no cover
     """If a client disconnect occurs while reading request body then
     InternalServerError should be raised."""
 
-    async def app(scope: Any, receive: "Receive", send: "Send") -> None:
+    async def app(scope: Any, receive: Receive, send: Send) -> None:
         request = Request(scope, receive)
         await request.body()
 
@@ -327,7 +329,7 @@ def test_request_state_object() -> None:
 
 
 def test_request_state() -> None:
-    async def app(scope: Any, receive: "Receive", send: "Send") -> None:
+    async def app(scope: Any, receive: Receive, send: Send) -> None:
         scope["state"] = {}
         request = Request(scope, receive)
         request.state.example = 123
@@ -344,7 +346,7 @@ def test_request_state() -> None:
 
 
 def test_request_cookies() -> None:
-    async def app(scope: Any, receive: "Receive", send: "Send") -> None:
+    async def app(scope: Any, receive: Receive, send: Send) -> None:
         request = Request(scope, receive)
         mycookie = request.cookies.get("mycookie")
         if mycookie:
@@ -487,7 +489,7 @@ def test_cookies_invalid(set_cookie, expected, test_client_factory):
 
 
 def test_request_send_push_promise() -> None:
-    async def app(scope: Any, receive: "Receive", send: "Send") -> None:
+    async def app(scope: Any, receive: Receive, send: Send) -> None:
         # the server is push-enabled
         scope["extensions"]["http.response.push"] = {}
 
@@ -508,7 +510,7 @@ def test_request_send_push_promise_without_push_extension() -> None:
     .send_push_promise() does nothing.
     """
 
-    async def app(scope: Any, receive: "Receive", send: "Send") -> None:
+    async def app(scope: Any, receive: Receive, send: Send) -> None:
         request = Request(scope)
         await request.send_push_promise("/style.css")
 
@@ -526,7 +528,7 @@ def test_request_send_push_promise_without_setting_send(test_client_factory) -> 
     .send_push_promise() is not available.
     """
 
-    async def app(scope: Any, receive: "Receive", send: "Send") -> None:
+    async def app(scope: Any, receive: Receive, send: Send) -> None:
         # the server is push-enabled
         scope["extensions"]["http.response.push"] = {}
 

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 from pydantic import BaseModel
 
@@ -20,17 +20,17 @@ class Loc(BaseDetail): ...
 
 
 class Property(BaseModel):
-    loc: Optional[Loc] = None
-    msg: Optional[Dict[str, str]] = None
-    type: Optional[Dict[str, str]] = None
-    detail: Optional[Detail] = None
+    loc: Loc | None = None
+    msg: Dict[str, str] | None = None
+    type: Dict[str, str] | None = None
+    detail: Detail | None = None
 
 
 class ValidationErrorModel(BaseModel):
     title: str
     type: str
     properties: Property
-    required: Optional[List[str]] = None
+    required: List[str] | None = None
 
 
 validation_error_definition = ValidationErrorModel(

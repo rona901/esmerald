@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from typing import Any, Callable, Optional
+from typing import Any, Callable
 
 from esmerald.params import DirectInject
 
 
 def DirectInjects(
-    dependency: Optional[Callable[..., Any]] = None,
+    dependency: Callable[..., Any] | None = None,
     *,
     use_cache: bool = True,
     allow_none: bool = True,

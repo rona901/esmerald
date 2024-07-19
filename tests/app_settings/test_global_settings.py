@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import builtins
 import sys
 from typing import List

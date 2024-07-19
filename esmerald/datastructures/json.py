@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Dict, Optional, Type, Union
+from typing import TYPE_CHECKING, Any, Dict, Type
 
 from typing_extensions import Annotated, Doc
 
@@ -18,7 +18,7 @@ class JSON(ResponseContainer[JSONResponse]):
     """
 
     content: Annotated[
-        Optional[Dict[str, Any]],
+        Dict[str, Any] | None,
         Doc(
             """
             The content being sent to the response.
@@ -26,7 +26,7 @@ class JSON(ResponseContainer[JSONResponse]):
         ),
     ] = None
     status_code: Annotated[
-        Optional[int],
+        int | None,
         Doc(
             """
             The status code of the response. It will default to the
@@ -45,8 +45,8 @@ class JSON(ResponseContainer[JSONResponse]):
 
     def __init__(
         self,
-        content: Optional[Dict[str, Any]] = None,
-        status_code: Optional[int] = None,
+        content: Dict[str, Any] | None = None,
+        status_code: int | None = None,
         **kwargs: Any,
     ):
         super().__init__(**kwargs)
@@ -57,7 +57,7 @@ class JSON(ResponseContainer[JSONResponse]):
     def to_response(
         self,
         headers: Dict[str, Any],
-        media_type: Union[MediaType, str],
+        media_type: MediaType | str,
         status_code: int,
         app: Type[Esmerald],
     ) -> JSONResponse:

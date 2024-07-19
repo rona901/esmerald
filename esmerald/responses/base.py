@@ -6,10 +6,8 @@ from typing import (
     Dict,
     Generic,
     NoReturn,
-    Optional,
     Sequence,
     TypeVar,
-    Union,
     cast,
 )
 
@@ -91,7 +89,7 @@ class Response(LilyaResponse, Generic[T]):
             ),
         ] = status.HTTP_200_OK,
         media_type: Annotated[
-            Optional[Union[MediaType, str]],
+            MediaType | str | None,
             Doc(
                 """
                 The media type used in the response.
@@ -99,7 +97,7 @@ class Response(LilyaResponse, Generic[T]):
             ),
         ] = MediaType.JSON,
         background: Annotated[
-            Optional[Union[BackgroundTask, BackgroundTasks]],
+            BackgroundTask | BackgroundTasks | None,
             Doc(
                 """
                 Any instance of a [BackgroundTask or BackgroundTasks](https://esmerald.dev/background-tasks/).
@@ -107,7 +105,7 @@ class Response(LilyaResponse, Generic[T]):
             ),
         ] = None,
         headers: Annotated[
-            Optional[Dict[str, Any]],
+            Dict[str, Any] | None,
             Doc(
                 """
                 Any additional headers being passed to the response.
@@ -115,7 +113,7 @@ class Response(LilyaResponse, Generic[T]):
             ),
         ] = None,
         cookies: Annotated[
-            Optional[ResponseCookies],
+            ResponseCookies | None,
             Doc(
                 """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -143,7 +141,7 @@ class Response(LilyaResponse, Generic[T]):
             ),
         ] = None,
         encoders: Annotated[
-            Union[Sequence[Encoder], None],
+            Sequence[Encoder] | None,
             Doc(
                 """
                 A sequence of `esmerald.encoders.Encoder` type of objects to be used
@@ -185,7 +183,7 @@ class Response(LilyaResponse, Generic[T]):
         """
         return cast(Dict[str, Any], json_encoder(value))
 
-    def make_response(self, content: Any) -> Union[bytes, str]:
+    def make_response(self, content: Any) -> bytes | str:
         try:
             if (
                 content is None

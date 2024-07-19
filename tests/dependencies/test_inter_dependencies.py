@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from random import randint
 
 from lilya.status import HTTP_200_OK

@@ -1,4 +1,4 @@
-from typing import Optional
+from __future__ import annotations
 
 from pydantic import BaseModel, ConfigDict
 
@@ -18,13 +18,13 @@ class Tag(BaseModel):
     **REQUIRED**. The name of the tag.
     """
 
-    description: Optional[str] = None
+    description: str | None = None
     """
     A short description for the tag.
     [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
     """
 
-    externalDocs: Optional[ExternalDocumentation] = None
+    externalDocs: ExternalDocumentation | None = None
     """
     Additional external documentation for this tag.
     """

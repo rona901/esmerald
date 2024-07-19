@@ -1,4 +1,6 @@
-from typing import Dict, Optional, Union
+from __future__ import annotations
+
+from typing import Dict
 
 from pydantic import AnyUrl, BaseModel, ConfigDict
 
@@ -6,7 +8,7 @@ from pydantic import AnyUrl, BaseModel, ConfigDict
 class OAuthFlow(BaseModel):
     """Configuration details for a supported OAuth Flow."""
 
-    authorizationUrl: Optional[Union[AnyUrl, str]] = None
+    authorizationUrl: AnyUrl | str | None = None
     """
     **REQUIRED** for `oauth2 ("implicit", "authorizationCode")`.
     The authorization URL to be used for this flow.
@@ -14,7 +16,7 @@ class OAuthFlow(BaseModel):
     The OAuth2 standard requires the use of TLS.
     """
 
-    tokenUrl: Optional[Union[AnyUrl, str]] = None
+    tokenUrl: AnyUrl | str | None = None
     """
     **REQUIRED** for `oauth2 ("password", "clientCredentials", "authorizationCode")`.
     The token URL to be used for this flow.
@@ -22,14 +24,14 @@ class OAuthFlow(BaseModel):
     The OAuth2 standard requires the use of TLS.
     """
 
-    refreshUrl: Optional[Union[AnyUrl, str]] = None
+    refreshUrl: AnyUrl | str | None = None
     """
     The URL to be used for obtaining refresh tokens.
     This MUST be in the form of a URL.
     The OAuth2 standard requires the use of TLS.
     """
 
-    scopes: Optional[Dict[str, str]] = None
+    scopes: Dict[str, str] | None = None
     """
     **REQUIRED** for `oauth2`. The available scopes for the OAuth2 security scheme.
     A map between the scope name and a short description for it.

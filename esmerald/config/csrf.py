@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Optional, Set
+from typing import Set
 
 from pydantic import BaseModel
 from typing_extensions import Annotated, Doc, Literal
@@ -92,7 +92,7 @@ class CSRFConfig(BaseModel):
         ),
     ] = "lax"
     domain: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             Specifies which hosts can receive the cookie.

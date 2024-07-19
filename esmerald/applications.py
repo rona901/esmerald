@@ -8,7 +8,6 @@ from typing import (
     Callable,
     Dict,
     List,
-    Optional,
     Sequence,
     Type,
     TypeVar,
@@ -146,7 +145,7 @@ class Application(Lilya):
         self,
         *,
         settings_module: Annotated[
-            Union[Optional[SettingsType], Optional[str]],
+            SettingsType | None | str | None,
             Doc(
                 """
                 Alternative settings parameter. This parameter is an alternative to
@@ -169,7 +168,7 @@ class Application(Lilya):
             ),
         ] = None,
         debug: Annotated[
-            Optional[bool],
+            bool | None,
             Doc(
                 """
                 Boolean indicating if the application should return the debug tracebacks on
@@ -191,7 +190,7 @@ class Application(Lilya):
             ),
         ] = None,
         app_name: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The name of the Esmerald application/API. This name is displayed when the
@@ -208,7 +207,7 @@ class Application(Lilya):
             ),
         ] = None,
         title: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The title of the Esmerald application/API. This title is displayed when the
@@ -225,7 +224,7 @@ class Application(Lilya):
             ),
         ] = None,
         version: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The version of the Esmerald application/API. This version is displayed when the
@@ -245,7 +244,7 @@ class Application(Lilya):
             ),
         ] = None,
         summary: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The summary of the Esmerald application/API. This short summary is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -261,7 +260,7 @@ class Application(Lilya):
             ),
         ] = None,
         description: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The description of the Esmerald application/API. This description is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -290,7 +289,7 @@ class Application(Lilya):
             ),
         ] = None,
         contact: Annotated[
-            Optional[Contact],
+            Contact | None,
             Doc(
                 """
                 A dictionary or an object of type `esmerald.openapi.schemas.v3_1_0.Contact` containing the contact information of the application/API.
@@ -332,7 +331,7 @@ class Application(Lilya):
             ),
         ] = None,
         terms_of_service: Annotated[
-            Optional[AnyUrl],
+            AnyUrl | None,
             Doc(
                 """
                 A URL pointing to the Terms of Service of the application.
@@ -349,7 +348,7 @@ class Application(Lilya):
             ),
         ] = None,
         license: Annotated[
-            Optional[License],
+            License | None,
             Doc(
                 """
                 A dictionary or an object of type `esmerald.openapi.schemas.v3_1_0.License` containing the license information of the application/API.
@@ -388,7 +387,7 @@ class Application(Lilya):
             ),
         ] = None,
         security: Annotated[
-            Optional[List[SecurityScheme]],
+            List[SecurityScheme] | None,
             Doc(
                 """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -413,7 +412,7 @@ class Application(Lilya):
             ),
         ] = None,
         servers: Annotated[
-            Optional[List[Dict[str, Union[str, Any]]]],
+            List[Dict[str, str | Any]] | None,
             Doc(
                 """
                 A `list` of python dictionaries with the information regarding the connectivity
@@ -459,7 +458,7 @@ class Application(Lilya):
             ),
         ] = None,
         secret_key: Annotated[
-            Union[Optional[str], Optional[Secret]],
+            str | None | Secret | None,
             Doc(
                 """
                 A unique string value used for the cryptography. This value is also
@@ -483,7 +482,7 @@ class Application(Lilya):
             ),
         ] = None,
         allowed_hosts: Annotated[
-            Optional[List[str]],
+            List[str] | None,
             Doc(
                 """
                 A `list` of allowed hosts for the application. The allowed hosts when not specified
@@ -505,7 +504,7 @@ class Application(Lilya):
             ),
         ] = None,
         allow_origins: Annotated[
-            Optional[List[str]],
+            List[str] | None,
             Doc(
                 """
                 A `list` of allowed origins hosts for the application.
@@ -527,7 +526,7 @@ class Application(Lilya):
             ),
         ] = None,
         permissions: Annotated[
-            Optional[Sequence[Permission]],
+            Sequence[Permission] | None,
             Doc(
                 """
                 A `list` of global permissions from objects inheriting from
@@ -560,7 +559,7 @@ class Application(Lilya):
             ),
         ] = None,
         interceptors: Annotated[
-            Optional[Sequence[Interceptor]],
+            Sequence[Interceptor] | None,
             Doc(
                 """
                 A `list` of global interceptors from objects inheriting from
@@ -593,7 +592,7 @@ class Application(Lilya):
             ),
         ] = None,
         dependencies: Annotated[
-            Optional[Dependencies],
+            Dependencies | None,
             Doc(
                 """
                 A dictionary of global dependencies. These dependencies will be
@@ -619,7 +618,7 @@ class Application(Lilya):
             ),
         ] = None,
         csrf_config: Annotated[
-            Optional[CSRFConfig],
+            CSRFConfig | None,
             Doc(
                 """
                 An instance of [CRSFConfig](https://esmerald.dev/configurations/csrf/).
@@ -645,7 +644,7 @@ class Application(Lilya):
             ),
         ] = None,
         openapi_config: Annotated[
-            Optional[OpenAPIConfig],
+            OpenAPIConfig | None,
             Doc(
                 """
                 An instance of [OpenAPIConfig](https://esmerald.dev/configurations/openapi/config/).
@@ -677,7 +676,7 @@ class Application(Lilya):
             ),
         ] = None,
         openapi_version: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The string version of the OpenAPI.
@@ -700,7 +699,7 @@ class Application(Lilya):
             ),
         ] = None,
         cors_config: Annotated[
-            Optional[CORSConfig],
+            CORSConfig | None,
             Doc(
                 """
                 An instance of [CORSConfig](https://esmerald.dev/configurations/cors/).
@@ -721,7 +720,7 @@ class Application(Lilya):
             ),
         ] = None,
         static_files_config: Annotated[
-            Optional[StaticFilesConfig],
+            StaticFilesConfig | None,
             Doc(
                 """
                 An instance of [StaticFilesConfig](https://esmerald.dev/configurations/staticfiles/).
@@ -745,7 +744,7 @@ class Application(Lilya):
             ),
         ] = None,
         template_config: Annotated[
-            Optional[TemplateConfig],
+            TemplateConfig | None,
             Doc(
                 """
                 An instance of [TemplateConfig](https://esmerald.dev/configurations/template/).
@@ -775,7 +774,7 @@ class Application(Lilya):
             ),
         ] = None,
         session_config: Annotated[
-            Optional[SessionConfig],
+            SessionConfig | None,
             Doc(
                 """
                 An instance of [SessionConfig](https://esmerald.dev/configurations/session/).
@@ -799,7 +798,7 @@ class Application(Lilya):
             ),
         ] = None,
         response_class: Annotated[
-            Optional[ResponseType],
+            ResponseType | None,
             Doc(
                 """
                 Global default response class to be used within the
@@ -819,7 +818,7 @@ class Application(Lilya):
             ),
         ] = None,
         response_cookies: Annotated[
-            Optional[ResponseCookies],
+            ResponseCookies | None,
             Doc(
                 """
                 A global sequence of `esmerald.datastructures.Cookie` objects.
@@ -847,7 +846,7 @@ class Application(Lilya):
             ),
         ] = None,
         response_headers: Annotated[
-            Optional[ResponseHeaders],
+            ResponseHeaders | None,
             Doc(
                 """
                 A global mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -870,7 +869,7 @@ class Application(Lilya):
             ),
         ] = None,
         scheduler_config: Annotated[
-            Optional[SchedulerConfig],
+            SchedulerConfig | None,
             Doc(
                 """
                 Esmerald comes with an internal scheduler connfiguration that can be used to schedule tasks with any scheduler at your choice.
@@ -901,7 +900,7 @@ class Application(Lilya):
             ),
         ] = None,
         enable_scheduler: Annotated[
-            Optional[bool],
+            bool | None,
             Doc(
                 """
                 Boolean flag indicating if the internal scheduler should be enabled
@@ -918,7 +917,7 @@ class Application(Lilya):
             ),
         ] = None,
         timezone: Annotated[
-            Optional[Union[dtimezone, str]],
+            dtimezone | str | None,
             Doc(
                 """
                 Object of time `datetime.timezone` or string indicating the
@@ -935,7 +934,7 @@ class Application(Lilya):
             ),
         ] = None,
         routes: Annotated[
-            Optional[Sequence[Union[APIGateHandler, Include]]],
+            Sequence[APIGateHandler | Include] | None,
             Doc(
                 """
                 A global `list` of esmerald routes. Those routes may vary and those can
@@ -980,7 +979,7 @@ class Application(Lilya):
             ),
         ] = None,
         root_path: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 A path prefix that is handled by a proxy not seen in the
@@ -999,7 +998,7 @@ class Application(Lilya):
             ),
         ] = None,
         middleware: Annotated[
-            Optional[Sequence[Middleware]],
+            Sequence[Middleware] | None,
             Doc(
                 """
                 A global sequence of Lilya middlewares or `esmerald.middlewares` that are
@@ -1025,7 +1024,7 @@ class Application(Lilya):
             ),
         ] = None,
         encoders: Annotated[
-            Sequence[Optional[Encoder]],
+            Sequence[Encoder | None],
             Doc(
                 """
             A `list` of encoders to be used by the application once it
@@ -1065,7 +1064,7 @@ class Application(Lilya):
             ),
         ] = None,
         exception_handlers: Annotated[
-            Optional[ExceptionHandlerMap],
+            ExceptionHandlerMap | None,
             Doc(
                 """
                 A global dictionary with handlers for exceptions.
@@ -1111,7 +1110,7 @@ class Application(Lilya):
             ),
         ] = None,
         on_startup: Annotated[
-            Optional[List[LifeSpanHandler]],
+            List[LifeSpanHandler] | None,
             Doc(
                 """
                 A `list` of events that are trigger upon the application
@@ -1153,7 +1152,7 @@ class Application(Lilya):
             ),
         ] = None,
         on_shutdown: Annotated[
-            Optional[List[LifeSpanHandler]],
+            List[LifeSpanHandler] | None,
             Doc(
                 """
                 A `list` of events that are trigger upon the application
@@ -1195,7 +1194,7 @@ class Application(Lilya):
             ),
         ] = None,
         lifespan: Annotated[
-            Optional[Lifespan[AppType]],
+            Lifespan[AppType] | None,
             Doc(
                 """
                 A `lifespan` context manager handler. This is an alternative
@@ -1206,7 +1205,7 @@ class Application(Lilya):
             ),
         ] = None,
         tags: Annotated[
-            Optional[List[str]],
+            List[str] | None,
             Doc(
                 """
                 A list of strings tags to be applied to the *path operation*.
@@ -1247,7 +1246,7 @@ class Application(Lilya):
             ),
         ] = None,
         include_in_schema: Annotated[
-            Optional[bool],
+            bool | None,
             Doc(
                 """
                 Boolean flag indicating if all the routes of the application
@@ -1286,7 +1285,7 @@ class Application(Lilya):
             ),
         ] = None,
         deprecated: Annotated[
-            Optional[bool],
+            bool | None,
             Doc(
                 """
                 Boolean flag indicating if all the routes of the application
@@ -1319,7 +1318,7 @@ class Application(Lilya):
             ),
         ] = None,
         enable_openapi: Annotated[
-            Optional[bool],
+            bool | None,
             Doc(
                 """
                 Boolean flag indicating if the OpenAPI documentation should
@@ -1335,7 +1334,7 @@ class Application(Lilya):
             ),
         ] = None,
         redirect_slashes: Annotated[
-            Optional[bool],
+            bool | None,
             Doc(
                 """
                 Boolean flag indicating if the redirect slashes are enabled for the
@@ -1344,7 +1343,7 @@ class Application(Lilya):
             ),
         ] = None,
         pluggables: Annotated[
-            Optional[Dict[str, Pluggable]],
+            Dict[str, Pluggable] | None,
             Doc(
                 """
                 A `list` of global pluggables from objects inheriting from
@@ -1391,7 +1390,7 @@ class Application(Lilya):
             ),
         ] = None,
         parent: Annotated[
-            Optional[Union[ParentType, Esmerald, ChildEsmerald]],
+            ParentType | Esmerald | ChildEsmerald | None,
             Doc(
                 """
                 Used internally by Esmerald to recognise and build the [application levels](https://esmerald.dev/application/levels/).
@@ -1419,7 +1418,7 @@ class Application(Lilya):
             ),
         ] = None,
         webhooks: Annotated[
-            Optional[Sequence[gateways.WebhookGateway]],
+            Sequence[gateways.WebhookGateway] | None,
             Doc(
                 """
                 This is the same principle of the `routes` but for OpenAPI webhooks.
@@ -1432,7 +1431,7 @@ class Application(Lilya):
             ),
         ] = None,
         openapi_url: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The URL where the OpenAPI schema will be served from.
@@ -1544,7 +1543,7 @@ class Application(Lilya):
         self.openapi_url = self.load_settings_value("openapi_url", openapi_url)
         self.tags = self.load_settings_value("tags", tags)
 
-        self.openapi_schema: Optional[OpenAPI] = None
+        self.openapi_schema: OpenAPI | None = None
         self.state: Annotated[
             State,
             Doc(
@@ -1618,7 +1617,7 @@ class Application(Lilya):
         self.activate_openapi()
 
     def load_settings_value(
-        self, name: str, value: Optional[Any] = None, is_boolean: bool = False
+        self, name: str, value: Any | None = None, is_boolean: bool = False
     ) -> Any:
         """
         Loader used to get the settings defaults and custom settings
@@ -1710,8 +1709,8 @@ class Application(Lilya):
 
     def get_settings_value(
         self,
-        local_settings: Optional[EsmeraldAPISettings],
-        global_settings: Union[Type[EsmeraldAPISettings], Type[EsmeraldLazySettings]],
+        local_settings: EsmeraldAPISettings | None,
+        global_settings: Type[EsmeraldAPISettings] | Type[EsmeraldLazySettings],
         value: str,
     ) -> Any:
         """Obtains the value from a settings module or defaults to the global settings"""
@@ -1779,7 +1778,7 @@ class Application(Lilya):
                 """
             ),
         ],
-    ) -> Optional[TemplateEngineProtocol]:
+    ) -> TemplateEngineProtocol | None:
         """
         Returns the template engine for the application based on
         the `TemplateConfig` provided.
@@ -1809,7 +1808,7 @@ class Application(Lilya):
     def add_apiview(
         self,
         value: Annotated[
-            Union[gateways.Gateway, gateways.WebSocketGateway],
+            gateways.Gateway | gateways.WebSocketGateway,
             Doc(
                 """
                 The `APIView` or similar to be added.
@@ -1861,7 +1860,7 @@ class Application(Lilya):
             ),
         ],
         router: Annotated[
-            Optional[Router],
+            Router | None,
             Doc(
                 """
             A `esmerald.Router` instance to where the route will be added to.
@@ -1869,7 +1868,7 @@ class Application(Lilya):
             ),
         ] = None,
         dependencies: Annotated[
-            Optional[Dependencies],
+            Dependencies | None,
             Doc(
                 """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -1877,7 +1876,7 @@ class Application(Lilya):
             ),
         ] = None,
         interceptors: Annotated[
-            Optional[Sequence[Interceptor]],
+            Sequence[Interceptor] | None,
             Doc(
                 """
                 A list of [interceptors](https://esmerald.dev/interceptors/) to serve the application incoming requests (HTTP and Websockets).
@@ -1885,7 +1884,7 @@ class Application(Lilya):
             ),
         ] = None,
         permissions: Annotated[
-            Optional[Sequence[Permission]],
+            Sequence[Permission] | None,
             Doc(
                 """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -1893,7 +1892,7 @@ class Application(Lilya):
             ),
         ] = None,
         exception_handlers: Annotated[
-            Optional[ExceptionHandlerMap],
+            ExceptionHandlerMap | None,
             Doc(
                 """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -1901,7 +1900,7 @@ class Application(Lilya):
             ),
         ] = None,
         middleware: Annotated[
-            Optional[List[Middleware]],
+            List[Middleware] | None,
             Doc(
                 """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -1909,7 +1908,7 @@ class Application(Lilya):
             ),
         ] = None,
         name: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The name for the Gateway. The name can be reversed by `path_for()`.
@@ -1925,7 +1924,7 @@ class Application(Lilya):
             ),
         ] = True,
         deprecated: Annotated[
-            Optional[bool],
+            bool | None,
             Doc(
                 """
                 Boolean flag for indicating the deprecation of the Gateway and to display it
@@ -2000,7 +1999,7 @@ class Application(Lilya):
             ),
         ],
         router: Annotated[
-            Optional[Router],
+            Router | None,
             Doc(
                 """
             A `esmerald.Router` instance to where the route will be added to.
@@ -2008,7 +2007,7 @@ class Application(Lilya):
             ),
         ] = None,
         name: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The name for the WebSocketGateway. The name can be reversed by `path_for()`.
@@ -2016,7 +2015,7 @@ class Application(Lilya):
             ),
         ] = None,
         dependencies: Annotated[
-            Optional[Dependencies],
+            Dependencies | None,
             Doc(
                 """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -2024,7 +2023,7 @@ class Application(Lilya):
             ),
         ] = None,
         interceptors: Annotated[
-            Optional[Sequence[Interceptor]],
+            Sequence[Interceptor] | None,
             Doc(
                 """
                 A list of [interceptors](https://esmerald.dev/interceptors/) to serve the application incoming requests (HTTP and Websockets).
@@ -2032,7 +2031,7 @@ class Application(Lilya):
             ),
         ] = None,
         permissions: Annotated[
-            Optional[Sequence[Permission]],
+            Sequence[Permission] | None,
             Doc(
                 """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -2040,7 +2039,7 @@ class Application(Lilya):
             ),
         ] = None,
         exception_handlers: Annotated[
-            Optional[ExceptionHandlerMap],
+            ExceptionHandlerMap | None,
             Doc(
                 """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -2048,7 +2047,7 @@ class Application(Lilya):
             ),
         ] = None,
         middleware: Annotated[
-            Optional[List[Middleware]],
+            List[Middleware] | None,
             Doc(
                 """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -2142,15 +2141,15 @@ class Application(Lilya):
                 """
             ),
         ],
-        name: Optional[str] = None,
-        middleware: Optional[Sequence[Middleware]] = None,
-        dependencies: Optional[Dependencies] = None,
-        exception_handlers: Optional[ExceptionHandlerMap] = None,
-        interceptors: Optional[List[Interceptor]] = None,
-        permissions: Optional[List[Permission]] = None,
-        include_in_schema: Optional[bool] = True,
-        deprecated: Optional[bool] = None,
-        security: Optional[List[SecurityScheme]] = None,
+        name: str | None = None,
+        middleware: Sequence[Middleware] | None = None,
+        dependencies: Dependencies | None = None,
+        exception_handlers: ExceptionHandlerMap | None = None,
+        interceptors: List[Interceptor] | None = None,
+        permissions: List[Permission] | None = None,
+        include_in_schema: bool | None = True,
+        deprecated: bool | None = None,
+        security: List[SecurityScheme] | None = None,
     ) -> None:
         """
         Adds a [ChildEsmerald](https://esmerald.dev/routing/router/#child-esmerald-application) directly to the active application router.
@@ -2295,7 +2294,7 @@ class Application(Lilya):
     def build_routes_exception_handlers(
         self,
         route: RouteParent,
-        exception_handlers: Optional[Dict[str, Callable[..., Any]]] = None,
+        exception_handlers: Dict[str, Callable[..., Any]] | None = None,
     ) -> Dict[str, Callable[..., Any]]:
         """
         Builds the exception handlers stack from the top to the bottom of the routes.
@@ -2415,7 +2414,7 @@ class Application(Lilya):
             app = cls(app=app, *args, **kwargs)  # noqa
         return app
 
-    def build_pluggable_stack(self) -> Optional[Esmerald]:
+    def build_pluggable_stack(self) -> Esmerald | None:
         """
         Validates the pluggable types passed and builds the stack
         and triggers the plug
@@ -2501,7 +2500,7 @@ class Application(Lilya):
     @cached_property
     def default_settings(
         self,
-    ) -> Union[Type[EsmeraldAPISettings], Type[EsmeraldLazySettings]]:
+    ) -> Type[EsmeraldAPISettings] | Type[EsmeraldLazySettings]:
         """
         Returns the default global settings.
         """
@@ -2526,7 +2525,7 @@ class Application(Lilya):
         await super().__call__(scope, receive, send)
         await self.globalise_settings()
 
-    def websocket_route(self, path: str, name: Optional[str] = None) -> Callable:
+    def websocket_route(self, path: str, name: str | None = None) -> Callable:
         raise ImproperlyConfigured("`websocket_route` is not valid. Use WebSocketGateway instead.")
 
     def on_event(self, event_type: str) -> Callable:  # pragma: nocover
@@ -2582,7 +2581,7 @@ class Esmerald(Application):
             ),
         ],
         dependencies: Annotated[
-            Optional[Dependencies],
+            Dependencies | None,
             Doc(
                 """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -2590,7 +2589,7 @@ class Esmerald(Application):
             ),
         ] = None,
         interceptors: Annotated[
-            Optional[Sequence[Interceptor]],
+            Sequence[Interceptor] | None,
             Doc(
                 """
                 A list of [interceptors](https://esmerald.dev/interceptors/) to serve the application incoming requests (HTTP and Websockets).
@@ -2598,7 +2597,7 @@ class Esmerald(Application):
             ),
         ] = None,
         permissions: Annotated[
-            Optional[Sequence[Permission]],
+            Sequence[Permission] | None,
             Doc(
                 """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -2606,7 +2605,7 @@ class Esmerald(Application):
             ),
         ] = None,
         exception_handlers: Annotated[
-            Optional[ExceptionHandlerMap],
+            ExceptionHandlerMap | None,
             Doc(
                 """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -2614,7 +2613,7 @@ class Esmerald(Application):
             ),
         ] = None,
         middleware: Annotated[
-            Optional[List[Middleware]],
+            List[Middleware] | None,
             Doc(
                 """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -2622,7 +2621,7 @@ class Esmerald(Application):
             ),
         ] = None,
         name: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The name for the Gateway. The name can be reversed by `path_for()`.
@@ -2638,7 +2637,7 @@ class Esmerald(Application):
             ),
         ] = True,
         deprecated: Annotated[
-            Optional[bool],
+            bool | None,
             Doc(
                 """
                 Boolean flag for indicating the deprecation of the Gateway and to display it
@@ -2671,7 +2670,7 @@ class Esmerald(Application):
             ),
         ],
         dependencies: Annotated[
-            Optional[Dependencies],
+            Dependencies | None,
             Doc(
                 """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -2679,7 +2678,7 @@ class Esmerald(Application):
             ),
         ] = None,
         interceptors: Annotated[
-            Optional[Sequence[Interceptor]],
+            Sequence[Interceptor] | None,
             Doc(
                 """
                 A list of [interceptors](https://esmerald.dev/interceptors/) to serve the application incoming requests (HTTP and Websockets).
@@ -2687,7 +2686,7 @@ class Esmerald(Application):
             ),
         ] = None,
         permissions: Annotated[
-            Optional[Sequence[Permission]],
+            Sequence[Permission] | None,
             Doc(
                 """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -2695,7 +2694,7 @@ class Esmerald(Application):
             ),
         ] = None,
         exception_handlers: Annotated[
-            Optional[ExceptionHandlerMap],
+            ExceptionHandlerMap | None,
             Doc(
                 """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -2703,7 +2702,7 @@ class Esmerald(Application):
             ),
         ] = None,
         middleware: Annotated[
-            Optional[List[Middleware]],
+            List[Middleware] | None,
             Doc(
                 """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -2711,7 +2710,7 @@ class Esmerald(Application):
             ),
         ] = None,
         name: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The name for the Gateway. The name can be reversed by `path_for()`.
@@ -2727,7 +2726,7 @@ class Esmerald(Application):
             ),
         ] = True,
         deprecated: Annotated[
-            Optional[bool],
+            bool | None,
             Doc(
                 """
                 Boolean flag for indicating the deprecation of the Gateway and to display it
@@ -2760,7 +2759,7 @@ class Esmerald(Application):
             ),
         ],
         dependencies: Annotated[
-            Optional[Dependencies],
+            Dependencies | None,
             Doc(
                 """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -2768,7 +2767,7 @@ class Esmerald(Application):
             ),
         ] = None,
         interceptors: Annotated[
-            Optional[Sequence[Interceptor]],
+            Sequence[Interceptor] | None,
             Doc(
                 """
                 A list of [interceptors](https://esmerald.dev/interceptors/) to serve the application incoming requests (HTTP and Websockets).
@@ -2776,7 +2775,7 @@ class Esmerald(Application):
             ),
         ] = None,
         permissions: Annotated[
-            Optional[Sequence[Permission]],
+            Sequence[Permission] | None,
             Doc(
                 """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -2784,7 +2783,7 @@ class Esmerald(Application):
             ),
         ] = None,
         exception_handlers: Annotated[
-            Optional[ExceptionHandlerMap],
+            ExceptionHandlerMap | None,
             Doc(
                 """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -2792,7 +2791,7 @@ class Esmerald(Application):
             ),
         ] = None,
         middleware: Annotated[
-            Optional[List[Middleware]],
+            List[Middleware] | None,
             Doc(
                 """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -2800,7 +2799,7 @@ class Esmerald(Application):
             ),
         ] = None,
         name: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The name for the Gateway. The name can be reversed by `path_for()`.
@@ -2816,7 +2815,7 @@ class Esmerald(Application):
             ),
         ] = True,
         deprecated: Annotated[
-            Optional[bool],
+            bool | None,
             Doc(
                 """
                 Boolean flag for indicating the deprecation of the Gateway and to display it
@@ -2849,7 +2848,7 @@ class Esmerald(Application):
             ),
         ],
         dependencies: Annotated[
-            Optional[Dependencies],
+            Dependencies | None,
             Doc(
                 """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -2857,7 +2856,7 @@ class Esmerald(Application):
             ),
         ] = None,
         interceptors: Annotated[
-            Optional[Sequence[Interceptor]],
+            Sequence[Interceptor] | None,
             Doc(
                 """
                 A list of [interceptors](https://esmerald.dev/interceptors/) to serve the application incoming requests (HTTP and Websockets).
@@ -2865,7 +2864,7 @@ class Esmerald(Application):
             ),
         ] = None,
         permissions: Annotated[
-            Optional[Sequence[Permission]],
+            Sequence[Permission] | None,
             Doc(
                 """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -2873,7 +2872,7 @@ class Esmerald(Application):
             ),
         ] = None,
         exception_handlers: Annotated[
-            Optional[ExceptionHandlerMap],
+            ExceptionHandlerMap | None,
             Doc(
                 """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -2881,7 +2880,7 @@ class Esmerald(Application):
             ),
         ] = None,
         middleware: Annotated[
-            Optional[List[Middleware]],
+            List[Middleware] | None,
             Doc(
                 """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -2889,7 +2888,7 @@ class Esmerald(Application):
             ),
         ] = None,
         name: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The name for the Gateway. The name can be reversed by `path_for()`.
@@ -2905,7 +2904,7 @@ class Esmerald(Application):
             ),
         ] = True,
         deprecated: Annotated[
-            Optional[bool],
+            bool | None,
             Doc(
                 """
                 Boolean flag for indicating the deprecation of the Gateway and to display it
@@ -2938,7 +2937,7 @@ class Esmerald(Application):
             ),
         ],
         dependencies: Annotated[
-            Optional[Dependencies],
+            Dependencies | None,
             Doc(
                 """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -2946,7 +2945,7 @@ class Esmerald(Application):
             ),
         ] = None,
         interceptors: Annotated[
-            Optional[Sequence[Interceptor]],
+            Sequence[Interceptor] | None,
             Doc(
                 """
                 A list of [interceptors](https://esmerald.dev/interceptors/) to serve the application incoming requests (HTTP and Websockets).
@@ -2954,7 +2953,7 @@ class Esmerald(Application):
             ),
         ] = None,
         permissions: Annotated[
-            Optional[Sequence[Permission]],
+            Sequence[Permission] | None,
             Doc(
                 """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -2962,7 +2961,7 @@ class Esmerald(Application):
             ),
         ] = None,
         exception_handlers: Annotated[
-            Optional[ExceptionHandlerMap],
+            ExceptionHandlerMap | None,
             Doc(
                 """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -2970,7 +2969,7 @@ class Esmerald(Application):
             ),
         ] = None,
         middleware: Annotated[
-            Optional[List[Middleware]],
+            List[Middleware] | None,
             Doc(
                 """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -2978,7 +2977,7 @@ class Esmerald(Application):
             ),
         ] = None,
         name: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The name for the Gateway. The name can be reversed by `path_for()`.
@@ -2994,7 +2993,7 @@ class Esmerald(Application):
             ),
         ] = True,
         deprecated: Annotated[
-            Optional[bool],
+            bool | None,
             Doc(
                 """
                 Boolean flag for indicating the deprecation of the Gateway and to display it
@@ -3027,7 +3026,7 @@ class Esmerald(Application):
             ),
         ],
         dependencies: Annotated[
-            Optional[Dependencies],
+            Dependencies | None,
             Doc(
                 """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -3035,7 +3034,7 @@ class Esmerald(Application):
             ),
         ] = None,
         interceptors: Annotated[
-            Optional[Sequence[Interceptor]],
+            Sequence[Interceptor] | None,
             Doc(
                 """
                 A list of [interceptors](https://esmerald.dev/interceptors/) to serve the application incoming requests (HTTP and Websockets).
@@ -3043,7 +3042,7 @@ class Esmerald(Application):
             ),
         ] = None,
         permissions: Annotated[
-            Optional[Sequence[Permission]],
+            Sequence[Permission] | None,
             Doc(
                 """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -3051,7 +3050,7 @@ class Esmerald(Application):
             ),
         ] = None,
         exception_handlers: Annotated[
-            Optional[ExceptionHandlerMap],
+            ExceptionHandlerMap | None,
             Doc(
                 """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -3059,7 +3058,7 @@ class Esmerald(Application):
             ),
         ] = None,
         middleware: Annotated[
-            Optional[List[Middleware]],
+            List[Middleware] | None,
             Doc(
                 """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -3067,7 +3066,7 @@ class Esmerald(Application):
             ),
         ] = None,
         name: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The name for the Gateway. The name can be reversed by `path_for()`.
@@ -3083,7 +3082,7 @@ class Esmerald(Application):
             ),
         ] = True,
         deprecated: Annotated[
-            Optional[bool],
+            bool | None,
             Doc(
                 """
                 Boolean flag for indicating the deprecation of the Gateway and to display it
@@ -3116,7 +3115,7 @@ class Esmerald(Application):
             ),
         ],
         dependencies: Annotated[
-            Optional[Dependencies],
+            Dependencies | None,
             Doc(
                 """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -3124,7 +3123,7 @@ class Esmerald(Application):
             ),
         ] = None,
         interceptors: Annotated[
-            Optional[Sequence[Interceptor]],
+            Sequence[Interceptor] | None,
             Doc(
                 """
                 A list of [interceptors](https://esmerald.dev/interceptors/) to serve the application incoming requests (HTTP and Websockets).
@@ -3132,7 +3131,7 @@ class Esmerald(Application):
             ),
         ] = None,
         permissions: Annotated[
-            Optional[Sequence[Permission]],
+            Sequence[Permission] | None,
             Doc(
                 """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -3140,7 +3139,7 @@ class Esmerald(Application):
             ),
         ] = None,
         exception_handlers: Annotated[
-            Optional[ExceptionHandlerMap],
+            ExceptionHandlerMap | None,
             Doc(
                 """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -3148,7 +3147,7 @@ class Esmerald(Application):
             ),
         ] = None,
         middleware: Annotated[
-            Optional[List[Middleware]],
+            List[Middleware] | None,
             Doc(
                 """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -3156,7 +3155,7 @@ class Esmerald(Application):
             ),
         ] = None,
         name: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The name for the Gateway. The name can be reversed by `path_for()`.
@@ -3172,7 +3171,7 @@ class Esmerald(Application):
             ),
         ] = True,
         deprecated: Annotated[
-            Optional[bool],
+            bool | None,
             Doc(
                 """
                 Boolean flag for indicating the deprecation of the Gateway and to display it
@@ -3205,7 +3204,7 @@ class Esmerald(Application):
             ),
         ],
         dependencies: Annotated[
-            Optional[Dependencies],
+            Dependencies | None,
             Doc(
                 """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -3213,7 +3212,7 @@ class Esmerald(Application):
             ),
         ] = None,
         interceptors: Annotated[
-            Optional[Sequence[Interceptor]],
+            Sequence[Interceptor] | None,
             Doc(
                 """
                 A list of [interceptors](https://esmerald.dev/interceptors/) to serve the application incoming requests (HTTP and Websockets).
@@ -3221,7 +3220,7 @@ class Esmerald(Application):
             ),
         ] = None,
         permissions: Annotated[
-            Optional[Sequence[Permission]],
+            Sequence[Permission] | None,
             Doc(
                 """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -3229,7 +3228,7 @@ class Esmerald(Application):
             ),
         ] = None,
         exception_handlers: Annotated[
-            Optional[ExceptionHandlerMap],
+            ExceptionHandlerMap | None,
             Doc(
                 """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -3237,7 +3236,7 @@ class Esmerald(Application):
             ),
         ] = None,
         middleware: Annotated[
-            Optional[List[Middleware]],
+            List[Middleware] | None,
             Doc(
                 """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -3245,7 +3244,7 @@ class Esmerald(Application):
             ),
         ] = None,
         name: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The name for the Gateway. The name can be reversed by `path_for()`.
@@ -3261,7 +3260,7 @@ class Esmerald(Application):
             ),
         ] = True,
         deprecated: Annotated[
-            Optional[bool],
+            bool | None,
             Doc(
                 """
                 Boolean flag for indicating the deprecation of the Gateway and to display it
@@ -3294,7 +3293,7 @@ class Esmerald(Application):
             ),
         ],
         methods: Annotated[
-            Optional[List[str]],
+            List[str] | None,
             Doc(
                 """
                 A list of HTTP methods to serve the Gateway.
@@ -3302,7 +3301,7 @@ class Esmerald(Application):
             ),
         ] = None,
         dependencies: Annotated[
-            Optional[Dependencies],
+            Dependencies | None,
             Doc(
                 """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -3310,7 +3309,7 @@ class Esmerald(Application):
             ),
         ] = None,
         interceptors: Annotated[
-            Optional[Sequence[Interceptor]],
+            Sequence[Interceptor] | None,
             Doc(
                 """
                 A list of [interceptors](https://esmerald.dev/interceptors/) to serve the application incoming requests (HTTP and Websockets).
@@ -3318,7 +3317,7 @@ class Esmerald(Application):
             ),
         ] = None,
         permissions: Annotated[
-            Optional[Sequence[Permission]],
+            Sequence[Permission] | None,
             Doc(
                 """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -3326,7 +3325,7 @@ class Esmerald(Application):
             ),
         ] = None,
         exception_handlers: Annotated[
-            Optional[ExceptionHandlerMap],
+            ExceptionHandlerMap | None,
             Doc(
                 """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -3334,7 +3333,7 @@ class Esmerald(Application):
             ),
         ] = None,
         middleware: Annotated[
-            Optional[List[Middleware]],
+            List[Middleware] | None,
             Doc(
                 """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -3342,7 +3341,7 @@ class Esmerald(Application):
             ),
         ] = None,
         name: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The name for the Gateway. The name can be reversed by `path_for()`.
@@ -3358,7 +3357,7 @@ class Esmerald(Application):
             ),
         ] = True,
         deprecated: Annotated[
-            Optional[bool],
+            bool | None,
             Doc(
                 """
                 Boolean flag for indicating the deprecation of the Gateway and to display it
@@ -3392,7 +3391,7 @@ class Esmerald(Application):
             ),
         ],
         name: Annotated[
-            Optional[str],
+            str | None,
             Doc(
                 """
                 The name for the Gateway. The name can be reversed by `path_for()`.
@@ -3400,7 +3399,7 @@ class Esmerald(Application):
             ),
         ] = None,
         dependencies: Annotated[
-            Optional[Dependencies],
+            Dependencies | None,
             Doc(
                 """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -3408,7 +3407,7 @@ class Esmerald(Application):
             ),
         ] = None,
         interceptors: Annotated[
-            Optional[Sequence[Interceptor]],
+            Sequence[Interceptor] | None,
             Doc(
                 """
                 A list of [interceptors](https://esmerald.dev/interceptors/) to serve the application incoming requests (HTTP and Websockets).
@@ -3416,7 +3415,7 @@ class Esmerald(Application):
             ),
         ] = None,
         permissions: Annotated[
-            Optional[Sequence[Permission]],
+            Sequence[Permission] | None,
             Doc(
                 """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -3424,7 +3423,7 @@ class Esmerald(Application):
             ),
         ] = None,
         exception_handlers: Annotated[
-            Optional[ExceptionHandlerMap],
+            ExceptionHandlerMap | None,
             Doc(
                 """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -3432,7 +3431,7 @@ class Esmerald(Application):
             ),
         ] = None,
         middleware: Annotated[
-            Optional[List[Middleware]],
+            List[Middleware] | None,
             Doc(
                 """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).

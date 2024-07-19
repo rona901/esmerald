@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List
 
 from jose import JWSError, JWTError, jwt
 from jose.exceptions import JWSAlgorithmError, JWSSignatureError
@@ -18,10 +18,10 @@ class Token(BaseModel):
 
     exp: datetime
     iat: datetime = Field(default_factory=lambda: convert_time(datetime.now(timezone.utc)))
-    sub: Optional[Union[constr(min_length=1), conint(ge=1)]] = None  # type: ignore
-    iss: Optional[str] = None
-    aud: Optional[str] = None
-    jti: Optional[str] = None
+    sub: constr(min_length=1) | conint(ge=1) | None = None  # type: ignore
+    iss: str | None = None
+    aud: str | None = None
+    jti: str | None = None
 
     @field_validator("exp")
     def validate_expiration(cls, date: datetime) -> datetime:
@@ -42,7 +42,7 @@ class Token(BaseModel):
         raise ValueError("iat must be a current or past time")
 
     @field_validator("sub")
-    def validate_sub(cls, subject: Union[str, int]) -> str:  # pragma: no cover
+    def validate_sub(cls, subject: str | int) -> str:  # pragma: no cover
         try:
             return str(subject)
         except (TypeError, ValueError) as e:
@@ -50,7 +50,7 @@ class Token(BaseModel):
 
     def encode(
         self, key: str, algorithm: str, **claims_extra: Any
-    ) -> Union[str, Any]:  # pragma: no cover
+    ) -> str | Any:  # pragma: no cover
         """
         Encodes the token into a proper str formatted and allows passing kwargs.
         """
@@ -66,7 +66,7 @@ class Token(BaseModel):
 
     @classmethod
     def decode(
-        cls, token: str, key: Union[str, Dict[str, str]], algorithms: List[str]
+        cls, token: str, key: str | Dict[str, str], algorithms: List[str]
     ) -> Token:  # pragma: no cover
         """
         Decodes the given token.

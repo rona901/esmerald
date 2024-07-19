@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Optional
-
 from lilya._internal._connection import Connection as Connection  # noqa: F401
 from lilya.websockets import (
     WebSocket as WebSocket,  # noqa
@@ -14,5 +12,5 @@ from lilya.websockets import (
 class WebSocketDisconnect(LilyaWebSocketDisconnect):
     """Esmerald WebSocketDisconnect"""
 
-    def __init__(self, code: int = 1000, reason: Optional[str] = None) -> None:
+    def __init__(self, code: int = 1000, reason: str | None = None) -> None:
         super().__init__(code, reason)  # pragma: no cover

@@ -1,4 +1,6 @@
-from typing import Dict, Optional
+from __future__ import annotations
+
+from typing import Dict
 
 from pydantic import BaseModel, ConfigDict
 
@@ -34,7 +36,7 @@ class Discriminator(BaseModel):
     **REQUIRED**. The name of the property in the payload that will hold the discriminator value.
     """
 
-    mapping: Optional[Dict[str, str]] = None
+    mapping: Dict[str, str] | None = None
     """
     An object to hold mappings between payload values and schema names or references.
     """

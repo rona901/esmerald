@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional, Sequence, Union
+from typing import Any, Dict, List, Sequence
 
 from pydantic import AnyUrl, BaseModel
 from typing_extensions import Annotated, Doc
@@ -57,7 +57,7 @@ class OpenAPIConfig(BaseModel):
     """
 
     title: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             Title of the application/API documentation.
@@ -65,7 +65,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     version: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             The version of the API documentation.
@@ -73,7 +73,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     summary: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             Simple and short summary text of the application/API.
@@ -81,7 +81,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             A longer and more descriptive explanation of the application/API documentation.
@@ -89,7 +89,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     contact: Annotated[
-        Optional[Contact],
+        Contact | None,
         Doc(
             """
             API contact information. This is an OpenAPI schema contact, meaning, in a dictionary format compatible with OpenAPI or an instance of `esmerald.openapi.schemas.v3_1_0.contact.Contact`.
@@ -97,7 +97,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     terms_of_service: Annotated[
-        Optional[AnyUrl],
+        AnyUrl | None,
         Doc(
             """
             URL to a page that contains terms of service.
@@ -105,7 +105,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     license: Annotated[
-        Optional[License],
+        License | None,
         Doc(
             """
             API Licensing information. This is an OpenAPI schema licence, meaning, in a dictionary format compatible with OpenAPI or an instance of `esmerald.openapi.schemas.v3_1_0.license.License`.
@@ -113,7 +113,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     security: Annotated[
-        Optional[List[SecurityScheme]],
+        List[SecurityScheme] | None,
         Doc(
             """
             API Security requirements information. This is an OpenAPI schema security, meaning, in a dictionary format compatible with OpenAPI or an instance of `esmerald.openapi.schemas.v3_1_0.security_requirement.SecurityScheme`.
@@ -121,7 +121,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     servers: Annotated[
-        Optional[List[Dict[str, Union[str, Any]]]],
+        List[Dict[str, str | Any]] | None,
         Doc(
             """
             A python list with dictionary compatible with OpenAPI specification.
@@ -129,7 +129,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     tags: Annotated[
-        Optional[List[str]],
+        List[str] | None,
         Doc(
             """
             A list of OpenAPI compatible tag (string) information.
@@ -137,7 +137,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     openapi_version: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             The version of the OpenAPI being used. Esmerald uses the version 3.1.0 by
@@ -147,7 +147,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     openapi_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             URL of the `openapi.json` in the format of a path.
@@ -165,7 +165,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = True
     docs_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default relative URL where the Swagger documentation
@@ -176,7 +176,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     redoc_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default relative URL where the ReDoc documentation
@@ -187,7 +187,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     swagger_ui_oauth2_redirect_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default relative URL where the Swagger UI OAuth Redirect URL
@@ -198,7 +198,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     redoc_js_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default URL where the ReDoc Javascript is located
@@ -209,7 +209,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     redoc_favicon_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default URL where the ReDoc favicon is located
@@ -220,7 +220,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     swagger_ui_init_oauth: Annotated[
-        Optional[Dict[str, Any]],
+        Dict[str, Any] | None,
         Doc(
             """
             String default relative URL where the Swagger Init Auth documentation
@@ -229,7 +229,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     swagger_ui_parameters: Annotated[
-        Optional[Dict[str, Any]],
+        Dict[str, Any] | None,
         Doc(
             """
             A mapping with parameters to be passed onto Swagger.
@@ -237,7 +237,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     swagger_js_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             Boolean flag indicating if the google fonts shall be used
@@ -246,7 +246,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     swagger_css_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default URL where the Swagger Javascript is located
@@ -257,7 +257,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     swagger_favicon_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default URL where the Swagger favicon is located
@@ -277,7 +277,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = True
     stoplight_js_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             Boolean flag indicating if the google fonts shall be used
@@ -286,7 +286,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     stoplight_css_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default URL where the Stoplight CSS is located
@@ -297,7 +297,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     stoplight_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default relative URL where the Stoplight documentation
@@ -308,7 +308,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     stoplight_favicon_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default URL where the Stoplight favicon is located
@@ -319,7 +319,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     rapidoc_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default relative URL where the Rapidoc documentation
@@ -330,7 +330,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     rapidoc_js_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default URL where the Stoplight Javascript is located
@@ -341,7 +341,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     rapidoc_favicon_url: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             String default URL where the RapiDoc favicon is located
@@ -352,7 +352,7 @@ class OpenAPIConfig(BaseModel):
         ),
     ] = None
     webhooks: Annotated[
-        Optional[Sequence[Any]],
+        Sequence[Any] | None,
         Doc(
             """
             This is the same principle of the `routes` but for OpenAPI webhooks.

@@ -1,4 +1,6 @@
-from typing import Generic, Optional, Type, TypeVar
+from __future__ import annotations
+
+from typing import Generic, Type, TypeVar
 
 from lilya.status import HTTP_200_OK
 from pydantic import BaseModel
@@ -16,7 +18,7 @@ class Store(BaseModel, Generic[T]):
 
     model: Type[T]
 
-    def get(self, value_id: str) -> Optional[T]:  # pragma: no cover
+    def get(self, value_id: str) -> T | None:  # pragma: no cover
         raise NotImplementedError
 
 
@@ -27,12 +29,12 @@ class Item(BaseModel):
 class DictStore(Store[Item]):
     """In-memory store implementation."""
 
-    def get(self, value_id: str) -> Optional[Item]:
+    def get(self, value_id: str) -> Item | None:
         return None
 
 
 @get("/")
-def root(store: DictStore) -> Optional[Item]:
+def root(store: DictStore) -> Item | None:
     assert isinstance(store, DictStore)
     return store.get("0")
 

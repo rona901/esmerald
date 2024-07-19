@@ -1,4 +1,6 @@
-from typing import Any, Dict, Optional
+from __future__ import annotations
+
+from typing import Any, Dict
 
 from pydantic import BaseModel, ConfigDict
 
@@ -19,7 +21,7 @@ class Link(BaseModel):
     and using them as parameters while invoking the linked operation.
     """
 
-    operationRef: Optional[str] = None
+    operationRef: str | None = None
     """
     A relative or absolute URI reference to an OAS operation.
     This field is mutually exclusive of the `operationId` field,
@@ -28,14 +30,14 @@ class Link(BaseModel):
     in the OpenAPI definition. See the rules for resolving [Relative References](https://spec.openapis.org/oas/v3.1.0#relativeReferencesURI).
     """
 
-    operationId: Optional[str] = None
+    operationId: str | None = None
     """
     The name of an _existing_, resolvable OAS operation, as defined with a unique `operationId`.
 
     This field is mutually exclusive of the `operationRef` field.
     """
 
-    parameters: Optional[Dict[str, Any]] = None
+    parameters: Dict[str, Any] | None = None
     """
     A map representing parameters to pass to an operation
     as specified with `operationId` or identified via `operationRef`.
@@ -46,18 +48,18 @@ class Link(BaseModel):
     for operations that use the same parameter name in different locations (e.g. path.id).
     """
 
-    requestBody: Optional[Any] = None
+    requestBody: Any | None = None
     """
     A literal value or [{expression}](https://spec.openapis.org/oas/v3.1.0#runtimeExpression) to use as a request body when calling the target operation.
     """
 
-    description: Optional[str] = None
+    description: str | None = None
     """
     A description of the link.
     [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
     """
 
-    server: Optional[Server] = None
+    server: Server | None = None
     """
     A server object to be used by the target operation.
     """

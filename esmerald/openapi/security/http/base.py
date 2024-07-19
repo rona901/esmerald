@@ -1,4 +1,6 @@
-from typing import Any, Literal, Optional
+from __future__ import annotations
+
+from typing import Any, Literal
 
 from esmerald.openapi.enums import APIKeyIn, Header, SecuritySchemeType
 from esmerald.openapi.security.base import HTTPBase
@@ -11,12 +13,12 @@ class Basic(HTTPBase):
         type_: Literal[
             "apiKey", "http", "mutualTLS", "oauth2", "openIdConnect"
         ] = SecuritySchemeType.http.value,
-        bearerFormat: Optional[str] = None,
-        scheme_name: Optional[str] = None,
-        description: Optional[str] = None,
-        in_: Optional[Literal["query", "header", "cookie"]] = APIKeyIn.header.value,
-        name: Optional[str] = None,
-        scheme: Optional[str] = None,
+        bearerFormat: str | None = None,
+        scheme_name: str | None = None,
+        description: str | None = None,
+        in_: Literal["query", "header", "cookie"] | None = APIKeyIn.header.value,
+        name: str | None = None,
+        scheme: str | None = None,
         **kwargs: Any,
     ):
         super().__init__(
@@ -38,12 +40,12 @@ class Bearer(HTTPBase):
         type_: Literal[
             "apiKey", "http", "mutualTLS", "oauth2", "openIdConnect"
         ] = SecuritySchemeType.http.value,
-        bearerFormat: Optional[str] = None,
-        scheme_name: Optional[str] = None,
-        description: Optional[str] = None,
-        in_: Optional[Literal["query", "header", "cookie"]] = APIKeyIn.header.value,
-        name: Optional[str] = None,
-        scheme: Optional[str] = None,
+        bearerFormat: str | None = None,
+        scheme_name: str | None = None,
+        description: str | None = None,
+        in_: Literal["query", "header", "cookie"] | None = APIKeyIn.header.value,
+        name: str | None = None,
+        scheme: str | None = None,
         **kwargs: Any,
     ):
         super().__init__(
@@ -65,12 +67,12 @@ class Digest(HTTPBase):
         type_: Literal[
             "apiKey", "http", "mutualTLS", "oauth2", "openIdConnect"
         ] = SecuritySchemeType.http.value,
-        bearerFormat: Optional[str] = None,
-        scheme_name: Optional[str] = None,
-        description: Optional[str] = None,
-        in_: Optional[Literal["query", "header", "cookie"]] = APIKeyIn.header.value,
-        name: Optional[str] = None,
-        scheme: Optional[str] = None,
+        bearerFormat: str | None = None,
+        scheme_name: str | None = None,
+        description: str | None = None,
+        in_: Literal["query", "header", "cookie"] | None = APIKeyIn.header.value,
+        name: str | None = None,
+        scheme: str | None = None,
         **kwargs: Any,
     ):
         super().__init__(

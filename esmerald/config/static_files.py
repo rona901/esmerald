@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Tuple
 
 from lilya._internal._path import clean_path
 from lilya.staticfiles import StaticFiles
@@ -40,7 +40,7 @@ class StaticFilesConfig(BaseModel):
         ),
     ]
     directory: Annotated[
-        Optional[Union[DirectoryPath, str, Path, Any]],
+        DirectoryPath | str | Path | Any | None,
         Doc(
             """
             The directory for the statics in the format of a path like.
@@ -58,7 +58,7 @@ class StaticFilesConfig(BaseModel):
         ),
     ] = False
     packages: Annotated[
-        Optional[List[Union[str, Tuple[str, str]]]],
+        List[str | Tuple[str, str]] | None,
         Doc(
             """
             A list of strings or list of tuples of strings of python packages.
@@ -82,7 +82,7 @@ class StaticFilesConfig(BaseModel):
 
     def _build_kwargs(
         self,
-    ) -> Dict[str, Union[bool, int, DirectoryPath, List[Union[str, Tuple[str, str]]]]]:
+    ) -> Dict[str, bool | int | DirectoryPath | List[str | Tuple[str, str]]]:
         """
         Builds the necessary kwargs to create an StaticFiles object.
         """

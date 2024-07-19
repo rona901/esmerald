@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Callable, List, Union
+from typing import Any, Callable, List
 
 from typing_extensions import Annotated, Doc
 
@@ -64,7 +64,7 @@ class MethodMixin:
             ),
         ],
         error_message: Annotated[
-            Union[str, None],
+            str | None,
             Doc(
                 """
                 An error message to be displayed upon the error being thrown.

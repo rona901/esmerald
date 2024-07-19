@@ -1,4 +1,6 @@
-from typing import List, Optional, Union
+from __future__ import annotations
+
+from typing import List
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -16,7 +18,7 @@ class PathItem(BaseModel):
     but they will not know which operations and parameters are available.
     """
 
-    ref: Optional[str] = Field(default=None, alias="$ref")
+    ref: str | None = Field(default=None, alias="$ref")
     """
     Allows for an external definition of this path item.
     The referenced structure MUST be in the format of a [Path Item Object](https://spec.openapis.org/oas/v3.1.0#pathItemObject).
@@ -26,63 +28,63 @@ class PathItem(BaseModel):
     See the rules for resolving [Relative References](https://spec.openapis.org/oas/v3.1.0#relativeReferencesURI).
     """
 
-    summary: Optional[str] = None
+    summary: str | None = None
     """
     An optional, string summary, intended to apply to all operations in this path.
     """
 
-    description: Optional[str] = None
+    description: str | None = None
     """
     An optional, string description, intended to apply to all operations in this path.
     [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
     """
 
-    get: Optional[Operation] = None
+    get: Operation | None = None
     """
     A definition of a GET operation on this path.
     """
 
-    put: Optional[Operation] = None
+    put: Operation | None = None
     """
     A definition of a PUT operation on this path.
     """
 
-    post: Optional[Operation] = None
+    post: Operation | None = None
     """
     A definition of a POST operation on this path.
     """
 
-    delete: Optional[Operation] = None
+    delete: Operation | None = None
     """
     A definition of a DELETE operation on this path.
     """
 
-    options: Optional[Operation] = None
+    options: Operation | None = None
     """
     A definition of a OPTIONS operation on this path.
     """
 
-    head: Optional[Operation] = None
+    head: Operation | None = None
     """
     A definition of a HEAD operation on this path.
     """
 
-    patch: Optional[Operation] = None
+    patch: Operation | None = None
     """
     A definition of a PATCH operation on this path.
     """
 
-    trace: Optional[Operation] = None
+    trace: Operation | None = None
     """
     A definition of a TRACE operation on this path.
     """
 
-    servers: Optional[List[Server]] = None
+    servers: List[Server] | None = None
     """
     An alternative `server` array to service all operations in this path.
     """
 
-    parameters: Optional[List[Union[Parameter, Reference]]] = None
+    parameters: List[Parameter | Reference] | None = None
     """
     A list of parameters that are applicable for all the operations described under this path.
     These parameters can be overridden at the operation level, but cannot be removed there.

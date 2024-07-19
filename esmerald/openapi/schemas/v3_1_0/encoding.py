@@ -1,4 +1,6 @@
-from typing import TYPE_CHECKING, Dict, Optional, Union
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Dict
 
 from pydantic import BaseModel, ConfigDict
 
@@ -28,7 +30,7 @@ class Encoding(BaseModel):
         },
     )
 
-    contentType: Optional[str] = None
+    contentType: str | None = None
     """
     The Content-Type for encoding a specific property.
     Default value depends on the property type:
@@ -41,7 +43,7 @@ class Encoding(BaseModel):
     or a comma-separated list of the two types.
     """
 
-    headers: Optional[Dict[str, Union["Header", Reference]]] = None
+    headers: Dict[str, Header | Reference] | None = None
     """
     A map allowing additional information to be provided as headers, for example `Content-Disposition`.
 
@@ -49,7 +51,7 @@ class Encoding(BaseModel):
     This property SHALL be ignored if the request body media type is not a `multipart`.
     """
 
-    style: Optional[str] = None
+    style: str | None = None
     """
     Describes how a specific property value will be serialized depending on its type.
 

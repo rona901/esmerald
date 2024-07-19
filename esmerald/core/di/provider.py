@@ -31,7 +31,7 @@ def _importer(target: Any, attribute: Any) -> Any:  # pragma: no cover
     klass = __import__(import_path)
 
     for comp in components:
-        import_path += ".%s" % comp
+        import_path += f".{comp}"
         klass = _lookup(klass, comp, import_path)
     return getattr(klass, attribute)
 

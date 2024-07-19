@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from asyncio import sleep as async_sleep
 from json import loads
 from pathlib import Path
@@ -39,7 +41,7 @@ def my_generator() -> Generator[str, None, None]:  # pragma: no cover
         yield str(count)
 
 
-async def my_async_generator() -> "AsyncGenerator[str, None]":  # pragma: no cover
+async def my_async_generator() -> AsyncGenerator[str, None]:  # pragma: no cover
     count = 0
     while True:
         count += 1

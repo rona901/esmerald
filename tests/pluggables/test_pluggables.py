@@ -1,4 +1,4 @@
-from typing import Optional
+from __future__ import annotations
 
 import pytest
 from loguru import logger
@@ -13,7 +13,7 @@ class MyNewPluggable: ...
 
 
 class PluggableNoPlug(Extension):  # pragma: no cover
-    def __init__(self, app: "Esmerald"):
+    def __init__(self, app: Esmerald):
         super().__init__(app)
         self.app = app
 
@@ -44,11 +44,11 @@ def test_raises_error_for_missing_extend(test_client_factory):
 
 
 class Config(BaseModel):
-    name: Optional[str]
+    name: str | None
 
 
 class MyExtension(Extension):
-    def __init__(self, app: "Esmerald", config: Config):
+    def __init__(self, app: Esmerald, config: Config):
         super().__init__(app)
         self.app = app
         self.config = config
@@ -67,7 +67,7 @@ def test_generates_pluggable():
 
 def test_generates_many_pluggables():
     class LoggingExtension(Extension):
-        def __init__(self, app: "Esmerald", name):
+        def __init__(self, app: Esmerald, name):
             super().__init__(app)
             self.app = app
             self.name = name
@@ -76,7 +76,7 @@ def test_generates_many_pluggables():
             logger.info(f"Started logging extension with name {name}")
 
     class DatabaseExtension(Extension):
-        def __init__(self, app: "Esmerald", database):
+        def __init__(self, app: Esmerald, database):
             super().__init__(app)
             self.app = app
             self.database = database
@@ -98,7 +98,7 @@ def test_generates_many_pluggables():
 
 def test_start_extension_directly(test_client_factory):
     class CustomExtension(Extension):
-        def __init__(self, app: Optional["Esmerald"] = None, **kwargs: DictAny):
+        def __init__(self, app: Esmerald | None = None, **kwargs: DictAny):
             super().__init__(app, **kwargs)
 
         def extend(self, **kwargs) -> None:
@@ -118,7 +118,7 @@ def test_start_extension_directly(test_client_factory):
 
 def test_add_extension_(test_client_factory):
     class CustomExtension(Extension):
-        def __init__(self, app: Optional["Esmerald"] = None, **kwargs: DictAny):
+        def __init__(self, app: Esmerald | None = None, **kwargs: DictAny):
             super().__init__(app, **kwargs)
             self.app = app
 

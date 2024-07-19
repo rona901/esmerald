@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import os
 from functools import lru_cache
-from typing import TYPE_CHECKING, Any, Optional, Type
+from typing import TYPE_CHECKING, Any, Type
 
 from lilya._internal._module_loading import import_string
 
@@ -33,7 +33,7 @@ class EsmeraldLazySettings(LazyObject):
     Esmerald uses the settings module pointed to by ESMERALD_SETTINGS_MODULE.
     """
 
-    def _setup(self, name: Optional[str] = None) -> None:
+    def _setup(self, name: str | None = None) -> None:
         """
         Load the settings module pointed to by the environment variable. This
         is used the first time settings are needed, if the user hasn't
@@ -42,7 +42,7 @@ class EsmeraldLazySettings(LazyObject):
         settings: Type[EsmeraldAPISettings] = reload_settings()
 
         for setting, _ in settings().model_dump().items():
-            assert setting.islower(), "%s should be in lowercase." % setting
+            assert setting.islower(), f"{setting} should be in lowercase."
 
         self._wrapped = settings()
 

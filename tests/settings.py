@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import asyncio
 import os
 from functools import cached_property
-from typing import Optional, Tuple
+from typing import Tuple
 
 import mongoz
 from edgy import Database as EdgyDatabase, Registry as EdgyRegistry
@@ -19,7 +21,7 @@ class TestSettings(EsmeraldAPISettings):
     debug: bool = True
     enable_sync_handlers: bool = True
     enable_openapi: bool = False
-    environment: Optional[str] = "testing"
+    environment: str | None = "testing"
     redirect_slashes: bool = True
     include_in_schema: bool = False
 

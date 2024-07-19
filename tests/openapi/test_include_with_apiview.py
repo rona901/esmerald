@@ -1,4 +1,6 @@
-from typing import Dict, Union
+from __future__ import annotations
+
+from typing import Dict
 
 import pytest
 from pydantic import BaseModel
@@ -10,7 +12,7 @@ from tests.settings import TestSettings
 
 
 class Item(BaseModel):
-    sku: Union[int, str]
+    sku: int | str
 
 
 @get()

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 from typing import Any, Dict, List
 
@@ -121,7 +123,7 @@ def test_inner_settings_module(test_client_factory):
         allowed_hosts: List[str] = ["*", "*.testserver.com"]
 
         @property
-        def middleware(self) -> List["Middleware"]:
+        def middleware(self) -> List[Middleware]:
             return [RequestSettingsMiddleware]
 
     @get("/app-settings")
@@ -147,7 +149,7 @@ def test_inner_settings_module_as_instance(test_client_factory):
         allowed_hosts: List[str] = ["*", "*.testserver.com"]
 
         @property
-        def middleware(self) -> List["Middleware"]:
+        def middleware(self) -> List[Middleware]:
             return [RequestSettingsMiddleware]
 
     @get("/app-settings")

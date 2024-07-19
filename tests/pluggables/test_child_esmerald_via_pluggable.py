@@ -1,4 +1,4 @@
-from typing import Optional
+from __future__ import annotations
 
 from loguru import logger
 
@@ -29,12 +29,12 @@ async def home(request: Request) -> JSONResponse:
 
 
 class ChildEsmeraldPluggable(Extension):
-    def __init__(self, app: Optional["Esmerald"] = None, **kwargs: "DictAny"):
+    def __init__(self, app: Esmerald | None = None, **kwargs: DictAny):
         super().__init__(app, **kwargs)
         self.app = app
         self.kwargs = kwargs
 
-    def extend(self, **kwargs: "DictAny") -> None:
+    def extend(self, **kwargs: DictAny) -> None:
         """
         Add a child Esmerald into the main application.
         """

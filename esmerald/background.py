@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Callable, List, Optional
+from typing import Any, Callable, List
 
 from lilya.background import Task, Tasks
 from typing_extensions import ParamSpec
@@ -93,5 +93,5 @@ class BackgroundTasks(Tasks):
     ```
     """
 
-    def __init__(self, tasks: Optional[List[BackgroundTask]] = None):
+    def __init__(self, tasks: List[BackgroundTask] | None = None):
         super().__init__(tasks=tasks)

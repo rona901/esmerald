@@ -1,4 +1,4 @@
-from typing import Union
+from __future__ import annotations
 
 from pydantic import BaseModel
 
@@ -11,7 +11,7 @@ from tests.settings import TestSettings
 
 class User(Struct):
     name: str
-    email: Union[str, None] = None
+    email: str | None = None
 
 
 class BaseUser(BaseModel):

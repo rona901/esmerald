@@ -1,4 +1,6 @@
-from typing import Any, Literal, Optional, Union
+from __future__ import annotations
+
+from typing import Any, Literal
 
 from pydantic import AnyUrl
 
@@ -13,9 +15,9 @@ class OpenIdConnect(HTTPBase):
         type_: Literal[
             "apiKey", "http", "mutualTLS", "oauth2", "openIdConnect"
         ] = SecuritySchemeType.openIdConnect.value,
-        openIdConnectUrl: Optional[Union[AnyUrl, str]] = None,
-        scheme_name: Optional[str] = None,
-        description: Optional[str] = None,
+        openIdConnectUrl: AnyUrl | str | None = None,
+        scheme_name: str | None = None,
+        description: str | None = None,
         **kwargs: Any,
     ):
         super().__init__(

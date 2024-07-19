@@ -12,7 +12,7 @@ import sys
 import typing
 from difflib import get_close_matches
 from importlib import import_module
-from typing import Any, Optional
+from typing import Any
 
 from esmerald.core.directives.base import BaseDirective
 from esmerald.core.directives.exceptions import DirectiveError
@@ -41,7 +41,7 @@ def find_directives(management_dir: str) -> typing.List[str]:
 
 def find_application_directives(
     management_dir: str,
-) -> typing.Sequence[typing.Union[typing.Dict[Any, Any], str]]:
+) -> typing.Sequence[typing.Dict[Any, Any] | str]:
     """
     Iterates through the application tree and finds the directives available
     to run.
@@ -83,7 +83,7 @@ def load_directive_class_by_filename(app_name: str, location: str) -> Any:
 
 
 @functools.lru_cache(maxsize=None)
-def get_directives(location: str) -> typing.Sequence[typing.Union[typing.Dict[Any, Any], str]]:
+def get_directives(location: str) -> typing.Sequence[typing.Dict[Any, Any] | str]:
     command_list = find_directives(location)
     directives = []
 
@@ -106,7 +106,7 @@ def get_application_directives(
     return directives
 
 
-def fetch_custom_directive(subdirective: Any, location: Optional[str]) -> Any:
+def fetch_custom_directive(subdirective: Any, location: str | None) -> Any:
     """Fetches the directive classes custom and native"""
     directives = get_application_directives(location)
 
@@ -127,7 +127,7 @@ def fetch_custom_directive(subdirective: Any, location: Optional[str]) -> Any:
             matches.extend(get_close_matches(subdirective, directive))
 
             if matches and len(directives) == counter:
-                printer.write_error("Did you mean %s?" % matches[0])
+                printer.write_error(f"Did you mean {matches[0]}?")
 
             if len(directives) == counter:
                 return None
@@ -138,7 +138,7 @@ def fetch_custom_directive(subdirective: Any, location: Optional[str]) -> Any:
         matches.extend(get_close_matches(subdirective, directive))
 
         if matches:
-            printer.write_error("Did you mean %s?" % matches[0])
+            printer.write_error(f"Did you mean {matches[0]}?")
             return None
         return None
 
@@ -150,7 +150,7 @@ def fetch_custom_directive(subdirective: Any, location: Optional[str]) -> Any:
     return klass
 
 
-def fetch_directive(subdirective: Any, location: Optional[str], is_custom: bool = False) -> Any:
+def fetch_directive(subdirective: Any, location: str | None, is_custom: bool = False) -> Any:
     """Fetches the directive classes custom and native"""
     if not is_custom:
         directives = get_directives(location)
@@ -170,7 +170,7 @@ def fetch_directive(subdirective: Any, location: Optional[str], is_custom: bool 
             matches.extend(get_close_matches(subdirective, directive))
 
             if matches and len(directives) == counter:
-                printer.write_error("Did you mean %s?" % matches[0])
+                printer.write_error(f"Did you mean {matches[0]}?")
 
             if len(directives) == counter:
                 return None

@@ -1,4 +1,6 @@
-from typing import Any, Dict, Union
+from __future__ import annotations
+
+from typing import Any, Dict
 
 from lilya.types import ASGIApp, Receive, Scope, Send
 from pydantic import BaseModel
@@ -9,7 +11,7 @@ from tests.settings import TestSettings
 
 
 class Item(BaseModel):
-    sku: Union[int, str]
+    sku: int | str
 
 
 class CustomMiddleware(MiddlewareProtocol):

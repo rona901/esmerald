@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Callable, Optional
+from typing import TYPE_CHECKING, Callable
 
 from esmerald.exceptions import PermissionDenied
 from esmerald.utils.helpers import is_async_callable
@@ -37,7 +37,7 @@ async def continue_or_raise_permission_exception(
             )
 
 
-def permission_denied(request: Request, message: Optional[str] = None) -> None:
+def permission_denied(request: Request, message: str | None = None) -> None:
     """
     If request is not permitted, determine what kind of exception to raise.
     """

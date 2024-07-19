@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from asyncio import sleep
 from typing import Any, Dict
 

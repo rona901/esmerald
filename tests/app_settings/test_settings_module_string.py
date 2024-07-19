@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 from typing import Any, Dict, List
 
@@ -80,7 +82,7 @@ class AppSettings(DisableOpenAPI):
     allowed_hosts: List[str] = ["*", "*.testserver.com"]
 
     @property
-    def middleware(self) -> List["Middleware"]:
+    def middleware(self) -> List[Middleware]:
         return [RequestSettingsMiddleware]
 
 

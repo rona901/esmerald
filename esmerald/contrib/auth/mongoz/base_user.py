@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from datetime import datetime
 from typing import Any, Type, cast
 
@@ -35,12 +37,12 @@ class AbstractUser(mongoz.Document):
         """
         return True
 
-    async def set_password(self: "AbstractUser", raw_password: str) -> "mongoz.Document":
+    async def set_password(self: AbstractUser, raw_password: str) -> mongoz.Document:
         self.password = make_password(raw_password)
         self._password = raw_password
         return await self.update(password=make_password(raw_password))
 
-    async def check_password(self: "AbstractUser", raw_password: str) -> bool:
+    async def check_password(self: AbstractUser, raw_password: str) -> bool:
         """
         Return a boolean of whether the raw_password was correct. Handles
         hashing formats behind the scenes.
@@ -66,8 +68,8 @@ class AbstractUser(mongoz.Document):
 
     @classmethod
     async def _create_user(
-        cls: Type["mongoz.Document"], username: str, email: str, password: str, **extra_fields: Any
-    ) -> "AbstractUser":
+        cls: Type[mongoz.Document], username: str, email: str, password: str, **extra_fields: Any
+    ) -> AbstractUser:
         """
         Create and save a user with the given username, email, and password.
         """
@@ -86,7 +88,7 @@ class AbstractUser(mongoz.Document):
         email: str,
         password: str,
         **extra_fields: Any,
-    ) -> "AbstractUser":
+    ) -> AbstractUser:
         extra_fields.setdefault("is_staff", False)
         extra_fields.setdefault("is_superuser", False)
         return await cls._create_user(username, email, password, **extra_fields)
@@ -98,7 +100,7 @@ class AbstractUser(mongoz.Document):
         email: str,
         password: str,
         **extra_fields: Any,
-    ) -> "AbstractUser":
+    ) -> AbstractUser:
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
 

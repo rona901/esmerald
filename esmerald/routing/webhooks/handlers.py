@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Sequence, Union, cast
+from typing import TYPE_CHECKING, Any, Dict, List, Sequence, cast
 
 from lilya import status
 from typing_extensions import Annotated, Doc
@@ -30,7 +30,7 @@ SUCCESSFUL_RESPONSE = "Successful response"
 
 def whget(
     path: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 Relative path of the `handler`.
@@ -53,7 +53,7 @@ def whget(
     ] = None,
     *,
     summary: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The summary of the handler. This short summary is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -72,7 +72,7 @@ def whget(
         ),
     ] = None,
     description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The description of the Esmerald application/API. This description is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -90,7 +90,7 @@ def whget(
         ),
     ] = None,
     status_code: Annotated[
-        Optional[int],
+        int | None,
         Doc(
             """
                 An integer indicating the status code of the handler.
@@ -101,7 +101,7 @@ def whget(
         ),
     ] = status.HTTP_200_OK,
     content_encoding: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The string indicating the content encoding of the handler.
@@ -112,7 +112,7 @@ def whget(
         ),
     ] = None,
     content_media_type: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The string indicating the content media type of the handler.
@@ -131,7 +131,7 @@ def whget(
         ),
     ] = True,
     background: Annotated[
-        Optional[BackgroundTaskType],
+        BackgroundTaskType | None,
         Doc(
             """
                 An instance of an `esmerald.background.BackgroundTask` or `esmerald.background.BackgroundTasks` to be passed onto the handler.
@@ -142,7 +142,7 @@ def whget(
         ),
     ] = None,
     dependencies: Annotated[
-        Optional[Dependencies],
+        Dependencies | None,
         Doc(
             """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -150,7 +150,7 @@ def whget(
         ),
     ] = None,
     exception_handlers: Annotated[
-        Optional[ExceptionHandlerMap],
+        ExceptionHandlerMap | None,
         Doc(
             """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -158,7 +158,7 @@ def whget(
         ),
     ] = None,
     middleware: Annotated[
-        Optional[List[Middleware]],
+        List[Middleware] | None,
         Doc(
             """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -166,7 +166,7 @@ def whget(
         ),
     ] = None,
     permissions: Annotated[
-        Optional[List[Permission]],
+        List[Permission] | None,
         Doc(
             """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -174,7 +174,7 @@ def whget(
         ),
     ] = None,
     media_type: Annotated[
-        Union[MediaType, str],
+        MediaType | str,
         Doc(
             """
                 The default `media-type` used by the handler.
@@ -182,7 +182,7 @@ def whget(
         ),
     ] = MediaType.JSON,
     response_class: Annotated[
-        Optional[ResponseType],
+        ResponseType | None,
         Doc(
             """
                 Response class to be used within the
@@ -202,7 +202,7 @@ def whget(
         ),
     ] = None,
     response_cookies: Annotated[
-        Optional[ResponseCookies],
+        ResponseCookies | None,
         Doc(
             """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -230,7 +230,7 @@ def whget(
         ),
     ] = None,
     response_headers: Annotated[
-        Optional[ResponseHeaders],
+        ResponseHeaders | None,
         Doc(
             """
                 A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -253,7 +253,7 @@ def whget(
         ),
     ] = None,
     tags: Annotated[
-        Optional[Sequence[str]],
+        Sequence[str] | None,
         Doc(
             """
                 A list of strings tags to be applied to the *path operation*.
@@ -275,7 +275,7 @@ def whget(
         ),
     ] = None,
     deprecated: Annotated[
-        Optional[bool],
+        bool | None,
         Doc(
             """
                 Boolean flag indicating if the handler
@@ -292,7 +292,7 @@ def whget(
         ),
     ] = None,
     security: Annotated[
-        Optional[List[SecurityScheme]],
+        List[SecurityScheme] | None,
         Doc(
             """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -317,7 +317,7 @@ def whget(
         ),
     ] = None,
     operation_id: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The unique identifier of the `handler`. This acts as a unique ID
@@ -330,7 +330,7 @@ def whget(
         ),
     ] = None,
     response_description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 A description of the response. This is used for OpenAPI documentation
@@ -339,7 +339,7 @@ def whget(
         ),
     ] = SUCCESSFUL_RESPONSE,
     responses: Annotated[
-        Optional[Dict[int, OpenAPIResponse]],
+        Dict[int, OpenAPIResponse] | None,
         Doc(
             """
                 Additional responses that are handled by the handler and need to be described
@@ -433,7 +433,7 @@ def whget(
 
 def whead(
     path: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 Relative path of the `handler`.
@@ -444,7 +444,7 @@ def whead(
     ] = None,
     *,
     summary: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The summary of the handler. This short summary is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -452,7 +452,7 @@ def whead(
         ),
     ] = None,
     description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The description of the Esmerald application/API. This description is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -460,7 +460,7 @@ def whead(
         ),
     ] = None,
     status_code: Annotated[
-        Optional[int],
+        int | None,
         Doc(
             """
                 An integer indicating the status code of the handler.
@@ -471,7 +471,7 @@ def whead(
         ),
     ] = status.HTTP_200_OK,
     content_encoding: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The string indicating the content encoding of the handler.
@@ -482,7 +482,7 @@ def whead(
         ),
     ] = None,
     content_media_type: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The string indicating the content media type of the handler.
@@ -501,7 +501,7 @@ def whead(
         ),
     ] = True,
     background: Annotated[
-        Optional[BackgroundTaskType],
+        BackgroundTaskType | None,
         Doc(
             """
                 An instance of an `esmerald.background.BackgroundTask` or `esmerald.background.BackgroundTasks` to be passed onto the handler.
@@ -512,7 +512,7 @@ def whead(
         ),
     ] = None,
     dependencies: Annotated[
-        Optional[Dependencies],
+        Dependencies | None,
         Doc(
             """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -520,7 +520,7 @@ def whead(
         ),
     ] = None,
     exception_handlers: Annotated[
-        Optional[ExceptionHandlerMap],
+        ExceptionHandlerMap | None,
         Doc(
             """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -528,7 +528,7 @@ def whead(
         ),
     ] = None,
     middleware: Annotated[
-        Optional[List[Middleware]],
+        List[Middleware] | None,
         Doc(
             """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -536,7 +536,7 @@ def whead(
         ),
     ] = None,
     permissions: Annotated[
-        Optional[List[Permission]],
+        List[Permission] | None,
         Doc(
             """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -544,7 +544,7 @@ def whead(
         ),
     ] = None,
     media_type: Annotated[
-        Union[MediaType, str],
+        MediaType | str,
         Doc(
             """
                 The default `media-type` used by the handler.
@@ -552,7 +552,7 @@ def whead(
         ),
     ] = MediaType.JSON,
     response_class: Annotated[
-        Optional[ResponseType],
+        ResponseType | None,
         Doc(
             """
                 Response class to be used within the
@@ -564,7 +564,7 @@ def whead(
         ),
     ] = None,
     response_cookies: Annotated[
-        Optional[ResponseCookies],
+        ResponseCookies | None,
         Doc(
             """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -574,7 +574,7 @@ def whead(
         ),
     ] = None,
     response_headers: Annotated[
-        Optional[ResponseHeaders],
+        ResponseHeaders | None,
         Doc(
             """
                 A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -584,7 +584,7 @@ def whead(
         ),
     ] = None,
     tags: Annotated[
-        Optional[Sequence[str]],
+        Sequence[str] | None,
         Doc(
             """
                 A list of strings tags to be applied to the *path operation*.
@@ -598,7 +598,7 @@ def whead(
         ),
     ] = None,
     deprecated: Annotated[
-        Optional[bool],
+        bool | None,
         Doc(
             """
                 Boolean flag indicating if the handler
@@ -607,7 +607,7 @@ def whead(
         ),
     ] = None,
     security: Annotated[
-        Optional[List[SecurityScheme]],
+        List[SecurityScheme] | None,
         Doc(
             """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -623,7 +623,7 @@ def whead(
         ),
     ] = None,
     operation_id: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The unique identifier of the `handler`. This acts as a unique ID
@@ -636,7 +636,7 @@ def whead(
         ),
     ] = None,
     response_description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 A description of the response. This is used for OpenAPI documentation
@@ -645,7 +645,7 @@ def whead(
         ),
     ] = SUCCESSFUL_RESPONSE,
     responses: Annotated[
-        Optional[Dict[int, OpenAPIResponse]],
+        Dict[int, OpenAPIResponse] | None,
         Doc(
             """
                 Additional responses that are handled by the handler and need to be described
@@ -702,7 +702,7 @@ def whead(
 
 def whpost(
     path: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 Relative path of the `handler`.
@@ -725,7 +725,7 @@ def whpost(
     ] = None,
     *,
     summary: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The summary of the handler. This short summary is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -749,7 +749,7 @@ def whpost(
         ),
     ] = None,
     description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The description of the Esmerald application/API. This description is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -767,7 +767,7 @@ def whpost(
         ),
     ] = None,
     status_code: Annotated[
-        Optional[int],
+        int | None,
         Doc(
             """
                 An integer indicating the status code of the handler.
@@ -778,7 +778,7 @@ def whpost(
         ),
     ] = status.HTTP_201_CREATED,
     content_encoding: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The string indicating the content encoding of the handler.
@@ -789,7 +789,7 @@ def whpost(
         ),
     ] = None,
     content_media_type: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The string indicating the content media type of the handler.
@@ -808,7 +808,7 @@ def whpost(
         ),
     ] = True,
     background: Annotated[
-        Optional[BackgroundTaskType],
+        BackgroundTaskType | None,
         Doc(
             """
                 An instance of an `esmerald.background.BackgroundTask` or `esmerald.background.BackgroundTasks` to be passed onto the handler.
@@ -819,7 +819,7 @@ def whpost(
         ),
     ] = None,
     dependencies: Annotated[
-        Optional[Dependencies],
+        Dependencies | None,
         Doc(
             """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -827,7 +827,7 @@ def whpost(
         ),
     ] = None,
     exception_handlers: Annotated[
-        Optional[ExceptionHandlerMap],
+        ExceptionHandlerMap | None,
         Doc(
             """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -835,7 +835,7 @@ def whpost(
         ),
     ] = None,
     middleware: Annotated[
-        Optional[List[Middleware]],
+        List[Middleware] | None,
         Doc(
             """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -843,7 +843,7 @@ def whpost(
         ),
     ] = None,
     permissions: Annotated[
-        Optional[List[Permission]],
+        List[Permission] | None,
         Doc(
             """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -851,7 +851,7 @@ def whpost(
         ),
     ] = None,
     media_type: Annotated[
-        Union[MediaType, str],
+        MediaType | str,
         Doc(
             """
                 The default `media-type` used by the handler.
@@ -859,7 +859,7 @@ def whpost(
         ),
     ] = MediaType.JSON,
     response_class: Annotated[
-        Optional[ResponseType],
+        ResponseType | None,
         Doc(
             """
                 Response class to be used within the
@@ -879,7 +879,7 @@ def whpost(
         ),
     ] = None,
     response_cookies: Annotated[
-        Optional[ResponseCookies],
+        ResponseCookies | None,
         Doc(
             """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -907,7 +907,7 @@ def whpost(
         ),
     ] = None,
     response_headers: Annotated[
-        Optional[ResponseHeaders],
+        ResponseHeaders | None,
         Doc(
             """
                 A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -930,7 +930,7 @@ def whpost(
         ),
     ] = None,
     tags: Annotated[
-        Optional[Sequence[str]],
+        Sequence[str] | None,
         Doc(
             """
                 A list of strings tags to be applied to the *path operation*.
@@ -952,7 +952,7 @@ def whpost(
         ),
     ] = None,
     deprecated: Annotated[
-        Optional[bool],
+        bool | None,
         Doc(
             """
                 Boolean flag indicating if the handler
@@ -969,7 +969,7 @@ def whpost(
         ),
     ] = None,
     security: Annotated[
-        Optional[List[SecurityScheme]],
+        List[SecurityScheme] | None,
         Doc(
             """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -994,7 +994,7 @@ def whpost(
         ),
     ] = None,
     operation_id: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The unique identifier of the `handler`. This acts as a unique ID
@@ -1007,7 +1007,7 @@ def whpost(
         ),
     ] = None,
     response_description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 A description of the response. This is used for OpenAPI documentation
@@ -1016,7 +1016,7 @@ def whpost(
         ),
     ] = SUCCESSFUL_RESPONSE,
     responses: Annotated[
-        Optional[Dict[int, OpenAPIResponse]],
+        Dict[int, OpenAPIResponse] | None,
         Doc(
             """
                 Additional responses that are handled by the handler and need to be described
@@ -1110,7 +1110,7 @@ def whpost(
 
 def whput(
     path: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 Relative path of the `handler`.
@@ -1133,7 +1133,7 @@ def whput(
     ] = None,
     *,
     summary: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The summary of the handler. This short summary is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -1152,7 +1152,7 @@ def whput(
         ),
     ] = None,
     description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The description of the Esmerald application/API. This description is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -1170,7 +1170,7 @@ def whput(
         ),
     ] = None,
     status_code: Annotated[
-        Optional[int],
+        int | None,
         Doc(
             """
                 An integer indicating the status code of the handler.
@@ -1181,7 +1181,7 @@ def whput(
         ),
     ] = status.HTTP_200_OK,
     content_encoding: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The string indicating the content encoding of the handler.
@@ -1192,7 +1192,7 @@ def whput(
         ),
     ] = None,
     content_media_type: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The string indicating the content media type of the handler.
@@ -1211,7 +1211,7 @@ def whput(
         ),
     ] = True,
     background: Annotated[
-        Optional[BackgroundTaskType],
+        BackgroundTaskType | None,
         Doc(
             """
                 An instance of an `esmerald.background.BackgroundTask` or `esmerald.background.BackgroundTasks` to be passed onto the handler.
@@ -1222,7 +1222,7 @@ def whput(
         ),
     ] = None,
     dependencies: Annotated[
-        Optional[Dependencies],
+        Dependencies | None,
         Doc(
             """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -1230,7 +1230,7 @@ def whput(
         ),
     ] = None,
     exception_handlers: Annotated[
-        Optional[ExceptionHandlerMap],
+        ExceptionHandlerMap | None,
         Doc(
             """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -1238,7 +1238,7 @@ def whput(
         ),
     ] = None,
     middleware: Annotated[
-        Optional[List[Middleware]],
+        List[Middleware] | None,
         Doc(
             """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -1246,7 +1246,7 @@ def whput(
         ),
     ] = None,
     permissions: Annotated[
-        Optional[List[Permission]],
+        List[Permission] | None,
         Doc(
             """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -1254,7 +1254,7 @@ def whput(
         ),
     ] = None,
     media_type: Annotated[
-        Union[MediaType, str],
+        MediaType | str,
         Doc(
             """
                 The default `media-type` used by the handler.
@@ -1262,7 +1262,7 @@ def whput(
         ),
     ] = MediaType.JSON,
     response_class: Annotated[
-        Optional[ResponseType],
+        ResponseType | None,
         Doc(
             """
                 Response class to be used within the
@@ -1282,7 +1282,7 @@ def whput(
         ),
     ] = None,
     response_cookies: Annotated[
-        Optional[ResponseCookies],
+        ResponseCookies | None,
         Doc(
             """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -1310,7 +1310,7 @@ def whput(
         ),
     ] = None,
     response_headers: Annotated[
-        Optional[ResponseHeaders],
+        ResponseHeaders | None,
         Doc(
             """
                 A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -1333,7 +1333,7 @@ def whput(
         ),
     ] = None,
     tags: Annotated[
-        Optional[Sequence[str]],
+        Sequence[str] | None,
         Doc(
             """
                 A list of strings tags to be applied to the *path operation*.
@@ -1355,7 +1355,7 @@ def whput(
         ),
     ] = None,
     deprecated: Annotated[
-        Optional[bool],
+        bool | None,
         Doc(
             """
                 Boolean flag indicating if the handler
@@ -1372,7 +1372,7 @@ def whput(
         ),
     ] = None,
     security: Annotated[
-        Optional[List[SecurityScheme]],
+        List[SecurityScheme] | None,
         Doc(
             """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -1397,7 +1397,7 @@ def whput(
         ),
     ] = None,
     operation_id: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The unique identifier of the `handler`. This acts as a unique ID
@@ -1410,7 +1410,7 @@ def whput(
         ),
     ] = None,
     response_description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 A description of the response. This is used for OpenAPI documentation
@@ -1419,7 +1419,7 @@ def whput(
         ),
     ] = SUCCESSFUL_RESPONSE,
     responses: Annotated[
-        Optional[Dict[int, OpenAPIResponse]],
+        Dict[int, OpenAPIResponse] | None,
         Doc(
             """
                 Additional responses that are handled by the handler and need to be described
@@ -1513,7 +1513,7 @@ def whput(
 
 def whpatch(
     path: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 Relative path of the `handler`.
@@ -1536,7 +1536,7 @@ def whpatch(
     ] = None,
     *,
     summary: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The summary of the handler. This short summary is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -1555,7 +1555,7 @@ def whpatch(
         ),
     ] = None,
     description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The description of the Esmerald application/API. This description is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -1573,7 +1573,7 @@ def whpatch(
         ),
     ] = None,
     status_code: Annotated[
-        Optional[int],
+        int | None,
         Doc(
             """
                 An integer indicating the status code of the handler.
@@ -1584,7 +1584,7 @@ def whpatch(
         ),
     ] = status.HTTP_200_OK,
     content_encoding: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The string indicating the content encoding of the handler.
@@ -1595,7 +1595,7 @@ def whpatch(
         ),
     ] = None,
     content_media_type: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The string indicating the content media type of the handler.
@@ -1614,7 +1614,7 @@ def whpatch(
         ),
     ] = True,
     background: Annotated[
-        Optional[BackgroundTaskType],
+        BackgroundTaskType | None,
         Doc(
             """
                 An instance of an `esmerald.background.BackgroundTask` or `esmerald.background.BackgroundTasks` to be passed onto the handler.
@@ -1625,7 +1625,7 @@ def whpatch(
         ),
     ] = None,
     dependencies: Annotated[
-        Optional[Dependencies],
+        Dependencies | None,
         Doc(
             """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -1633,7 +1633,7 @@ def whpatch(
         ),
     ] = None,
     exception_handlers: Annotated[
-        Optional[ExceptionHandlerMap],
+        ExceptionHandlerMap | None,
         Doc(
             """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -1641,7 +1641,7 @@ def whpatch(
         ),
     ] = None,
     middleware: Annotated[
-        Optional[List[Middleware]],
+        List[Middleware] | None,
         Doc(
             """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -1649,7 +1649,7 @@ def whpatch(
         ),
     ] = None,
     permissions: Annotated[
-        Optional[List[Permission]],
+        List[Permission] | None,
         Doc(
             """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -1657,7 +1657,7 @@ def whpatch(
         ),
     ] = None,
     media_type: Annotated[
-        Union[MediaType, str],
+        MediaType | str,
         Doc(
             """
                 The default `media-type` used by the handler.
@@ -1665,7 +1665,7 @@ def whpatch(
         ),
     ] = MediaType.JSON,
     response_class: Annotated[
-        Optional[ResponseType],
+        ResponseType | None,
         Doc(
             """
                 Response class to be used within the
@@ -1685,7 +1685,7 @@ def whpatch(
         ),
     ] = None,
     response_cookies: Annotated[
-        Optional[ResponseCookies],
+        ResponseCookies | None,
         Doc(
             """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -1713,7 +1713,7 @@ def whpatch(
         ),
     ] = None,
     response_headers: Annotated[
-        Optional[ResponseHeaders],
+        ResponseHeaders | None,
         Doc(
             """
                 A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -1736,7 +1736,7 @@ def whpatch(
         ),
     ] = None,
     tags: Annotated[
-        Optional[Sequence[str]],
+        Sequence[str] | None,
         Doc(
             """
                 A list of strings tags to be applied to the *path operation*.
@@ -1758,7 +1758,7 @@ def whpatch(
         ),
     ] = None,
     deprecated: Annotated[
-        Optional[bool],
+        bool | None,
         Doc(
             """
                 Boolean flag indicating if the handler
@@ -1775,7 +1775,7 @@ def whpatch(
         ),
     ] = None,
     security: Annotated[
-        Optional[List[SecurityScheme]],
+        List[SecurityScheme] | None,
         Doc(
             """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -1800,7 +1800,7 @@ def whpatch(
         ),
     ] = None,
     operation_id: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The unique identifier of the `handler`. This acts as a unique ID
@@ -1813,7 +1813,7 @@ def whpatch(
         ),
     ] = None,
     response_description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 A description of the response. This is used for OpenAPI documentation
@@ -1822,7 +1822,7 @@ def whpatch(
         ),
     ] = SUCCESSFUL_RESPONSE,
     responses: Annotated[
-        Optional[Dict[int, OpenAPIResponse]],
+        Dict[int, OpenAPIResponse] | None,
         Doc(
             """
                 Additional responses that are handled by the handler and need to be described
@@ -1916,7 +1916,7 @@ def whpatch(
 
 def whdelete(
     path: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 Relative path of the `handler`.
@@ -1939,7 +1939,7 @@ def whdelete(
     ] = None,
     *,
     summary: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The summary of the handler. This short summary is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -1958,7 +1958,7 @@ def whdelete(
         ),
     ] = None,
     description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The description of the Esmerald application/API. This description is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -1976,7 +1976,7 @@ def whdelete(
         ),
     ] = None,
     status_code: Annotated[
-        Optional[int],
+        int | None,
         Doc(
             """
                 An integer indicating the status code of the handler.
@@ -1987,7 +1987,7 @@ def whdelete(
         ),
     ] = status.HTTP_204_NO_CONTENT,
     content_encoding: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The string indicating the content encoding of the handler.
@@ -1998,7 +1998,7 @@ def whdelete(
         ),
     ] = None,
     content_media_type: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The string indicating the content media type of the handler.
@@ -2017,7 +2017,7 @@ def whdelete(
         ),
     ] = True,
     background: Annotated[
-        Optional[BackgroundTaskType],
+        BackgroundTaskType | None,
         Doc(
             """
                 An instance of an `esmerald.background.BackgroundTask` or `esmerald.background.BackgroundTasks` to be passed onto the handler.
@@ -2028,7 +2028,7 @@ def whdelete(
         ),
     ] = None,
     dependencies: Annotated[
-        Optional[Dependencies],
+        Dependencies | None,
         Doc(
             """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -2036,7 +2036,7 @@ def whdelete(
         ),
     ] = None,
     exception_handlers: Annotated[
-        Optional[ExceptionHandlerMap],
+        ExceptionHandlerMap | None,
         Doc(
             """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -2044,7 +2044,7 @@ def whdelete(
         ),
     ] = None,
     middleware: Annotated[
-        Optional[List[Middleware]],
+        List[Middleware] | None,
         Doc(
             """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -2052,7 +2052,7 @@ def whdelete(
         ),
     ] = None,
     permissions: Annotated[
-        Optional[List[Permission]],
+        List[Permission] | None,
         Doc(
             """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -2060,7 +2060,7 @@ def whdelete(
         ),
     ] = None,
     media_type: Annotated[
-        Union[MediaType, str],
+        MediaType | str,
         Doc(
             """
                 The default `media-type` used by the handler.
@@ -2068,7 +2068,7 @@ def whdelete(
         ),
     ] = MediaType.JSON,
     response_class: Annotated[
-        Optional[ResponseType],
+        ResponseType | None,
         Doc(
             """
                 Response class to be used within the
@@ -2088,7 +2088,7 @@ def whdelete(
         ),
     ] = None,
     response_cookies: Annotated[
-        Optional[ResponseCookies],
+        ResponseCookies | None,
         Doc(
             """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -2116,7 +2116,7 @@ def whdelete(
         ),
     ] = None,
     response_headers: Annotated[
-        Optional[ResponseHeaders],
+        ResponseHeaders | None,
         Doc(
             """
                 A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -2139,7 +2139,7 @@ def whdelete(
         ),
     ] = None,
     tags: Annotated[
-        Optional[Sequence[str]],
+        Sequence[str] | None,
         Doc(
             """
                 A list of strings tags to be applied to the *path operation*.
@@ -2161,7 +2161,7 @@ def whdelete(
         ),
     ] = None,
     deprecated: Annotated[
-        Optional[bool],
+        bool | None,
         Doc(
             """
                 Boolean flag indicating if the handler
@@ -2178,7 +2178,7 @@ def whdelete(
         ),
     ] = None,
     security: Annotated[
-        Optional[List[SecurityScheme]],
+        List[SecurityScheme] | None,
         Doc(
             """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -2203,7 +2203,7 @@ def whdelete(
         ),
     ] = None,
     operation_id: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The unique identifier of the `handler`. This acts as a unique ID
@@ -2216,7 +2216,7 @@ def whdelete(
         ),
     ] = None,
     response_description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 A description of the response. This is used for OpenAPI documentation
@@ -2225,7 +2225,7 @@ def whdelete(
         ),
     ] = SUCCESSFUL_RESPONSE,
     responses: Annotated[
-        Optional[Dict[int, OpenAPIResponse]],
+        Dict[int, OpenAPIResponse] | None,
         Doc(
             """
                 Additional responses that are handled by the handler and need to be described
@@ -2319,7 +2319,7 @@ def whdelete(
 
 def whoptions(
     path: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 Relative path of the `handler`.
@@ -2330,7 +2330,7 @@ def whoptions(
     ] = None,
     *,
     summary: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The summary of the handler. This short summary is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -2338,7 +2338,7 @@ def whoptions(
         ),
     ] = None,
     description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The description of the Esmerald application/API. This description is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -2346,7 +2346,7 @@ def whoptions(
         ),
     ] = None,
     status_code: Annotated[
-        Optional[int],
+        int | None,
         Doc(
             """
                 An integer indicating the status code of the handler.
@@ -2357,7 +2357,7 @@ def whoptions(
         ),
     ] = status.HTTP_200_OK,
     content_encoding: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The string indicating the content encoding of the handler.
@@ -2368,7 +2368,7 @@ def whoptions(
         ),
     ] = None,
     content_media_type: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The string indicating the content media type of the handler.
@@ -2387,7 +2387,7 @@ def whoptions(
         ),
     ] = True,
     background: Annotated[
-        Optional[BackgroundTaskType],
+        BackgroundTaskType | None,
         Doc(
             """
                 An instance of an `esmerald.background.BackgroundTask` or `esmerald.background.BackgroundTasks` to be passed onto the handler.
@@ -2398,7 +2398,7 @@ def whoptions(
         ),
     ] = None,
     dependencies: Annotated[
-        Optional[Dependencies],
+        Dependencies | None,
         Doc(
             """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -2406,7 +2406,7 @@ def whoptions(
         ),
     ] = None,
     exception_handlers: Annotated[
-        Optional[ExceptionHandlerMap],
+        ExceptionHandlerMap | None,
         Doc(
             """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -2414,7 +2414,7 @@ def whoptions(
         ),
     ] = None,
     middleware: Annotated[
-        Optional[List[Middleware]],
+        List[Middleware] | None,
         Doc(
             """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -2422,7 +2422,7 @@ def whoptions(
         ),
     ] = None,
     permissions: Annotated[
-        Optional[List[Permission]],
+        List[Permission] | None,
         Doc(
             """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -2430,7 +2430,7 @@ def whoptions(
         ),
     ] = None,
     media_type: Annotated[
-        Union[MediaType, str],
+        MediaType | str,
         Doc(
             """
                 The default `media-type` used by the handler.
@@ -2438,7 +2438,7 @@ def whoptions(
         ),
     ] = MediaType.JSON,
     response_class: Annotated[
-        Optional[ResponseType],
+        ResponseType | None,
         Doc(
             """
                 Response class to be used within the
@@ -2450,7 +2450,7 @@ def whoptions(
         ),
     ] = None,
     response_cookies: Annotated[
-        Optional[ResponseCookies],
+        ResponseCookies | None,
         Doc(
             """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -2460,7 +2460,7 @@ def whoptions(
         ),
     ] = None,
     response_headers: Annotated[
-        Optional[ResponseHeaders],
+        ResponseHeaders | None,
         Doc(
             """
                 A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -2470,7 +2470,7 @@ def whoptions(
         ),
     ] = None,
     tags: Annotated[
-        Optional[Sequence[str]],
+        Sequence[str] | None,
         Doc(
             """
                 A list of strings tags to be applied to the *path operation*.
@@ -2484,7 +2484,7 @@ def whoptions(
         ),
     ] = None,
     deprecated: Annotated[
-        Optional[bool],
+        bool | None,
         Doc(
             """
                 Boolean flag indicating if the handler
@@ -2493,7 +2493,7 @@ def whoptions(
         ),
     ] = None,
     security: Annotated[
-        Optional[List[SecurityScheme]],
+        List[SecurityScheme] | None,
         Doc(
             """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -2509,7 +2509,7 @@ def whoptions(
         ),
     ] = None,
     operation_id: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The unique identifier of the `handler`. This acts as a unique ID
@@ -2522,7 +2522,7 @@ def whoptions(
         ),
     ] = None,
     response_description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 A description of the response. This is used for OpenAPI documentation
@@ -2531,7 +2531,7 @@ def whoptions(
         ),
     ] = SUCCESSFUL_RESPONSE,
     responses: Annotated[
-        Optional[Dict[int, OpenAPIResponse]],
+        Dict[int, OpenAPIResponse] | None,
         Doc(
             """
                 Additional responses that are handled by the handler and need to be described
@@ -2588,7 +2588,7 @@ def whoptions(
 
 def whtrace(
     path: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 Relative path of the `handler`.
@@ -2599,7 +2599,7 @@ def whtrace(
     ] = None,
     *,
     summary: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The summary of the handler. This short summary is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -2607,7 +2607,7 @@ def whtrace(
         ),
     ] = None,
     description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The description of the Esmerald application/API. This description is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -2615,7 +2615,7 @@ def whtrace(
         ),
     ] = None,
     status_code: Annotated[
-        Optional[int],
+        int | None,
         Doc(
             """
                 An integer indicating the status code of the handler.
@@ -2626,7 +2626,7 @@ def whtrace(
         ),
     ] = status.HTTP_200_OK,
     content_encoding: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The string indicating the content encoding of the handler.
@@ -2637,7 +2637,7 @@ def whtrace(
         ),
     ] = None,
     content_media_type: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The string indicating the content media type of the handler.
@@ -2656,7 +2656,7 @@ def whtrace(
         ),
     ] = True,
     background: Annotated[
-        Optional[BackgroundTaskType],
+        BackgroundTaskType | None,
         Doc(
             """
                 An instance of an `esmerald.background.BackgroundTask` or `esmerald.background.BackgroundTasks` to be passed onto the handler.
@@ -2667,7 +2667,7 @@ def whtrace(
         ),
     ] = None,
     dependencies: Annotated[
-        Optional[Dependencies],
+        Dependencies | None,
         Doc(
             """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -2675,7 +2675,7 @@ def whtrace(
         ),
     ] = None,
     exception_handlers: Annotated[
-        Optional[ExceptionHandlerMap],
+        ExceptionHandlerMap | None,
         Doc(
             """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -2683,7 +2683,7 @@ def whtrace(
         ),
     ] = None,
     middleware: Annotated[
-        Optional[List[Middleware]],
+        List[Middleware] | None,
         Doc(
             """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -2691,7 +2691,7 @@ def whtrace(
         ),
     ] = None,
     permissions: Annotated[
-        Optional[List[Permission]],
+        List[Permission] | None,
         Doc(
             """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -2699,7 +2699,7 @@ def whtrace(
         ),
     ] = None,
     media_type: Annotated[
-        Union[MediaType, str],
+        MediaType | str,
         Doc(
             """
                 The default `media-type` used by the handler.
@@ -2707,7 +2707,7 @@ def whtrace(
         ),
     ] = MediaType.JSON,
     response_class: Annotated[
-        Optional[ResponseType],
+        ResponseType | None,
         Doc(
             """
                 Response class to be used within the
@@ -2719,7 +2719,7 @@ def whtrace(
         ),
     ] = None,
     response_cookies: Annotated[
-        Optional[ResponseCookies],
+        ResponseCookies | None,
         Doc(
             """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -2729,7 +2729,7 @@ def whtrace(
         ),
     ] = None,
     response_headers: Annotated[
-        Optional[ResponseHeaders],
+        ResponseHeaders | None,
         Doc(
             """
                 A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -2739,7 +2739,7 @@ def whtrace(
         ),
     ] = None,
     tags: Annotated[
-        Optional[Sequence[str]],
+        Sequence[str] | None,
         Doc(
             """
                 A list of strings tags to be applied to the *path operation*.
@@ -2753,7 +2753,7 @@ def whtrace(
         ),
     ] = None,
     deprecated: Annotated[
-        Optional[bool],
+        bool | None,
         Doc(
             """
                 Boolean flag indicating if the handler
@@ -2762,7 +2762,7 @@ def whtrace(
         ),
     ] = None,
     security: Annotated[
-        Optional[List[SecurityScheme]],
+        List[SecurityScheme] | None,
         Doc(
             """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -2778,7 +2778,7 @@ def whtrace(
         ),
     ] = None,
     operation_id: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The unique identifier of the `handler`. This acts as a unique ID
@@ -2791,7 +2791,7 @@ def whtrace(
         ),
     ] = None,
     response_description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 A description of the response. This is used for OpenAPI documentation
@@ -2800,7 +2800,7 @@ def whtrace(
         ),
     ] = SUCCESSFUL_RESPONSE,
     responses: Annotated[
-        Optional[Dict[int, OpenAPIResponse]],
+        Dict[int, OpenAPIResponse] | None,
         Doc(
             """
                 Additional responses that are handled by the handler and need to be described
@@ -2858,7 +2858,7 @@ def whtrace(
 
 def whroute(
     path: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 Relative path of the `handler`.
@@ -2900,7 +2900,7 @@ def whroute(
         ),
     ] = None,
     summary: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The summary of the handler. This short summary is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -2919,7 +2919,7 @@ def whroute(
         ),
     ] = None,
     description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The description of the Esmerald application/API. This description is displayed when the [OpenAPI](https://esmerald.dev/openapi/) documentation is used.
@@ -2937,7 +2937,7 @@ def whroute(
         ),
     ] = None,
     status_code: Annotated[
-        Optional[int],
+        int | None,
         Doc(
             """
                 An integer indicating the status code of the handler.
@@ -2948,7 +2948,7 @@ def whroute(
         ),
     ] = status.HTTP_200_OK,
     content_encoding: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The string indicating the content encoding of the handler.
@@ -2959,7 +2959,7 @@ def whroute(
         ),
     ] = None,
     content_media_type: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The string indicating the content media type of the handler.
@@ -2978,7 +2978,7 @@ def whroute(
         ),
     ] = True,
     background: Annotated[
-        Optional[BackgroundTaskType],
+        BackgroundTaskType | None,
         Doc(
             """
                 An instance of an `esmerald.background.BackgroundTask` or `esmerald.background.BackgroundTasks` to be passed onto the handler.
@@ -2989,7 +2989,7 @@ def whroute(
         ),
     ] = None,
     dependencies: Annotated[
-        Optional[Dependencies],
+        Dependencies | None,
         Doc(
             """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -2997,7 +2997,7 @@ def whroute(
         ),
     ] = None,
     exception_handlers: Annotated[
-        Optional[ExceptionHandlerMap],
+        ExceptionHandlerMap | None,
         Doc(
             """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -3005,7 +3005,7 @@ def whroute(
         ),
     ] = None,
     middleware: Annotated[
-        Optional[List[Middleware]],
+        List[Middleware] | None,
         Doc(
             """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -3013,7 +3013,7 @@ def whroute(
         ),
     ] = None,
     permissions: Annotated[
-        Optional[List[Permission]],
+        List[Permission] | None,
         Doc(
             """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -3021,7 +3021,7 @@ def whroute(
         ),
     ] = None,
     media_type: Annotated[
-        Union[MediaType, str],
+        MediaType | str,
         Doc(
             """
                 The default `media-type` used by the handler.
@@ -3029,7 +3029,7 @@ def whroute(
         ),
     ] = MediaType.JSON,
     response_class: Annotated[
-        Optional[ResponseType],
+        ResponseType | None,
         Doc(
             """
                 Response class to be used within the
@@ -3049,7 +3049,7 @@ def whroute(
         ),
     ] = None,
     response_cookies: Annotated[
-        Optional[ResponseCookies],
+        ResponseCookies | None,
         Doc(
             """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -3077,7 +3077,7 @@ def whroute(
         ),
     ] = None,
     response_headers: Annotated[
-        Optional[ResponseHeaders],
+        ResponseHeaders | None,
         Doc(
             """
                 A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -3100,7 +3100,7 @@ def whroute(
         ),
     ] = None,
     tags: Annotated[
-        Optional[Sequence[str]],
+        Sequence[str] | None,
         Doc(
             """
                 A list of strings tags to be applied to the *path operation*.
@@ -3122,7 +3122,7 @@ def whroute(
         ),
     ] = None,
     deprecated: Annotated[
-        Optional[bool],
+        bool | None,
         Doc(
             """
                 Boolean flag indicating if the handler
@@ -3139,7 +3139,7 @@ def whroute(
         ),
     ] = None,
     security: Annotated[
-        Optional[List[SecurityScheme]],
+        List[SecurityScheme] | None,
         Doc(
             """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -3164,7 +3164,7 @@ def whroute(
         ),
     ] = None,
     operation_id: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 The unique identifier of the `handler`. This acts as a unique ID
@@ -3177,7 +3177,7 @@ def whroute(
         ),
     ] = None,
     response_description: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
                 A description of the response. This is used for OpenAPI documentation
@@ -3186,7 +3186,7 @@ def whroute(
         ),
     ] = SUCCESSFUL_RESPONSE,
     responses: Annotated[
-        Optional[Dict[int, OpenAPIResponse]],
+        Dict[int, OpenAPIResponse] | None,
         Doc(
             """
                 Additional responses that are handled by the handler and need to be described

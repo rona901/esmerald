@@ -1,4 +1,4 @@
-from typing import Optional
+from __future__ import annotations
 
 from pydantic import AnyUrl, BaseModel, ConfigDict
 
@@ -21,13 +21,13 @@ class License(BaseModel):
     **REQUIRED**. The license name used for the API.
     """
 
-    identifier: Optional[str] = None
+    identifier: str | None = None
     """
     An [SPDX](https://spdx.org/spdx-specification-21-web-version#h.jxpfx0ykyb60) license expression for the API.
     The `identifier` field is mutually exclusive of the `url` field.
     """
 
-    url: Optional[AnyUrl] = None
+    url: AnyUrl | None = None
     """
     A URL to the license used for the API.
     This MUST be in the form of a URL.

@@ -1,4 +1,4 @@
-from typing import Optional
+from __future__ import annotations
 
 from pydantic import BaseModel, ConfigDict
 
@@ -11,7 +11,7 @@ class XML(BaseModel):
     that information. See examples for expected behavior.
     """
 
-    name: Optional[str] = None
+    name: str | None = None
     """
     Replaces the name of the element/attribute used for the described schema property.
     When defined within `items`, it will affect the name of the individual XML elements within the list.
@@ -20,13 +20,13 @@ class XML(BaseModel):
     If `wrapped` is `false`, it will be ignored.
     """
 
-    namespace: Optional[str] = None
+    namespace: str | None = None
     """
     The URI of the namespace definition.
     Value MUST be in the form of an absolute URI.
     """
 
-    prefix: Optional[str] = None
+    prefix: str | None = None
     """
     The prefix to be used for the [name](https://spec.openapis.org/oas/v3.1.0#xmlName).
     """

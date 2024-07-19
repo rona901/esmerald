@@ -1,4 +1,6 @@
-from typing import Dict, List, Optional, Union
+from __future__ import annotations
+
+from typing import Dict, List
 
 from pydantic import BaseModel, ConfigDict
 
@@ -15,29 +17,29 @@ from .server import Server
 class Operation(BaseModel):
     """Describes a single API operation on a path."""
 
-    tags: Optional[List[str]] = None
+    tags: List[str] | None = None
     """
     A list of tags for API documentation control.
     Tags can be used for logical grouping of operations by resources or any other qualifier.
     """
 
-    summary: Optional[str] = None
+    summary: str | None = None
     """
     A short summary of what the operation does.
     """
 
-    description: Optional[str] = None
+    description: str | None = None
     """
     A verbose explanation of the operation behavior.
     [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
     """
 
-    externalDocs: Optional[ExternalDocumentation] = None
+    externalDocs: ExternalDocumentation | None = None
     """
     Additional external documentation for this operation.
     """
 
-    operationId: Optional[str] = None
+    operationId: str | None = None
     """
     Unique string used to identify the operation.
     The id MUST be unique among all operations described in the API.
@@ -46,7 +48,7 @@ class Operation(BaseModel):
     therefore, it is RECOMMENDED to follow common programming naming conventions.
     """
 
-    parameters: Optional[List[Union[Parameter, Reference]]] = None
+    parameters: List[Parameter | Reference] | None = None
     """
     A list of parameters that are applicable for this operation.
     If a parameter is already defined at the [Path Item](https://spec.openapis.org/oas/v3.1.0#pathItemParameters),
@@ -57,7 +59,7 @@ class Operation(BaseModel):
     that are defined at the [OpenAPI Object's components/parameters](https://spec.openapis.org/oas/v3.1.0#componentsParameters).
     """
 
-    requestBody: Optional[Union[RequestBody, Reference]] = None
+    requestBody: RequestBody | Reference | None = None
     """
     The request body applicable for this operation.
 
@@ -69,12 +71,12 @@ class Operation(BaseModel):
     `requestBody` is permitted but does not have well-defined semantics and SHOULD be avoided if possible.
     """
 
-    responses: Optional[Responses] = None
+    responses: Responses | None = None
     """
     The list of possible responses as they are returned from executing this operation.
     """
 
-    callbacks: Optional[Dict[str, Union[Callback, Reference]]] = None
+    callbacks: Dict[str, Callback | Reference] | None = None
     """
     A map of possible out-of band callbacks related to the parent operation.
     The key is a unique identifier for the Callback Object.
@@ -89,7 +91,7 @@ class Operation(BaseModel):
     Default value is `false`.
     """
 
-    security: Optional[List[SecurityRequirement]] = None
+    security: List[SecurityRequirement] | None = None
     """
     A declaration of which security mechanisms can be used for this operation.
     The list of values includes alternative security requirement objects that can be used.
@@ -99,7 +101,7 @@ class Operation(BaseModel):
     To remove a top-level security declaration, an empty array can be used.
     """
 
-    servers: Optional[List[Server]] = None
+    servers: List[Server] | None = None
     """
     An alternative `server` array to service this operation.
     If an alternative `server` object is specified at the Path Item Object or Root level,

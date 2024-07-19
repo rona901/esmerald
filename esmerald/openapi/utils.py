@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, List, Tuple, Union
+from typing import Any, Dict, List, Tuple
 
 from pydantic import TypeAdapter
 from pydantic.fields import FieldInfo
@@ -64,7 +64,7 @@ def get_schema_from_model_field(
     return json_schema
 
 
-def is_status_code_allowed(status_code: Union[int, str, None]) -> bool:
+def is_status_code_allowed(status_code: int | str | None) -> bool:
     if status_code is None:
         return True
     if status_code in ALLOWED_STATUS_CODE:

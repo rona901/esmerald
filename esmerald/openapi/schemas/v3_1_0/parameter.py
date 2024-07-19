@@ -1,4 +1,6 @@
-from typing import Any, Dict, Optional, Union
+from __future__ import annotations
+
+from typing import Any, Dict
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -32,7 +34,7 @@ class Parameter(BaseModel):
     **REQUIRED**. The location of the parameter. Possible values are `"query"`, `"header"`, `"path"` or `"cookie"`.
     """
 
-    description: Optional[str] = None
+    description: str | None = None
     """
     A brief description of the parameter.
     This could contain examples of use.
@@ -66,7 +68,7 @@ class Parameter(BaseModel):
     can describe the structure and syntax of the parameter.
     """
 
-    style: Optional[str] = None
+    style: str | None = None
     """
     Describes how the parameter value will be serialized depending on the type of the parameter value.
     Default values (based on value of `in`):
@@ -77,7 +79,7 @@ class Parameter(BaseModel):
     - for `cookie` - `form`.
     """
 
-    explode: Optional[bool] = None
+    explode: bool | None = None
     """
     When this is true, parameter values of type `array` or `object` generate separate parameters
     for each value of the array or key-value pair of the map.
@@ -95,12 +97,12 @@ class Parameter(BaseModel):
     The default value is `false`.
     """
 
-    param_schema: Optional[Union[Schema, Reference]] = Field(default=None, alias="schema")
+    param_schema: Schema | Reference | None = Field(default=None, alias="schema")
     """
     The schema defining the type used for the parameter.
     """
 
-    example: Optional[Any] = None
+    example: Any | None = None
     """
     Example of the parameter's potential value.
     The example SHOULD match the specified schema and encoding properties if present.
@@ -111,7 +113,7 @@ class Parameter(BaseModel):
     a string value can contain the example with escaping where necessary.
     """
 
-    examples: Optional[Dict[str, Union[Example, Reference]]] = None
+    examples: Dict[str, Example | Reference] | None = None
     """
     Examples of the parameter's potential value.
     Each example SHOULD contain a value in the correct format as specified in the parameter encoding.
@@ -126,7 +128,7 @@ class Parameter(BaseModel):
     the example MUST follow the prescribed serialization strategy for the parameter.
     """
 
-    content: Optional[Dict[str, MediaType]] = None
+    content: Dict[str, MediaType] | None = None
     """
     A map containing the representations for the parameter.
     The key is the media type and the value describes it.

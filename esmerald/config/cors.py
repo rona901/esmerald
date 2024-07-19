@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List
 
 from pydantic import BaseModel
 from typing_extensions import Annotated, Doc
@@ -68,7 +68,7 @@ class CORSConfig(BaseModel):
         ),
     ] = False
     allow_origin_regex: Annotated[
-        Optional[str],
+        str | None,
         Doc(
             """
             Regular expressio to match the origins against.

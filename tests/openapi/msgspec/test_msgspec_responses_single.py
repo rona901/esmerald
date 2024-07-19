@@ -1,4 +1,4 @@
-from typing import Union
+from __future__ import annotations
 
 from esmerald.datastructures.msgspec import Struct
 from esmerald.openapi.datastructures import OpenAPIResponse
@@ -10,7 +10,7 @@ from tests.settings import TestSettings
 
 class User(Struct):
     name: str
-    email: Union[str, None] = None
+    email: str | None = None
 
 
 @post(responses={203: OpenAPIResponse(model=User)})

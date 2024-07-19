@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Dict
 
 from lilya.types import ASGIApp, Receive, Scope, Send
@@ -10,11 +12,11 @@ from esmerald.testclient import create_client
 
 
 class StateRequestMiddleWare(MiddlewareProtocol):
-    def __init__(self, app: "ASGIApp"):
+    def __init__(self, app: ASGIApp):
         super().__init__(app)
         self.app = app
 
-    async def __call__(self, scope: "Scope", receive: "Receive", send: "Send") -> None:
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
         scope["state"]["test"] = "test"
         await self.app(scope, receive, send)
 

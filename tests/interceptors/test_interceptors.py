@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from lilya.types import Receive, Scope, Send
 from loguru import logger
 from pydantic import BaseModel
@@ -14,13 +16,13 @@ class ErrorInterceptor(EsmeraldInterceptor):
 
 
 class TestInterceptor(EsmeraldInterceptor):
-    async def intercept(self, scope: "Scope", receive: "Receive", send: "Send") -> None:
+    async def intercept(self, scope: Scope, receive: Receive, send: Send) -> None:
         request = Request(scope=scope, receive=receive, send=send)
         request.path_params["name"] = "intercept"
 
 
 class CookieInterceptor(EsmeraldInterceptor):
-    async def intercept(self, scope: "Scope", receive: "Receive", send: "Send") -> None:
+    async def intercept(self, scope: Scope, receive: Receive, send: Send) -> None:
         request = Request(scope=scope, receive=receive, send=send)
         csrf_token = request.cookies["csrftoken"]
 
@@ -31,12 +33,12 @@ class CookieInterceptor(EsmeraldInterceptor):
 
 
 class LoggingInterceptor(EsmeraldInterceptor):
-    async def intercept(self, scope: "Scope", receive: "Receive", send: "Send") -> None:
+    async def intercept(self, scope: Scope, receive: Receive, send: Send) -> None:
         logger.info("Intercepted for logging")
 
 
 class DummyInterceptor:
-    async def intercept(self, scope: "Scope", receive: "Receive", send: "Send") -> None:
+    async def intercept(self, scope: Scope, receive: Receive, send: Send) -> None:
         request = Request(scope=scope, receive=receive, send=send)
         request.path_params["name"] = "intercept"
 

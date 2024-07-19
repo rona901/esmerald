@@ -1,4 +1,6 @@
-from typing import Any, Optional
+from __future__ import annotations
+
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict
 
@@ -20,18 +22,18 @@ class Example(BaseModel):
             ]
         },
     )
-    summary: Optional[str] = None
+    summary: str | None = None
     """
     Short description for the example.
     """
 
-    description: Optional[str] = None
+    description: str | None = None
     """
     Long description for the example.
     [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
     """
 
-    value: Optional[Any] = None
+    value: Any | None = None
     """
     Embedded literal example.
     The `value` field and `externalValue` field are mutually exclusive.
@@ -39,7 +41,7 @@ class Example(BaseModel):
     use a string value to contain the example, escaping where necessary.
     """
 
-    externalValue: Optional[str] = None
+    externalValue: str | None = None
     """
     A URL that points to the literal example.
     This provides the capability to reference examples that cannot easily be included in JSON or YAML documents.

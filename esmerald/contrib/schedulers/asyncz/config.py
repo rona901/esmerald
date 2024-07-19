@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import warnings
 from datetime import datetime, timezone as dtimezone
-from typing import Any, Callable, Dict, Union, cast
+from typing import Any, Callable, Dict, cast
 
 from asyncz.schedulers import AsyncIOScheduler
 from asyncz.triggers.types import TriggerType
@@ -25,9 +25,9 @@ class AsynczConfig(SchedulerConfig):
     def __init__(
         self,
         scheduler_class: SchedulerCallable = AsyncIOScheduler,
-        tasks: Union[Dict[str, str]] = None,
-        timezone: Union[dtimezone, str, None] = None,
-        configurations: Union[Dict[str, Dict[str, str]], None] = None,
+        tasks: Dict[str, str] = None,
+        timezone: dtimezone | str | None = None,
+        configurations: Dict[str, Dict[str, str]] | None = None,
         **kwargs: Dict[str, Any],
     ):
         """
@@ -90,8 +90,8 @@ class AsynczConfig(SchedulerConfig):
     def get_scheduler(
         self,
         scheduler: SchedulerCallable,
-        timezone: Union[dtimezone, str, None] = None,
-        configurations: Union[Dict[str, Any], None] = None,
+        timezone: dtimezone | str | None = None,
+        configurations: Dict[str, Any] | None = None,
         **options: Dict[str, Any],
     ) -> SchedulerCallable:
         """
@@ -148,18 +148,18 @@ class Task:
     def __init__(
         self,
         *,
-        name: Union[str, None] = None,
-        trigger: Union[TriggerType, None] = None,
-        id: Union[str, None] = None,
-        mistrigger_grace_time: Union[int, None] = None,
-        coalesce: Union[bool, None] = None,
-        max_instances: Union[int, None] = None,
-        next_run_time: Union[datetime, None] = None,
+        name: str | None = None,
+        trigger: TriggerType | None = None,
+        id: str | None = None,
+        mistrigger_grace_time: int | None = None,
+        coalesce: bool | None = None,
+        max_instances: int | None = None,
+        next_run_time: datetime | None = None,
         store: str = "default",
         executor: str = "default",
         replace_existing: bool = False,
-        args: Union[Any, None] = None,
-        kwargs: Union[Dict[str, Any], None] = None,
+        args: Any | None = None,
+        kwargs: Dict[str, Any] | None = None,
         is_enabled: bool = True,
     ) -> None:
         """

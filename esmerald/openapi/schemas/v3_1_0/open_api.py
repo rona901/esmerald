@@ -1,4 +1,6 @@
-from typing import Dict, List, Optional, Union
+from __future__ import annotations
+
+from typing import Dict, List
 
 from pydantic import BaseModel, ConfigDict
 
@@ -29,7 +31,7 @@ class OpenAPI(BaseModel):
     **REQUIRED**. Provides metadata about the API. The metadata MAY be used by tooling as required.
     """
 
-    jsonSchemaDialect: Optional[str] = None
+    jsonSchemaDialect: str | None = None
     """
     The default value for the `$schema` keyword within [Schema Objects](https://spec.openapis.org/oas/v3.1.0#schemaObject)
     contained within this OAS document. This MUST be in the form of a URI.
@@ -43,12 +45,12 @@ class OpenAPI(BaseModel):
     with a [url](https://spec.openapis.org/oas/v3.1.0#serverUrl) value of `/`.
     """
 
-    paths: Optional[Paths] = None
+    paths: Paths | None = None
     """
     The available paths and operations for the API.
     """
 
-    webhooks: Optional[Dict[str, Union[PathItem, Reference]]] = None
+    webhooks: Dict[str, PathItem | Reference] | None = None
     """
     The incoming webhooks that MAY be received as part of this API and that the API consumer MAY choose to implement.
     Closely related to the `callbacks` feature, this section describes requests initiated other than by an API call,
@@ -59,12 +61,12 @@ class OpenAPI(BaseModel):
     An [example](https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v3.1/webhook-example.yaml) is available.
     """
 
-    components: Optional[Components] = None
+    components: Components | None = None
     """
     An element to hold various schemas for the document.
     """
 
-    security: Optional[List[SecurityRequirement]] = None
+    security: List[SecurityRequirement] | None = None
     """
     A declaration of which security mechanisms can be used across the API.
     The list of values includes alternative security requirement objects that can be used.
@@ -73,7 +75,7 @@ class OpenAPI(BaseModel):
     To make security optional, an empty security requirement (`{}`) can be included in the array.
     """
 
-    tags: Optional[List[Tag]] = None
+    tags: List[Tag] | None = None
     """
     A list of tags used by the document with additional metadata.
     The order of the tags can be used to reflect on their order by the parsing tools.
@@ -82,7 +84,7 @@ class OpenAPI(BaseModel):
     Each tag name in the list MUST be unique.
     """
 
-    externalDocs: Optional[ExternalDocumentation] = None
+    externalDocs: ExternalDocumentation | None = None
     """
     Additional external documentation.
     """

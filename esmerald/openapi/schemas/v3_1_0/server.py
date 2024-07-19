@@ -1,4 +1,6 @@
-from typing import Dict, Optional
+from __future__ import annotations
+
+from typing import Dict
 
 from pydantic import BaseModel, ConfigDict
 
@@ -17,13 +19,13 @@ class Server(BaseModel):
     Variable substitutions will be made when a variable is named in `{`brackets`}`.
     """
 
-    description: Optional[str] = None
+    description: str | None = None
     """
     An optional string describing the host designated by the URL.
     [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
     """
 
-    variables: Optional[Dict[str, ServerVariable]] = None
+    variables: Dict[str, ServerVariable] | None = None
     """
     A map between a variable name and its value.
 

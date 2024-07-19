@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import logging
 import sys
-from typing import Any, Optional
+from typing import Any
 
 from loguru import logger
 
@@ -14,7 +16,7 @@ class DevelopmentAppSettings(EsmeraldAPISettings):
     debug: bool = True
     app_name: str = "My application in development mode."
     title: str = "My linezap"
-    environment: Optional[str] = EnvironmentType.DEVELOPMENT
+    environment: str | None = EnvironmentType.DEVELOPMENT
 
     def __init__(self, *args: Any, **kwds: Any) -> Any:
         super().__init__(*args, **kwds)
