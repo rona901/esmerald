@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from http import HTTPStatus
-from inspect import Signature
 from typing import TYPE_CHECKING, Any, Dict, cast
 
 from typing_extensions import get_args, get_origin
@@ -10,6 +9,7 @@ from esmerald.datastructures import File, Redirect, Stream, Template
 from esmerald.enums import MediaType
 from esmerald.openapi._internal import InternalResponse
 from esmerald.responses import Response as EsmeraldResponse
+from esmerald.utils.signature import Signature
 
 if TYPE_CHECKING:  # pragma: no cover
     from esmerald.routing.router import HTTPHandler

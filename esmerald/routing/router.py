@@ -3,7 +3,6 @@ from __future__ import annotations
 import inspect
 from copy import copy
 from enum import IntEnum
-from inspect import Signature
 from typing import (
     TYPE_CHECKING,
     Any,
@@ -67,6 +66,7 @@ from esmerald.transformers.utils import get_signature
 from esmerald.typing import Void, VoidType
 from esmerald.utils.constants import DATA, PAYLOAD, REDIRECT_STATUS_CODES, REQUEST, SOCKET
 from esmerald.utils.helpers import is_async_callable, is_class_and_subclass
+from esmerald.utils.signature import Signature
 from esmerald.websockets import WebSocket, WebSocketClose
 
 if TYPE_CHECKING:  # pragma: no cover

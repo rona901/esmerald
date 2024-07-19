@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import re
-from inspect import Parameter as InspectParameter, Signature as InspectSignature
+from inspect import Parameter as InspectParameter
 from typing import (
     TYPE_CHECKING,
     Any,
@@ -28,6 +28,7 @@ from esmerald.transformers.utils import get_connection_info, get_field_definitio
 from esmerald.typing import Undefined
 from esmerald.utils.dependency import is_dependency_field, should_skip_dependency_validation
 from esmerald.utils.helpers import is_optional_union
+from esmerald.utils.signature import Signature as InspectSignature
 from esmerald.websockets import WebSocket
 
 if TYPE_CHECKING:
