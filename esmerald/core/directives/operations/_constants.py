@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))

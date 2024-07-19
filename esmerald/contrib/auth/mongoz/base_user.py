@@ -74,7 +74,7 @@ class AbstractUser(mongoz.Document):
         if not username:
             raise ValueError("The given username must be set")
         password = make_password(password)
-        user: "mongoz.Document" = await cls.objects.create(
+        user: mongoz.Document = await cls.objects.create(
             username=username, email=email, password=password, **extra_fields
         )
         return cast("AbstractUser", user)

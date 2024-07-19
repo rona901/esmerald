@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, List, Union
 
 from esmerald.exceptions import MissingDependency, TemplateNotFound
@@ -15,7 +17,7 @@ except ImportError as exc:  # pragma: no cover
 
 
 class MakoTemplateEngine(TemplateEngineProtocol[MakoTemplate]):
-    def __init__(self, directory: Union["DirectoryPath", List["DirectoryPath"]]) -> None:
+    def __init__(self, directory: Union[DirectoryPath, List[DirectoryPath]]) -> None:
         super().__init__(directory)
         self.engine = TemplateLookup(
             directories=directory if isinstance(directory, (list, tuple)) else [directory]

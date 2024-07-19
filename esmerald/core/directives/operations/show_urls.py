@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import inspect
 import os
 import sys
@@ -73,7 +75,7 @@ def show_urls(env: DirectiveEnv) -> None:
     printer.write(table)
 
 
-def get_routes_table(app: Optional[Union["Esmerald", "ChildEsmerald"]], table: Table) -> Table:
+def get_routes_table(app: Optional[Union[Esmerald, ChildEsmerald]], table: Table) -> Table:
     """Prints the routing system"""
     table.add_column("Path", style=OutputColour.GREEN, vertical="middle")
     table.add_column("Path Parameters", style=OutputColour.BRIGHT_CYAN, vertical="middle")
@@ -82,7 +84,7 @@ def get_routes_table(app: Optional[Union["Esmerald", "ChildEsmerald"]], table: T
     table.add_column("HTTP Methods", style=OutputColour.RED, vertical="middle")
 
     def parse_routes(
-        app: Optional[Union["Esmerald", "ChildEsmerald", "Router", "BasePath"]],
+        app: Optional[Union[Esmerald, ChildEsmerald, Router, BasePath]],
         table: Table,
         route: Optional[Any] = None,
         prefix: Optional[str] = "",

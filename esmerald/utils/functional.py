@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import copy
 import operator
 from typing import Any, Callable, TypeVar
@@ -130,7 +132,7 @@ class SimpleLazyObject(LazyObject):  # pragma: no cover
             repr_attr = self._setupfunc
         else:
             repr_attr = self._wrapped
-        return "<{}: {!r}>".format(type(self).__name__, repr_attr)
+        return f"<{type(self).__name__}: {repr_attr!r}>"
 
     def __copy__(self) -> Any:
         if self._wrapped is empty:

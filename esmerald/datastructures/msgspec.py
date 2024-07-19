@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any, Callable, Iterable, Type, cast
 
 import msgspec
@@ -48,17 +50,17 @@ class Struct(msgspec.Struct):
     """
 
     @classmethod
-    def __get_validators__(cls: Type["Struct"]) -> Iterable[Callable[..., Any]]:
+    def __get_validators__(cls: Type[Struct]) -> Iterable[Callable[..., Any]]:
         yield cls.validate
 
     @classmethod
-    def validate(cls: Type["Struct"], v: Any) -> Any:
+    def validate(cls: Type[Struct], v: Any) -> Any:
         if not isinstance(v, msgspec.Struct):
             raise ValueError(f"Expected `esmerald.datastructures.msgspec.Struct`, got: {type(v)}")
         return v
 
     @classmethod
-    def _validate(cls, __input_value: Any, _: Any) -> "Struct":
+    def _validate(cls, __input_value: Any, _: Any) -> Struct:
         try:
             return msgspec.json.decode(msgspec.json.encode(__input_value), type=cls)
         except ValidationError as e:

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Optional
 
 from lilya._internal._connection import Connection as Connection  # noqa: F401

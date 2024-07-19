@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from datetime import date, datetime, time, timedelta
 from decimal import Decimal
 from enum import Enum
@@ -129,7 +131,7 @@ class BaseSignature:
         else:
             self.websocket_parameter_model = transformer_model
 
-    def create_handler_transformer_model(self) -> "TransformerModel":
+    def create_handler_transformer_model(self) -> TransformerModel:
         """Method to create a TransformerModel for a given handler."""
         dependencies = self.get_dependencies()
         signature_model = get_signature(self)
@@ -148,7 +150,7 @@ class BaseResponseHandler:
 
     @staticmethod
     async def _get_response_data(
-        route: "HTTPHandler", parameter_model: "TransformerModel", request: Request
+        route: HTTPHandler, parameter_model: TransformerModel, request: Request
     ) -> Any:
         """
         Determine required kwargs for the given handler, assign to the object dictionary, and get the response data.
@@ -199,10 +201,10 @@ class BaseResponseHandler:
 
     def _get_response_container_handler(
         self,
-        cookies: "ResponseCookies",
+        cookies: ResponseCookies,
         headers: Dict[str, Any],
         media_type: str,
-    ) -> Callable[[ResponseContainer, Type["Esmerald"], Dict[str, Any]], LilyaResponse]:
+    ) -> Callable[[ResponseContainer, Type[Esmerald], Dict[str, Any]], LilyaResponse]:
         """
         Creates a handler for ResponseContainer types.
 
@@ -217,7 +219,7 @@ class BaseResponseHandler:
         """
 
         async def response_content(
-            data: ResponseContainer, app: Type["Esmerald"], **kwargs: Dict[str, Any]
+            data: ResponseContainer, app: Type[Esmerald], **kwargs: Dict[str, Any]
         ) -> LilyaResponse:
             _headers = {**self.get_headers(headers), **data.headers}
             _cookies = self.get_cookies(data.cookies, cookies)
@@ -237,7 +239,7 @@ class BaseResponseHandler:
         )
 
     def _get_json_response_handler(
-        self, cookies: "ResponseCookies", headers: Dict[str, Any]
+        self, cookies: ResponseCookies, headers: Dict[str, Any]
     ) -> Callable[[Response, Dict[str, Any]], LilyaResponse]:
         """
         Creates a handler function for JSON responses.
@@ -270,7 +272,7 @@ class BaseResponseHandler:
         return cast(Callable[[Response, Dict[str, Any]], LilyaResponse], response_content)
 
     def _get_response_handler(
-        self, cookies: "ResponseCookies", headers: Dict[str, Any], media_type: str
+        self, cookies: ResponseCookies, headers: Dict[str, Any], media_type: str
     ) -> Callable[[Response, Dict[str, Any]], LilyaResponse]:
         """
         Creates a handler function for Response types.
@@ -307,7 +309,7 @@ class BaseResponseHandler:
         return cast(Callable[[Response, Dict[str, Any]], LilyaResponse], response_content)
 
     def _get_lilya_response_handler(
-        self, cookies: "ResponseCookies", headers: Dict[str, Any]
+        self, cookies: ResponseCookies, headers: Dict[str, Any]
     ) -> Callable[[LilyaResponse, Dict[str, Any]], LilyaResponse]:
         """
         Creates a handler function for Lilya Responses.
@@ -338,7 +340,7 @@ class BaseResponseHandler:
 
     def _get_default_handler(
         self,
-        cookies: "ResponseCookies",
+        cookies: ResponseCookies,
         headers: Dict[str, Any],
         media_type: str,
         response_class: Any,
@@ -425,11 +427,11 @@ class BaseDispatcher(BaseResponseHandler):
 
     async def get_response_for_request(
         self,
-        scope: "Scope",
+        scope: Scope,
         request: Request,
-        route: "HTTPHandler",
-        parameter_model: "TransformerModel",
-    ) -> "LilyaResponse":
+        route: HTTPHandler,
+        parameter_model: TransformerModel,
+    ) -> LilyaResponse:
         """
         Get response for the given request using the specified route and parameter model.
 
@@ -452,10 +454,10 @@ class BaseDispatcher(BaseResponseHandler):
 
     async def call_handler_function(
         self,
-        scope: "Scope",
+        scope: Scope,
         request: Request,
-        route: "HTTPHandler",
-        parameter_model: "TransformerModel",
+        route: HTTPHandler,
+        parameter_model: TransformerModel,
     ) -> Any:
         """
         Call the handler function for the given request and return the response data.
@@ -637,7 +639,7 @@ class Dispatcher(BaseSignature, BaseDispatcher, OpenAPIDefinitionMixin):
         level_dependencies = (level.dependencies or {} for level in self.parent_levels)
         return {name for level in level_dependencies for name in level.keys()}
 
-    def get_permissions(self) -> List["AsyncCallable"]:
+    def get_permissions(self) -> List[AsyncCallable]:
         """
         Returns all the permissions in the handler scope from the ownership layers.
 
@@ -659,7 +661,7 @@ class Dispatcher(BaseSignature, BaseDispatcher, OpenAPIDefinitionMixin):
         - The permissions are collected from all parent levels, ensuring that there are no duplicate permissions in the final list.
         """
         if self._permissions is Void:
-            self._permissions: Union[List["Permission"], "VoidType"] = []
+            self._permissions: Union[List[Permission], VoidType] = []
             for layer in self.parent_levels:
                 self._permissions.extend(layer.permissions or [])
             self._permissions = cast(
@@ -668,7 +670,7 @@ class Dispatcher(BaseSignature, BaseDispatcher, OpenAPIDefinitionMixin):
             )
         return cast("List[AsyncCallable]", self._permissions)
 
-    def get_dependencies(self) -> "Dependencies":
+    def get_dependencies(self) -> Dependencies:
         """
         Returns all dependencies of the handler function's starting from the parent levels.
 
@@ -697,7 +699,7 @@ class Dispatcher(BaseSignature, BaseDispatcher, OpenAPIDefinitionMixin):
             )
 
         if not self._dependencies or self._dependencies is Void:
-            self._dependencies: "Dependencies" = {}
+            self._dependencies: Dependencies = {}
             for level in self.parent_levels:
                 for key, value in (level.dependencies or {}).items():
                     self.is_unique_dependency(
@@ -709,7 +711,7 @@ class Dispatcher(BaseSignature, BaseDispatcher, OpenAPIDefinitionMixin):
         return self._dependencies
 
     @staticmethod
-    def is_unique_dependency(dependencies: "Dependencies", key: str, injector: Inject) -> None:
+    def is_unique_dependency(dependencies: Dependencies, key: str, injector: Inject) -> None:
         """
         Validates that a given inject has not been already defined under a different key in any of the levels.
 
@@ -744,7 +746,7 @@ class Dispatcher(BaseSignature, BaseDispatcher, OpenAPIDefinitionMixin):
                 )
 
     def get_cookies(
-        self, local_cookies: "ResponseCookies", other_cookies: "ResponseCookies"
+        self, local_cookies: ResponseCookies, other_cookies: ResponseCookies
     ) -> List[Dict[str, Any]]:  # pragma: no cover
         """
         Returns a unique list of cookies.
@@ -791,7 +793,7 @@ class Dispatcher(BaseSignature, BaseDispatcher, OpenAPIDefinitionMixin):
             )
         return normalized_cookies
 
-    def get_headers(self, headers: "ResponseHeaders") -> Dict[str, Any]:
+    def get_headers(self, headers: ResponseHeaders) -> Dict[str, Any]:
         """
         Returns a dictionary of response headers.
 
@@ -840,7 +842,7 @@ class Dispatcher(BaseSignature, BaseDispatcher, OpenAPIDefinitionMixin):
             data = await data
         return data
 
-    async def allow_connection(self, connection: "Connection") -> None:  # pragma: no cover
+    async def allow_connection(self, connection: Connection) -> None:  # pragma: no cover
         """
         Validates the connection and handles permissions for each view.
 
@@ -858,12 +860,12 @@ class Dispatcher(BaseSignature, BaseDispatcher, OpenAPIDefinitionMixin):
         - PermissionDenied: If the connection is not allowed.
         """
         for permission in self.get_permissions():
-            awaitable: "BasePermission" = cast("BasePermission", await permission())
-            request: "Request" = cast("Request", connection)
+            awaitable: BasePermission = cast("BasePermission", await permission())
+            request: Request = cast("Request", connection)
             handler = cast("APIGateHandler", self)
             await continue_or_raise_permission_exception(request, handler, awaitable)
 
-    def get_security_schemes(self) -> List["SecurityScheme"]:
+    def get_security_schemes(self) -> List[SecurityScheme]:
         """
         Returns a list of all security schemes associated with the handler.
 
@@ -884,7 +886,7 @@ class Dispatcher(BaseSignature, BaseDispatcher, OpenAPIDefinitionMixin):
         - Each security scheme is represented by an instance of the SecurityScheme class.
         - The SecurityScheme class has attributes such as name, type, scheme, bearer_format, in_, and name, which provide information about the security scheme.
         """
-        security_schemes: List["SecurityScheme"] = []
+        security_schemes: List[SecurityScheme] = []
         for layer in self.parent_levels:
             security_schemes.extend(layer.security or [])
         return security_schemes
@@ -921,7 +923,7 @@ class Dispatcher(BaseSignature, BaseDispatcher, OpenAPIDefinitionMixin):
 
         return tags_clean if tags_clean else None
 
-    def get_interceptors(self) -> List["AsyncCallable"]:
+    def get_interceptors(self) -> List[AsyncCallable]:
         """
         Returns a list of all the interceptors in the handler scope from the ownership layers.
         If the interceptors have not been initialized, it initializes them by collecting interceptors from each parent level.
@@ -941,7 +943,7 @@ class Dispatcher(BaseSignature, BaseDispatcher, OpenAPIDefinitionMixin):
         - The AsyncCallable class provides a way to call the interceptor asynchronously.
         """
         if self._interceptors is Void:
-            self._interceptors: Union[List["Interceptor"], "VoidType"] = []
+            self._interceptors: Union[List[Interceptor], VoidType] = []
             for layer in self.parent_levels:
                 self._interceptors.extend(layer.interceptors or [])
             self._interceptors = cast(
@@ -950,7 +952,7 @@ class Dispatcher(BaseSignature, BaseDispatcher, OpenAPIDefinitionMixin):
             )
         return cast("List[AsyncCallable]", self._interceptors)
 
-    async def intercept(self, scope: "Scope", receive: "Receive", send: "Send") -> None:
+    async def intercept(self, scope: Scope, receive: Receive, send: Send) -> None:
         """
         Executes all the interceptors in the handler scope before reaching any of the handlers.
 
@@ -975,5 +977,5 @@ class Dispatcher(BaseSignature, BaseDispatcher, OpenAPIDefinitionMixin):
         - The `intercept` method is responsible for executing the interceptors in the handler scope.
         """
         for interceptor in self.get_interceptors():
-            awaitable: "EsmeraldInterceptor" = await interceptor()
+            awaitable: EsmeraldInterceptor = await interceptor()
             await awaitable.intercept(scope, receive, send)

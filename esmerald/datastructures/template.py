@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Any, Dict, Optional, Type, Union
 
 from typing_extensions import Annotated, Doc
@@ -74,10 +76,10 @@ class Template(ResponseContainer[TemplateResponse]):
     def to_response(
         self,
         headers: Dict[str, Any],
-        media_type: Union["MediaType", str],
+        media_type: Union[MediaType, str],
         status_code: int,
-        app: Type["Esmerald"],
-    ) -> "TemplateResponse":
+        app: Type[Esmerald],
+    ) -> TemplateResponse:
         from esmerald.exceptions import ImproperlyConfigured
         from esmerald.responses import TemplateResponse
 

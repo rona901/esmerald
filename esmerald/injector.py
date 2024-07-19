@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Any, Dict, Optional, Tuple, Type, Union
 
 from esmerald.core.di.provider import load_provider
@@ -11,7 +13,7 @@ if TYPE_CHECKING:  # pragma: no cover
 
 
 class Factory:
-    def __init__(self, provides: Union["AnyCallable", str], *args: Any) -> None:
+    def __init__(self, provides: Union[AnyCallable, str], *args: Any) -> None:
         """
         The provider can be passed in separate ways. Via direct callable
         or via string value where it will be automatically imported by the application.
@@ -29,7 +31,7 @@ class Factory:
         self.__args = args
 
     @property
-    def cls(self) -> "AnyCallable":  # pragma: no cover
+    def cls(self) -> AnyCallable:  # pragma: no cover
         """Return provided type."""
         return self.provides
 
@@ -53,10 +55,10 @@ class Factory:
 
 
 class Inject(ArbitraryHashableBaseModel):
-    def __init__(self, dependency: "AnyCallable", use_cache: bool = False, **kwargs: Any):
+    def __init__(self, dependency: AnyCallable, use_cache: bool = False, **kwargs: Any):
         super().__init__(**kwargs)
         self.dependency = dependency
-        self.signature_model: Optional["Type[SignatureModel]"] = None
+        self.signature_model: Optional[Type[SignatureModel]] = None
         self.use_cache = use_cache
         self.value: Any = Void
 

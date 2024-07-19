@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from copy import copy
 from typing import TYPE_CHECKING, Dict, List, Optional, Sequence, Tuple, Union, cast
 
@@ -76,7 +78,7 @@ class View:
         ),
     ]
     dependencies: Annotated[
-        Optional["Dependencies"],
+        Optional[Dependencies],
         Doc(
             """
             A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -84,7 +86,7 @@ class View:
         ),
     ]
     exception_handlers: Annotated[
-        Optional["ExceptionHandlerMap"],
+        Optional[ExceptionHandlerMap],
         Doc(
             """
             A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -92,7 +94,7 @@ class View:
         ),
     ]
     permissions: Annotated[
-        Optional[List["Permission"]],
+        Optional[List[Permission]],
         Doc(
             """
             A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -100,7 +102,7 @@ class View:
         ),
     ]
     interceptors: Annotated[
-        Optional[Sequence["Interceptor"]],
+        Optional[Sequence[Interceptor]],
         Doc(
             """
             A list of [interceptors](https://esmerald.dev/interceptors/) to serve the application incoming requests (HTTP and Websockets).
@@ -108,7 +110,7 @@ class View:
         ),
     ]
     middleware: Annotated[
-        Optional[List["Middleware"]],
+        Optional[List[Middleware]],
         Doc(
             """
             A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -116,7 +118,7 @@ class View:
         ),
     ]
     parent: Annotated[
-        Optional[Union["Gateway", "WebSocketGateway"]],
+        Optional[Union[Gateway, WebSocketGateway]],
         Doc(
             """
             Used internally by Esmerald to recognise and build the [application levels](https://esmerald.dev/application/levels/).
@@ -127,7 +129,7 @@ class View:
         ),
     ]
     response_class: Annotated[
-        Optional["ResponseType"],
+        Optional[ResponseType],
         Doc(
             """
             Default response class to be used within the
@@ -149,7 +151,7 @@ class View:
         ),
     ]
     response_cookies: Annotated[
-        Optional["ResponseCookies"],
+        Optional[ResponseCookies],
         Doc(
             """
             A sequence of `esmerald.datastructures.Cookie` objects.
@@ -178,7 +180,7 @@ class View:
         ),
     ]
     response_headers: Annotated[
-        Optional["ResponseHeaders"],
+        Optional[ResponseHeaders],
         Doc(
             """
             A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -224,7 +226,7 @@ class View:
         ),
     ]
     security: Annotated[
-        Optional[List["SecurityScheme"]],
+        Optional[List[SecurityScheme]],
         Doc(
             """
             Used by OpenAPI definition, the security must be compliant with the norms.
@@ -248,7 +250,7 @@ class View:
         ),
     ]
 
-    def __init__(self, parent: Union["Gateway", "WebSocketGateway"]) -> None:
+    def __init__(self, parent: Union[Gateway, WebSocketGateway]) -> None:
         for key in self.__slots__:
             if not hasattr(self, key):
                 setattr(self, key, None)
@@ -256,7 +258,7 @@ class View:
         self.path = clean_path(self.path or "/")
         self.path_regex, self.path_format, self.param_convertors, _ = compile_path(self.path)
         self.parent = parent
-        self.route_map: Dict[str, Tuple["HTTPHandler", "TransformerModel"]] = {}
+        self.route_map: Dict[str, Tuple[HTTPHandler, TransformerModel]] = {}
         self.operation_id: Optional[str] = None
         self.methods: List[str] = []
 
@@ -282,13 +284,13 @@ class View:
 
     def get_route_handlers(
         self,
-    ) -> List[Union["HTTPHandler", "WebSocketHandler", "WebhookHandler"]]:
+    ) -> List[Union[HTTPHandler, WebSocketHandler, WebhookHandler]]:
         """A getter for the apiview's route handlers that sets their parent.
 
         Returns:
             A list containing a copy of the route handlers defined inside the View.
         """
-        from esmerald.routing.router import HTTPHandler, WebhookHandler, WebSocketHandler
+        from esmerald.routing.router import WebSocketHandler
 
         route_handlers: List[Union[HTTPHandler, WebSocketHandler, WebhookHandler]] = []
         filtered_handlers = self.get_filtered_handler()
@@ -322,7 +324,7 @@ class View:
     def get_route_middleware(
         self,
         handler: Annotated[
-            Union["HTTPHandler", "WebSocketHandler", "WebhookHandler"],
+            Union[HTTPHandler, WebSocketHandler, WebhookHandler],
             Doc(
                 """
                 The [handler](https://esmerald.dev/routing/handlers/) being checked against.
@@ -338,8 +340,8 @@ class View:
             handler.middleware.insert(0, middleware)
 
     def get_exception_handlers(
-        self, handler: Union["HTTPHandler", "WebSocketHandler", "WebhookHandler"]
-    ) -> "ExceptionHandlerMap":
+        self, handler: Union[HTTPHandler, WebSocketHandler, WebhookHandler]
+    ) -> ExceptionHandlerMap:
         """
         Gets the dict of extended exception handlers for the handler starting from the last
         to the first by reversing the list
@@ -348,7 +350,7 @@ class View:
         return cast("ExceptionHandlerMap", exception_handlers)
 
     async def handle(
-        self, scope: "Scope", receive: "Receive", send: "Send"
+        self, scope: Scope, receive: Receive, send: Send
     ) -> None:  # pragma: no cover
         raise NotImplementedError(f"{self.__class__.__name__} object does not implement handle()")
 

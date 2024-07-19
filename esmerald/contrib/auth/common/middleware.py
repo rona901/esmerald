@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TypeVar
 
 from jose import JWSError, JWTError
@@ -20,7 +22,7 @@ class CommonJWTAuthMiddleware(BaseAuthMiddleware):  # pragma: no cover
     def __init__(
         self,
         app: ASGIApp,
-        config: "JWTConfig",
+        config: JWTConfig,
         user_model: T,
     ):
         super().__init__(app)

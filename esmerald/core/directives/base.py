@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from lilya.cli.base import BaseDirective as LilyaBaseDirective
 
 import esmerald

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any, Callable, Dict, List, Mapping, Optional, Type, Union
 
 from lilya import status
@@ -72,9 +74,9 @@ class ResponseContent(BaseModel):
 class EsmeraldAPIExceptionMiddleware:  # pragma: no cover
     def __init__(
         self,
-        app: "ASGIApp",
+        app: ASGIApp,
         debug: bool,
-        exception_handlers: "ExceptionHandlerMap",
+        exception_handlers: ExceptionHandlerMap,
         error_handler: Optional[Callable] = None,
     ) -> None:
         self.app = app
@@ -108,7 +110,7 @@ class EsmeraldAPIExceptionMiddleware:  # pragma: no cover
             event = {"type": "websocket.close", "code": code, "reason": reason}
             await send(event)
 
-    def default_http_exception_handler(self, request: Request, exc: Exception) -> "LilyaResponse":
+    def default_http_exception_handler(self, request: Request, exc: Exception) -> LilyaResponse:
         """Default handler for exceptions subclassed from HTTPException."""
         status_code = (
             exc.status_code

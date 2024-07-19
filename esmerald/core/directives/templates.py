@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 import shutil
 import stat
@@ -194,20 +196,13 @@ class TemplateDirective(BaseDirective):
     def validate_name(self, name: Optional[str], name_or_dir: str = "name") -> None:
         if name is None:
             raise DirectiveError(
-                "you must provide {an} {app} name".format(
-                    an=self.a_or_an,
-                    app=self.app_or_project,
-                )
+                f"you must provide {self.a_or_an} {self.app_or_project} name"
             )
         # Check it's a valid directory name.
         if not name.isidentifier():
             raise DirectiveError(
-                "'{name}' is not a valid {app} {type}. Please make sure the "
-                "{type} is a valid identifier.".format(
-                    name=name,
-                    app=self.app_or_project,
-                    type=name_or_dir,
-                )
+                f"'{name}' is not a valid {self.app_or_project} {name_or_dir}. Please make sure the "
+                f"{name_or_dir} is a valid identifier."
             )
         try:
             import_module(name)
@@ -215,14 +210,9 @@ class TemplateDirective(BaseDirective):
             pass
         else:
             raise DirectiveError(
-                "'{name}' conflicts with the name of an existing Python "
-                "module and cannot be used as {an} {app} {type}. Please try "
-                "another {type}.".format(
-                    name=name,
-                    an=self.a_or_an,
-                    app=self.app_or_project,
-                    type=name_or_dir,
-                )
+                f"'{name}' conflicts with the name of an existing Python "
+                f"module and cannot be used as {self.a_or_an} {self.app_or_project} {name_or_dir}. Please try "
+                f"another {name_or_dir}."
             )
 
     def apply_umask(self, old_path: Union[str, Path], new_path: Union[str, Path]) -> None:

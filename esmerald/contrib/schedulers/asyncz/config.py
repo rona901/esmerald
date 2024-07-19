@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import warnings
 from datetime import datetime, timezone as dtimezone
 from typing import Any, Callable, Dict, Union, cast
@@ -75,7 +77,7 @@ class AsynczConfig(SchedulerConfig):
         """
         for task, _module in tasks.items():
             imported_task = f"{_module}.{task}"
-            scheduled_task: "Task" = import_string(imported_task)
+            scheduled_task: Task = import_string(imported_task)
 
             if not scheduled_task.is_enabled:
                 continue
@@ -87,7 +89,7 @@ class AsynczConfig(SchedulerConfig):
 
     def get_scheduler(
         self,
-        scheduler: "SchedulerCallable",
+        scheduler: SchedulerCallable,
         timezone: Union[dtimezone, str, None] = None,
         configurations: Union[Dict[str, Any], None] = None,
         **options: Dict[str, Any],
@@ -195,7 +197,7 @@ class Task:
         self.is_enabled = is_enabled
         self.fn = None
 
-    def add_task(self, scheduler: "SchedulerCallable") -> None:
+    def add_task(self, scheduler: SchedulerCallable) -> None:
         try:
             scheduler.add_task(
                 fn=self.fn,

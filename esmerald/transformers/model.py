@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Any, Dict, Mapping, Optional, Set, Tuple, Type, Union, cast
 
 from pydantic.fields import FieldInfo
@@ -130,8 +132,8 @@ class TransformerModel(ArbitraryExtraBaseModel):
 
     def to_kwargs(
         self,
-        connection: Union["WebSocket", "Request"],
-        handler: Union["HTTPHandler", "WebSocketHandler"] = None,
+        connection: Union[WebSocket, Request],
+        handler: Union[HTTPHandler, WebSocketHandler] = None,
     ) -> Any:
         connection_params = {}
         for key, value in connection.query_params.items():
@@ -192,7 +194,7 @@ class TransformerModel(ArbitraryExtraBaseModel):
         return parsed_form if parsed_form or not self.is_optional else None
 
     def get_request_context(
-        self, handler: Union["HTTPHandler", "WebSocketHandler"], request: Request
+        self, handler: Union[HTTPHandler, WebSocketHandler], request: Request
     ) -> Context:
         """
         Get request context.
@@ -207,7 +209,7 @@ class TransformerModel(ArbitraryExtraBaseModel):
         return Context(__handler__=handler, __request__=request)
 
     async def get_dependencies(
-        self, dependency: Dependency, connection: Union["WebSocket", Request], **kwargs: Any
+        self, dependency: Dependency, connection: Union[WebSocket, Request], **kwargs: Any
     ) -> Any:
         """
         Get dependencies asynchronously.
@@ -249,7 +251,7 @@ class TransformerModel(ArbitraryExtraBaseModel):
         }
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "TransformerModel":
+    def from_dict(cls, data: Dict[str, Any]) -> TransformerModel:
         """
         Create TransformerModel instance from dictionary.
 
@@ -273,7 +275,7 @@ class TransformerModel(ArbitraryExtraBaseModel):
             is_optional=data.get("is_optional", False),
         )
 
-    def merge_with(self, other: "TransformerModel") -> "TransformerModel":
+    def merge_with(self, other: TransformerModel) -> TransformerModel:
         """
         Merge with another TransformerModel instance.
 
@@ -297,8 +299,8 @@ class TransformerModel(ArbitraryExtraBaseModel):
 
     def _get_request_params(
         self,
-        connection: Union["WebSocket", "Request"],
-        handler: Union["HTTPHandler", "WebSocketHandler"] = None,
+        connection: Union[WebSocket, Request],
+        handler: Union[HTTPHandler, WebSocketHandler] = None,
     ) -> Any:
         """
         Get request parameters.
@@ -352,7 +354,7 @@ class TransformerModel(ArbitraryExtraBaseModel):
 
     def handle_reserved_kwargs(
         self,
-        connection: Union["WebSocket", "Request"],
+        connection: Union[WebSocket, Request],
         connection_params: Any,
         path_params: Any,
         query_params: Any,
@@ -402,7 +404,7 @@ class TransformerModel(ArbitraryExtraBaseModel):
         return {**reserved_kwargs, **path_params, **query_params, **headers, **cookies}
 
 
-def dependency_tree(key: str, dependencies: "Dependencies") -> Dependency:
+def dependency_tree(key: str, dependencies: Dependencies) -> Dependency:
     """
     Recursively build a dependency tree starting from a given key.
 
@@ -482,7 +484,7 @@ def _filter_param_settings_by_type(
 
 
 def _get_form_data(
-    signature_model: Type["SignatureModel"],
+    signature_model: Type[SignatureModel],
 ) -> Optional[Tuple[EncodingType, FieldInfo]]:
     """
     Get form data from the signature model.
@@ -506,10 +508,10 @@ def _get_form_data(
 
 
 def create_signature(
-    signature_model: Type["SignatureModel"],
-    dependencies: "Dependencies",
+    signature_model: Type[SignatureModel],
+    dependencies: Dependencies,
     path_parameters: Set[str],
-) -> "TransformerModel":
+) -> TransformerModel:
     """
     Create a transformer model based on the signature model.
 
@@ -587,7 +589,7 @@ def create_signature(
 
 def _update_parameters_with_dependency(
     dependency: Dependency,
-    global_dependencies: "Dependencies",
+    global_dependencies: Dependencies,
     path_params: Any,
     query_params: Any,
     cookies: Any,
@@ -633,7 +635,7 @@ def _update_parameters_with_dependency(
 
 
 def update_parameters(
-    global_dependencies: "Dependencies",
+    global_dependencies: Dependencies,
     local_dependencies: Set[Dependency],
     path_params: Any,
     query_params: Any,

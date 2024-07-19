@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import sys
 from functools import wraps
 from typing import (
@@ -68,7 +70,7 @@ class EsmeraldTestClient(TestClient):  # type: ignore
         base_url: str = "http://testserver",
         raise_server_exceptions: bool = True,
         root_path: str = "",
-        backend: "Literal['asyncio', 'trio']" = "asyncio",
+        backend: Literal['asyncio', 'trio'] = "asyncio",
         backend_options: Optional[Dict[str, Any]] = None,
         cookies: Optional[CookieTypes] = None,
         headers: Dict[str, str] = None,
@@ -84,14 +86,14 @@ class EsmeraldTestClient(TestClient):  # type: ignore
             headers=headers,
         )
 
-    def __enter__(self, *args: Any, **kwargs: Dict[str, Any]) -> "EsmeraldTestClient":
+    def __enter__(self, *args: Any, **kwargs: Dict[str, Any]) -> EsmeraldTestClient:
         return cast("EsmeraldTestClient", super().__enter__(*args, **kwargs))
 
 
 def create_client(
-    routes: Union["APIGateHandler", List["APIGateHandler"]],
+    routes: Union[APIGateHandler, List[APIGateHandler]],
     *,
-    settings_module: Union[Optional["SettingsType"], Optional[str]] = None,
+    settings_module: Union[Optional[SettingsType], Optional[str]] = None,
     debug: Optional[bool] = None,
     app_name: Optional[str] = None,
     title: Optional[str] = None,
@@ -107,20 +109,20 @@ def create_client(
     allowed_hosts: Optional[List[str]] = None,
     allow_origins: Optional[List[str]] = None,
     base_url: str = "http://testserver",
-    backend: "Literal['asyncio', 'trio']" = "asyncio",
+    backend: Literal['asyncio', 'trio'] = "asyncio",
     backend_options: Optional[Dict[str, Any]] = None,
-    interceptors: Optional[List["Interceptor"]] = None,
-    pluggables: Optional[Dict[str, "Pluggable"]] = None,
-    permissions: Optional[List["Permission"]] = None,
-    dependencies: Optional["Dependencies"] = None,
-    middleware: Optional[List["Middleware"]] = None,
-    csrf_config: Optional["CSRFConfig"] = None,
-    exception_handlers: Optional["ExceptionHandlerMap"] = None,
-    openapi_config: Optional["OpenAPIConfig"] = None,
-    on_shutdown: Optional[List["LifeSpanHandler"]] = None,
-    on_startup: Optional[List["LifeSpanHandler"]] = None,
-    cors_config: Optional["CORSConfig"] = None,
-    session_config: Optional["SessionConfig"] = None,
+    interceptors: Optional[List[Interceptor]] = None,
+    pluggables: Optional[Dict[str, Pluggable]] = None,
+    permissions: Optional[List[Permission]] = None,
+    dependencies: Optional[Dependencies] = None,
+    middleware: Optional[List[Middleware]] = None,
+    csrf_config: Optional[CSRFConfig] = None,
+    exception_handlers: Optional[ExceptionHandlerMap] = None,
+    openapi_config: Optional[OpenAPIConfig] = None,
+    on_shutdown: Optional[List[LifeSpanHandler]] = None,
+    on_startup: Optional[List[LifeSpanHandler]] = None,
+    cors_config: Optional[CORSConfig] = None,
+    session_config: Optional[SessionConfig] = None,
     scheduler_config: Optional[SchedulerConfig] = None,
     enable_scheduler: bool = None,
     enable_openapi: bool = True,
@@ -128,13 +130,13 @@ def create_client(
     openapi_version: Optional[str] = "3.1.0",
     raise_server_exceptions: bool = True,
     root_path: str = "",
-    static_files_config: Optional["StaticFilesConfig"] = None,
-    template_config: Optional["TemplateConfig"] = None,
-    lifespan: Optional[Callable[["Esmerald"], "AsyncContextManager"]] = None,
+    static_files_config: Optional[StaticFilesConfig] = None,
+    template_config: Optional[TemplateConfig] = None,
+    lifespan: Optional[Callable[[Esmerald], AsyncContextManager]] = None,
     cookies: Optional[CookieTypes] = None,
     redirect_slashes: Optional[bool] = None,
     tags: Optional[List[str]] = None,
-    webhooks: Optional[Sequence["WebhookGateway"]] = None,
+    webhooks: Optional[Sequence[WebhookGateway]] = None,
     encoders: Optional[Sequence[Encoder]] = None,
 ) -> EsmeraldTestClient:
     return EsmeraldTestClient(

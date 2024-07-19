@@ -82,7 +82,7 @@ def make_password(password: Optional[str], hasher: str = "default") -> str:
 
 @functools.lru_cache
 def get_hashers() -> Sequence["BasePasswordHasher"]:
-    hashers: Sequence["BasePasswordHasher"] = []
+    hashers: Sequence[BasePasswordHasher] = []
 
     password_hashers = getattr(settings, "password_hashers", None)
     if not password_hashers:

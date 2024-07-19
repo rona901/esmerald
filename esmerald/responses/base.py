@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import (
     TYPE_CHECKING,
     Any,
@@ -97,7 +99,7 @@ class Response(LilyaResponse, Generic[T]):
             ),
         ] = MediaType.JSON,
         background: Annotated[
-            Optional[Union["BackgroundTask", "BackgroundTasks"]],
+            Optional[Union[BackgroundTask, BackgroundTasks]],
             Doc(
                 """
                 Any instance of a [BackgroundTask or BackgroundTasks](https://esmerald.dev/background-tasks/).
@@ -113,7 +115,7 @@ class Response(LilyaResponse, Generic[T]):
             ),
         ] = None,
         cookies: Annotated[
-            Optional["ResponseCookies"],
+            Optional[ResponseCookies],
             Doc(
                 """
                 A sequence of `esmerald.datastructures.Cookie` objects.

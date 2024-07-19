@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TypeVar
 
 from lilya.types import Receive, Scope, Send
@@ -17,4 +19,4 @@ class InterceptorProtocol(Protocol):  # pragma: no cover
     An interceptor could be anything from logging to rerouting or even input sanitizing.
     """
 
-    async def intercept(self, scope: "Scope", receive: "Receive", send: "Send") -> None: ...
+    async def intercept(self, scope: Scope, receive: Receive, send: Send) -> None: ...

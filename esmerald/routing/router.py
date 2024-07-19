@@ -553,7 +553,7 @@ class BaseRouter(LilyaRouter):
         self.routes = self.reorder_routes()
 
     async def not_found(
-        self, scope: "Scope", receive: "Receive", send: "Send"
+        self, scope: Scope, receive: Receive, send: Send
     ) -> None:  # pragma: no cover
         """Esmerald version of a not found handler when a resource is
         called and cannot be dealt with properly.
@@ -2082,7 +2082,7 @@ class HTTPHandler(Dispatcher, OpenAPIFieldInfoMixin, LilyaPath):
         return list(self.methods)
 
     async def allowed_methods(
-        self, scope: "Scope", receive: "Receive", send: "Send", methods: List[str]
+        self, scope: Scope, receive: Receive, send: Send, methods: List[str]
     ) -> None:
         """
         Validates if the scope method is available within the handler and raises
@@ -2134,7 +2134,7 @@ class HTTPHandler(Dispatcher, OpenAPIFieldInfoMixin, LilyaPath):
                 filtered_cookies.append(cookie)
         return filtered_cookies
 
-    async def handle_dispatch(self, scope: "Scope", receive: "Receive", send: "Send") -> None:
+    async def handle_dispatch(self, scope: Scope, receive: Receive, send: Send) -> None:
         """
         ASGIapp that authorizes the connection and then awaits the handler function.
         """
@@ -2247,7 +2247,7 @@ class HTTPHandler(Dispatcher, OpenAPIFieldInfoMixin, LilyaPath):
         self.validate_annotations()
         self.validate_reserved_kwargs()
 
-    async def to_response(self, app: "Esmerald", data: Any) -> LilyaResponse:
+    async def to_response(self, app: Esmerald, data: Any) -> LilyaResponse:
         response_handler = self.get_response_for_handler()
         return await response_handler(app=app, data=data)  # type: ignore[call-arg]
 
@@ -2421,7 +2421,7 @@ class WebSocketHandler(Dispatcher, LilyaWebSocketPath):
                 "Functions decorated with 'asgi, get, patch, put, post and delete' must be async functions."
             )
 
-    async def handle_dispatch(self, scope: "Scope", receive: "Receive", send: "Send") -> None:
+    async def handle_dispatch(self, scope: Scope, receive: Receive, send: Send) -> None:
         """The handle of a websocket"""
         if self.get_interceptors():
             await self.intercept(scope, receive, send)

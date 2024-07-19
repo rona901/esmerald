@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 from typing import TYPE_CHECKING, Any, Dict, Optional, Type, Union, cast
 
@@ -47,9 +49,9 @@ class File(ResponseContainer[FileResponse]):
     def to_response(
         self,
         headers: Dict[str, Any],
-        media_type: Union["MediaType", str],
+        media_type: Union[MediaType, str],
         status_code: int,
-        app: Type["Esmerald"],
+        app: Type[Esmerald],
     ) -> FileResponse:
         return FileResponse(
             background=self.background,

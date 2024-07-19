@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Any, Dict, Type, Union
 
 from lilya.responses import RedirectResponse  # noqa
@@ -26,9 +28,9 @@ class Redirect(ResponseContainer[RedirectResponse]):
     def to_response(
         self,
         headers: Dict[str, Any],
-        media_type: Union["MediaType", str],
+        media_type: Union[MediaType, str],
         status_code: int,
-        app: Type["Esmerald"],
+        app: Type[Esmerald],
     ) -> RedirectResponse:
         return RedirectResponse(
             headers=headers,

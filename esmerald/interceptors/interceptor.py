@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from abc import ABC
 
 from lilya.types import Receive, Scope, Send
@@ -36,7 +38,7 @@ class EsmeraldInterceptor(ABC, InterceptorProtocol):
     ```
     """
 
-    async def intercept(self, scope: "Scope", receive: "Receive", send: "Send") -> None:
+    async def intercept(self, scope: Scope, receive: Receive, send: Send) -> None:
         """
         The method that needs to be implemented for any interceptor.
         Containing all the logic for the inceptor itself.

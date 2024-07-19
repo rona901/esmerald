@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from http.cookies import SimpleCookie
 from typing import (
@@ -54,17 +56,17 @@ class UploadFile(LilyaUploadFile):  # pragma: no cover
     """
 
     @classmethod
-    def __get_validators__(cls: Type["UploadFile"]) -> Iterable[Callable[..., Any]]:
+    def __get_validators__(cls: Type[UploadFile]) -> Iterable[Callable[..., Any]]:
         yield cls.validate
 
     @classmethod
-    def validate(cls: Type["UploadFile"], v: Any) -> Any:
+    def validate(cls: Type[UploadFile], v: Any) -> Any:
         if not isinstance(v, LilyaUploadFile):
             raise ValueError(f"Expected UploadFile, got: {type(v)}")
         return v
 
     @classmethod
-    def _validate(cls, __input_value: Any, _: Any) -> "UploadFile":
+    def _validate(cls, __input_value: Any, _: Any) -> UploadFile:
         if not isinstance(__input_value, LilyaUploadFile):
             raise ValueError(f"Expected UploadFile, got: {type(__input_value)}")
         return cast(UploadFile, __input_value)
@@ -116,9 +118,9 @@ class ResponseContainer(BaseModel, ABC, Generic[R]):
     def to_response(
         self,
         headers: Dict[str, Any],
-        media_type: Union["MediaType", str],
+        media_type: Union[MediaType, str],
         status_code: int,
-        app: Type["Esmerald"],
+        app: Type[Esmerald],
     ) -> R:  # pragma: no cover
         raise NotImplementedError("not implemented")
 

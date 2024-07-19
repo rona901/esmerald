@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 from functools import lru_cache
 from typing import TYPE_CHECKING, Any, Optional, Type
@@ -13,14 +15,14 @@ ENVIRONMENT_VARIABLE = "ESMERALD_SETTINGS_MODULE"
 
 
 @lru_cache
-def reload_settings() -> Type["EsmeraldAPISettings"]:
+def reload_settings() -> Type[EsmeraldAPISettings]:
     """
     Reloads the global settings.
     """
     settings_module: str = os.environ.get(
         ENVIRONMENT_VARIABLE, "esmerald.conf.global_settings.EsmeraldAPISettings"
     )
-    settings: Type["EsmeraldAPISettings"] = import_string(settings_module)
+    settings: Type[EsmeraldAPISettings] = import_string(settings_module)
     return settings
 
 
@@ -37,14 +39,14 @@ class EsmeraldLazySettings(LazyObject):
         is used the first time settings are needed, if the user hasn't
         configured settings manually.
         """
-        settings: Type["EsmeraldAPISettings"] = reload_settings()
+        settings: Type[EsmeraldAPISettings] = reload_settings()
 
         for setting, _ in settings().model_dump().items():
             assert setting.islower(), "%s should be in lowercase." % setting
 
         self._wrapped = settings()
 
-    def configure(self, override_settings: Type["EsmeraldAPISettings"]) -> None:
+    def configure(self, override_settings: Type[EsmeraldAPISettings]) -> None:
         """
         Making sure the settings are overriden by the settings_module
         provided by a given application and therefore use it as the application
@@ -52,13 +54,11 @@ class EsmeraldLazySettings(LazyObject):
         """
         self._wrapped = override_settings
 
-    def __repr__(self: "EsmeraldLazySettings") -> str:
+    def __repr__(self: EsmeraldLazySettings) -> str:
         # Hardcode the class name as otherwise it yields 'Settings'.
         if self._wrapped is empty:
             return "<EsmeraldLazySettings [Unevaluated]>"
-        return '<EsmeraldLazySettings "{settings_module}">'.format(
-            settings_module=self._wrapped.__class__.__name__
-        )
+        return f'<EsmeraldLazySettings "{self._wrapped.__class__.__name__}">'
 
     @property
     def configured(self) -> Any:
@@ -66,5 +66,5 @@ class EsmeraldLazySettings(LazyObject):
         return self._wrapped is not empty
 
 
-settings: Type["EsmeraldAPISettings"] = EsmeraldLazySettings()  # type: ignore
-__lazy_settings__: Type["EsmeraldAPISettings"] = EsmeraldLazySettings()  # type: ignore
+settings: Type[EsmeraldAPISettings] = EsmeraldLazySettings()  # type: ignore
+__lazy_settings__: Type[EsmeraldAPISettings] = EsmeraldLazySettings()  # type: ignore

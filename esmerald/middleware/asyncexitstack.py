@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import traceback
 from contextlib import AsyncExitStack
 from typing import Optional
@@ -11,8 +13,8 @@ from esmerald.protocols.middleware import MiddlewareProtocol
 class AsyncExitStackMiddleware(MiddlewareProtocol):
     def __init__(
         self,
-        app: "ASGIApp",
-        config: "AsyncExitConfig",
+        app: ASGIApp,
+        config: AsyncExitConfig,
         debug: bool = False,
     ):
         """AsyncExitStack Middleware class.
@@ -27,7 +29,7 @@ class AsyncExitStackMiddleware(MiddlewareProtocol):
         self.config = config
         self.debug = debug
 
-    async def __call__(self, scope: "Scope", receive: "Receive", send: "Send") -> None:
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
         if not AsyncExitStack:
             await self.app(scope, receive, send)  # pragma: no cover
 

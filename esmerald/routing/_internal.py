@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import inspect
 from functools import cached_property, lru_cache
 from typing import Any, Dict, List, _GenericAlias, cast, get_args

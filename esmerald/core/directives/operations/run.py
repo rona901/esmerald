@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 import sys
 from enum import Enum
@@ -86,7 +88,7 @@ def get_position() -> int:
 
 
 async def execute_lifespan(
-    app: Optional[Union["Esmerald", "ChildEsmerald"]],
+    app: Optional[Union[Esmerald, ChildEsmerald]],
     lifespan: Lifespan,
     directive: Any,
     program_name: str,

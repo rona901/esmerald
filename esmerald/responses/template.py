@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from mimetypes import guess_type
 from pathlib import PurePath
 from typing import TYPE_CHECKING, Any, Dict, Optional, Union
@@ -17,12 +19,12 @@ class TemplateResponse(Response):
     def __init__(
         self,
         template_name: str,
-        template_engine: "TemplateEngineProtocol",
+        template_engine: TemplateEngineProtocol,
         status_code: int = 200,
         context: Optional[Dict[str, Any]] = None,
-        background: Optional[Union["BackgroundTask", "BackgroundTasks"]] = None,
+        background: Optional[Union[BackgroundTask, BackgroundTasks]] = None,
         headers: Optional[Dict[str, Any]] = None,
-        cookies: Optional["ResponseCookies"] = None,
+        cookies: Optional[ResponseCookies] = None,
         media_type: Union[MediaType, str] = MediaType.HTML,
     ):
         if media_type == MediaType.JSON:  # we assume this is the default

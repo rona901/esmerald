@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Union
 
@@ -65,7 +67,7 @@ class Token(BaseModel):
     @classmethod
     def decode(
         cls, token: str, key: Union[str, Dict[str, str]], algorithms: List[str]
-    ) -> "Token":  # pragma: no cover
+    ) -> Token:  # pragma: no cover
         """
         Decodes the given token.
         """

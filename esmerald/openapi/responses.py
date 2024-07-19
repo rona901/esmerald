@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from http import HTTPStatus
 from inspect import Signature
 from typing import TYPE_CHECKING, Any, Dict, Union, cast
@@ -15,7 +17,7 @@ if TYPE_CHECKING:  # pragma: no cover
 
 
 def create_internal_response(
-    handler: Union["HTTPHandler", Any]
+    handler: Union[HTTPHandler, Any]
 ) -> InternalResponse:  # pragma: no cover
     signature = Signature.from_callable(cast("AnyCallable", handler.fn))
     default_descriptions: Dict[Any, str] = {

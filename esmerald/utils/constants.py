@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from lilya import status
 
 from esmerald.enums import HttpMethod

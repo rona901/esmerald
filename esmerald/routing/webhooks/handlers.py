@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Sequence, Union, cast
 
 from lilya import status
@@ -129,7 +131,7 @@ def whget(
         ),
     ] = True,
     background: Annotated[
-        Optional["BackgroundTaskType"],
+        Optional[BackgroundTaskType],
         Doc(
             """
                 An instance of an `esmerald.background.BackgroundTask` or `esmerald.background.BackgroundTasks` to be passed onto the handler.
@@ -140,7 +142,7 @@ def whget(
         ),
     ] = None,
     dependencies: Annotated[
-        Optional["Dependencies"],
+        Optional[Dependencies],
         Doc(
             """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -148,7 +150,7 @@ def whget(
         ),
     ] = None,
     exception_handlers: Annotated[
-        Optional["ExceptionHandlerMap"],
+        Optional[ExceptionHandlerMap],
         Doc(
             """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -156,7 +158,7 @@ def whget(
         ),
     ] = None,
     middleware: Annotated[
-        Optional[List["Middleware"]],
+        Optional[List[Middleware]],
         Doc(
             """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -164,7 +166,7 @@ def whget(
         ),
     ] = None,
     permissions: Annotated[
-        Optional[List["Permission"]],
+        Optional[List[Permission]],
         Doc(
             """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -180,7 +182,7 @@ def whget(
         ),
     ] = MediaType.JSON,
     response_class: Annotated[
-        Optional["ResponseType"],
+        Optional[ResponseType],
         Doc(
             """
                 Response class to be used within the
@@ -200,7 +202,7 @@ def whget(
         ),
     ] = None,
     response_cookies: Annotated[
-        Optional["ResponseCookies"],
+        Optional[ResponseCookies],
         Doc(
             """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -228,7 +230,7 @@ def whget(
         ),
     ] = None,
     response_headers: Annotated[
-        Optional["ResponseHeaders"],
+        Optional[ResponseHeaders],
         Doc(
             """
                 A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -290,7 +292,7 @@ def whget(
         ),
     ] = None,
     security: Annotated[
-        Optional[List["SecurityScheme"]],
+        Optional[List[SecurityScheme]],
         Doc(
             """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -499,7 +501,7 @@ def whead(
         ),
     ] = True,
     background: Annotated[
-        Optional["BackgroundTaskType"],
+        Optional[BackgroundTaskType],
         Doc(
             """
                 An instance of an `esmerald.background.BackgroundTask` or `esmerald.background.BackgroundTasks` to be passed onto the handler.
@@ -510,7 +512,7 @@ def whead(
         ),
     ] = None,
     dependencies: Annotated[
-        Optional["Dependencies"],
+        Optional[Dependencies],
         Doc(
             """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -518,7 +520,7 @@ def whead(
         ),
     ] = None,
     exception_handlers: Annotated[
-        Optional["ExceptionHandlerMap"],
+        Optional[ExceptionHandlerMap],
         Doc(
             """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -526,7 +528,7 @@ def whead(
         ),
     ] = None,
     middleware: Annotated[
-        Optional[List["Middleware"]],
+        Optional[List[Middleware]],
         Doc(
             """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -534,7 +536,7 @@ def whead(
         ),
     ] = None,
     permissions: Annotated[
-        Optional[List["Permission"]],
+        Optional[List[Permission]],
         Doc(
             """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -550,7 +552,7 @@ def whead(
         ),
     ] = MediaType.JSON,
     response_class: Annotated[
-        Optional["ResponseType"],
+        Optional[ResponseType],
         Doc(
             """
                 Response class to be used within the
@@ -562,7 +564,7 @@ def whead(
         ),
     ] = None,
     response_cookies: Annotated[
-        Optional["ResponseCookies"],
+        Optional[ResponseCookies],
         Doc(
             """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -572,7 +574,7 @@ def whead(
         ),
     ] = None,
     response_headers: Annotated[
-        Optional["ResponseHeaders"],
+        Optional[ResponseHeaders],
         Doc(
             """
                 A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -605,7 +607,7 @@ def whead(
         ),
     ] = None,
     security: Annotated[
-        Optional[List["SecurityScheme"]],
+        Optional[List[SecurityScheme]],
         Doc(
             """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -806,7 +808,7 @@ def whpost(
         ),
     ] = True,
     background: Annotated[
-        Optional["BackgroundTaskType"],
+        Optional[BackgroundTaskType],
         Doc(
             """
                 An instance of an `esmerald.background.BackgroundTask` or `esmerald.background.BackgroundTasks` to be passed onto the handler.
@@ -817,7 +819,7 @@ def whpost(
         ),
     ] = None,
     dependencies: Annotated[
-        Optional["Dependencies"],
+        Optional[Dependencies],
         Doc(
             """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -825,7 +827,7 @@ def whpost(
         ),
     ] = None,
     exception_handlers: Annotated[
-        Optional["ExceptionHandlerMap"],
+        Optional[ExceptionHandlerMap],
         Doc(
             """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -833,7 +835,7 @@ def whpost(
         ),
     ] = None,
     middleware: Annotated[
-        Optional[List["Middleware"]],
+        Optional[List[Middleware]],
         Doc(
             """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -841,7 +843,7 @@ def whpost(
         ),
     ] = None,
     permissions: Annotated[
-        Optional[List["Permission"]],
+        Optional[List[Permission]],
         Doc(
             """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -857,7 +859,7 @@ def whpost(
         ),
     ] = MediaType.JSON,
     response_class: Annotated[
-        Optional["ResponseType"],
+        Optional[ResponseType],
         Doc(
             """
                 Response class to be used within the
@@ -877,7 +879,7 @@ def whpost(
         ),
     ] = None,
     response_cookies: Annotated[
-        Optional["ResponseCookies"],
+        Optional[ResponseCookies],
         Doc(
             """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -905,7 +907,7 @@ def whpost(
         ),
     ] = None,
     response_headers: Annotated[
-        Optional["ResponseHeaders"],
+        Optional[ResponseHeaders],
         Doc(
             """
                 A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -967,7 +969,7 @@ def whpost(
         ),
     ] = None,
     security: Annotated[
-        Optional[List["SecurityScheme"]],
+        Optional[List[SecurityScheme]],
         Doc(
             """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -1209,7 +1211,7 @@ def whput(
         ),
     ] = True,
     background: Annotated[
-        Optional["BackgroundTaskType"],
+        Optional[BackgroundTaskType],
         Doc(
             """
                 An instance of an `esmerald.background.BackgroundTask` or `esmerald.background.BackgroundTasks` to be passed onto the handler.
@@ -1220,7 +1222,7 @@ def whput(
         ),
     ] = None,
     dependencies: Annotated[
-        Optional["Dependencies"],
+        Optional[Dependencies],
         Doc(
             """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -1228,7 +1230,7 @@ def whput(
         ),
     ] = None,
     exception_handlers: Annotated[
-        Optional["ExceptionHandlerMap"],
+        Optional[ExceptionHandlerMap],
         Doc(
             """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -1236,7 +1238,7 @@ def whput(
         ),
     ] = None,
     middleware: Annotated[
-        Optional[List["Middleware"]],
+        Optional[List[Middleware]],
         Doc(
             """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -1244,7 +1246,7 @@ def whput(
         ),
     ] = None,
     permissions: Annotated[
-        Optional[List["Permission"]],
+        Optional[List[Permission]],
         Doc(
             """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -1260,7 +1262,7 @@ def whput(
         ),
     ] = MediaType.JSON,
     response_class: Annotated[
-        Optional["ResponseType"],
+        Optional[ResponseType],
         Doc(
             """
                 Response class to be used within the
@@ -1280,7 +1282,7 @@ def whput(
         ),
     ] = None,
     response_cookies: Annotated[
-        Optional["ResponseCookies"],
+        Optional[ResponseCookies],
         Doc(
             """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -1308,7 +1310,7 @@ def whput(
         ),
     ] = None,
     response_headers: Annotated[
-        Optional["ResponseHeaders"],
+        Optional[ResponseHeaders],
         Doc(
             """
                 A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -1370,7 +1372,7 @@ def whput(
         ),
     ] = None,
     security: Annotated[
-        Optional[List["SecurityScheme"]],
+        Optional[List[SecurityScheme]],
         Doc(
             """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -1612,7 +1614,7 @@ def whpatch(
         ),
     ] = True,
     background: Annotated[
-        Optional["BackgroundTaskType"],
+        Optional[BackgroundTaskType],
         Doc(
             """
                 An instance of an `esmerald.background.BackgroundTask` or `esmerald.background.BackgroundTasks` to be passed onto the handler.
@@ -1623,7 +1625,7 @@ def whpatch(
         ),
     ] = None,
     dependencies: Annotated[
-        Optional["Dependencies"],
+        Optional[Dependencies],
         Doc(
             """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -1631,7 +1633,7 @@ def whpatch(
         ),
     ] = None,
     exception_handlers: Annotated[
-        Optional["ExceptionHandlerMap"],
+        Optional[ExceptionHandlerMap],
         Doc(
             """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -1639,7 +1641,7 @@ def whpatch(
         ),
     ] = None,
     middleware: Annotated[
-        Optional[List["Middleware"]],
+        Optional[List[Middleware]],
         Doc(
             """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -1647,7 +1649,7 @@ def whpatch(
         ),
     ] = None,
     permissions: Annotated[
-        Optional[List["Permission"]],
+        Optional[List[Permission]],
         Doc(
             """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -1663,7 +1665,7 @@ def whpatch(
         ),
     ] = MediaType.JSON,
     response_class: Annotated[
-        Optional["ResponseType"],
+        Optional[ResponseType],
         Doc(
             """
                 Response class to be used within the
@@ -1683,7 +1685,7 @@ def whpatch(
         ),
     ] = None,
     response_cookies: Annotated[
-        Optional["ResponseCookies"],
+        Optional[ResponseCookies],
         Doc(
             """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -1711,7 +1713,7 @@ def whpatch(
         ),
     ] = None,
     response_headers: Annotated[
-        Optional["ResponseHeaders"],
+        Optional[ResponseHeaders],
         Doc(
             """
                 A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -1773,7 +1775,7 @@ def whpatch(
         ),
     ] = None,
     security: Annotated[
-        Optional[List["SecurityScheme"]],
+        Optional[List[SecurityScheme]],
         Doc(
             """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -2015,7 +2017,7 @@ def whdelete(
         ),
     ] = True,
     background: Annotated[
-        Optional["BackgroundTaskType"],
+        Optional[BackgroundTaskType],
         Doc(
             """
                 An instance of an `esmerald.background.BackgroundTask` or `esmerald.background.BackgroundTasks` to be passed onto the handler.
@@ -2026,7 +2028,7 @@ def whdelete(
         ),
     ] = None,
     dependencies: Annotated[
-        Optional["Dependencies"],
+        Optional[Dependencies],
         Doc(
             """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -2034,7 +2036,7 @@ def whdelete(
         ),
     ] = None,
     exception_handlers: Annotated[
-        Optional["ExceptionHandlerMap"],
+        Optional[ExceptionHandlerMap],
         Doc(
             """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -2042,7 +2044,7 @@ def whdelete(
         ),
     ] = None,
     middleware: Annotated[
-        Optional[List["Middleware"]],
+        Optional[List[Middleware]],
         Doc(
             """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -2050,7 +2052,7 @@ def whdelete(
         ),
     ] = None,
     permissions: Annotated[
-        Optional[List["Permission"]],
+        Optional[List[Permission]],
         Doc(
             """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -2066,7 +2068,7 @@ def whdelete(
         ),
     ] = MediaType.JSON,
     response_class: Annotated[
-        Optional["ResponseType"],
+        Optional[ResponseType],
         Doc(
             """
                 Response class to be used within the
@@ -2086,7 +2088,7 @@ def whdelete(
         ),
     ] = None,
     response_cookies: Annotated[
-        Optional["ResponseCookies"],
+        Optional[ResponseCookies],
         Doc(
             """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -2114,7 +2116,7 @@ def whdelete(
         ),
     ] = None,
     response_headers: Annotated[
-        Optional["ResponseHeaders"],
+        Optional[ResponseHeaders],
         Doc(
             """
                 A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -2176,7 +2178,7 @@ def whdelete(
         ),
     ] = None,
     security: Annotated[
-        Optional[List["SecurityScheme"]],
+        Optional[List[SecurityScheme]],
         Doc(
             """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -2385,7 +2387,7 @@ def whoptions(
         ),
     ] = True,
     background: Annotated[
-        Optional["BackgroundTaskType"],
+        Optional[BackgroundTaskType],
         Doc(
             """
                 An instance of an `esmerald.background.BackgroundTask` or `esmerald.background.BackgroundTasks` to be passed onto the handler.
@@ -2396,7 +2398,7 @@ def whoptions(
         ),
     ] = None,
     dependencies: Annotated[
-        Optional["Dependencies"],
+        Optional[Dependencies],
         Doc(
             """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -2404,7 +2406,7 @@ def whoptions(
         ),
     ] = None,
     exception_handlers: Annotated[
-        Optional["ExceptionHandlerMap"],
+        Optional[ExceptionHandlerMap],
         Doc(
             """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -2412,7 +2414,7 @@ def whoptions(
         ),
     ] = None,
     middleware: Annotated[
-        Optional[List["Middleware"]],
+        Optional[List[Middleware]],
         Doc(
             """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -2420,7 +2422,7 @@ def whoptions(
         ),
     ] = None,
     permissions: Annotated[
-        Optional[List["Permission"]],
+        Optional[List[Permission]],
         Doc(
             """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -2436,7 +2438,7 @@ def whoptions(
         ),
     ] = MediaType.JSON,
     response_class: Annotated[
-        Optional["ResponseType"],
+        Optional[ResponseType],
         Doc(
             """
                 Response class to be used within the
@@ -2448,7 +2450,7 @@ def whoptions(
         ),
     ] = None,
     response_cookies: Annotated[
-        Optional["ResponseCookies"],
+        Optional[ResponseCookies],
         Doc(
             """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -2458,7 +2460,7 @@ def whoptions(
         ),
     ] = None,
     response_headers: Annotated[
-        Optional["ResponseHeaders"],
+        Optional[ResponseHeaders],
         Doc(
             """
                 A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -2491,7 +2493,7 @@ def whoptions(
         ),
     ] = None,
     security: Annotated[
-        Optional[List["SecurityScheme"]],
+        Optional[List[SecurityScheme]],
         Doc(
             """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -2654,7 +2656,7 @@ def whtrace(
         ),
     ] = True,
     background: Annotated[
-        Optional["BackgroundTaskType"],
+        Optional[BackgroundTaskType],
         Doc(
             """
                 An instance of an `esmerald.background.BackgroundTask` or `esmerald.background.BackgroundTasks` to be passed onto the handler.
@@ -2665,7 +2667,7 @@ def whtrace(
         ),
     ] = None,
     dependencies: Annotated[
-        Optional["Dependencies"],
+        Optional[Dependencies],
         Doc(
             """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -2673,7 +2675,7 @@ def whtrace(
         ),
     ] = None,
     exception_handlers: Annotated[
-        Optional["ExceptionHandlerMap"],
+        Optional[ExceptionHandlerMap],
         Doc(
             """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -2681,7 +2683,7 @@ def whtrace(
         ),
     ] = None,
     middleware: Annotated[
-        Optional[List["Middleware"]],
+        Optional[List[Middleware]],
         Doc(
             """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -2689,7 +2691,7 @@ def whtrace(
         ),
     ] = None,
     permissions: Annotated[
-        Optional[List["Permission"]],
+        Optional[List[Permission]],
         Doc(
             """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -2705,7 +2707,7 @@ def whtrace(
         ),
     ] = MediaType.JSON,
     response_class: Annotated[
-        Optional["ResponseType"],
+        Optional[ResponseType],
         Doc(
             """
                 Response class to be used within the
@@ -2717,7 +2719,7 @@ def whtrace(
         ),
     ] = None,
     response_cookies: Annotated[
-        Optional["ResponseCookies"],
+        Optional[ResponseCookies],
         Doc(
             """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -2727,7 +2729,7 @@ def whtrace(
         ),
     ] = None,
     response_headers: Annotated[
-        Optional["ResponseHeaders"],
+        Optional[ResponseHeaders],
         Doc(
             """
                 A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -2760,7 +2762,7 @@ def whtrace(
         ),
     ] = None,
     security: Annotated[
-        Optional[List["SecurityScheme"]],
+        Optional[List[SecurityScheme]],
         Doc(
             """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -2976,7 +2978,7 @@ def whroute(
         ),
     ] = True,
     background: Annotated[
-        Optional["BackgroundTaskType"],
+        Optional[BackgroundTaskType],
         Doc(
             """
                 An instance of an `esmerald.background.BackgroundTask` or `esmerald.background.BackgroundTasks` to be passed onto the handler.
@@ -2987,7 +2989,7 @@ def whroute(
         ),
     ] = None,
     dependencies: Annotated[
-        Optional["Dependencies"],
+        Optional[Dependencies],
         Doc(
             """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -2995,7 +2997,7 @@ def whroute(
         ),
     ] = None,
     exception_handlers: Annotated[
-        Optional["ExceptionHandlerMap"],
+        Optional[ExceptionHandlerMap],
         Doc(
             """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -3003,7 +3005,7 @@ def whroute(
         ),
     ] = None,
     middleware: Annotated[
-        Optional[List["Middleware"]],
+        Optional[List[Middleware]],
         Doc(
             """
                 A list of middleware to run for every request. The middlewares of an Include will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -3011,7 +3013,7 @@ def whroute(
         ),
     ] = None,
     permissions: Annotated[
-        Optional[List["Permission"]],
+        Optional[List[Permission]],
         Doc(
             """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -3027,7 +3029,7 @@ def whroute(
         ),
     ] = MediaType.JSON,
     response_class: Annotated[
-        Optional["ResponseType"],
+        Optional[ResponseType],
         Doc(
             """
                 Response class to be used within the
@@ -3047,7 +3049,7 @@ def whroute(
         ),
     ] = None,
     response_cookies: Annotated[
-        Optional["ResponseCookies"],
+        Optional[ResponseCookies],
         Doc(
             """
                 A sequence of `esmerald.datastructures.Cookie` objects.
@@ -3075,7 +3077,7 @@ def whroute(
         ),
     ] = None,
     response_headers: Annotated[
-        Optional["ResponseHeaders"],
+        Optional[ResponseHeaders],
         Doc(
             """
                 A mapping of `esmerald.datastructures.ResponseHeader` objects.
@@ -3137,7 +3139,7 @@ def whroute(
         ),
     ] = None,
     security: Annotated[
-        Optional[List["SecurityScheme"]],
+        Optional[List[SecurityScheme]],
         Doc(
             """
                 Used by OpenAPI definition, the security must be compliant with the norms.

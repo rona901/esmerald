@@ -2,6 +2,8 @@
 Functions to use with the Router.
 """
 
+from __future__ import annotations
+
 from importlib import import_module
 from typing import TYPE_CHECKING, Any, Optional, Sequence, Union
 
@@ -16,7 +18,7 @@ DEFAULT_PATTERN = "route_patterns"
 
 def include(
     arg: Any, pattern: Optional[str] = DEFAULT_PATTERN
-) -> Sequence[Union["Gateway", "WebSocketGateway", "Include"]]:
+) -> Sequence[Union[Gateway, WebSocketGateway, Include]]:
     """Simple retrieve functionality to make it easier to include
     routes in the urls. Example, nested routes.
 

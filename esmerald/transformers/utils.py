@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Any, Dict, List, NamedTuple, Set, Tuple, Type, Union, cast
 
 from lilya.datastructures import URL
@@ -28,7 +30,7 @@ class ParamSetting(NamedTuple):
 
 class Dependency(HashableBaseModel, ArbitraryExtraBaseModel):
     def __init__(
-        self, key: str, inject: "Inject", dependencies: List["Dependency"], **kwargs: Any
+        self, key: str, inject: Inject, dependencies: List[Dependency], **kwargs: Any
     ) -> None:
         super().__init__(**kwargs)
         self.key = key
@@ -193,7 +195,7 @@ def get_request_params(params: Any, expected: Set[ParamSetting], url: URL) -> An
     return values
 
 
-def get_connection_info(connection: "ConnectionType") -> Tuple[str, "URL"]:
+def get_connection_info(connection: ConnectionType) -> Tuple[str, URL]:
     """
     Extacts the information from the ConnectionType.
     """
@@ -201,14 +203,14 @@ def get_connection_info(connection: "ConnectionType") -> Tuple[str, "URL"]:
     return method, connection.url
 
 
-def get_signature(value: Any) -> Type["SignatureModel"]:
+def get_signature(value: Any) -> Type[SignatureModel]:
     try:
         return cast("Type[SignatureModel]", value.signature_model)
     except AttributeError as exc:
         raise ImproperlyConfigured(f"The 'signature' attribute for {value} is not set.") from exc
 
 
-def get_field_definition_from_param(param: "Parameter") -> Tuple[Any, Any]:
+def get_field_definition_from_param(param: Parameter) -> Tuple[Any, Any]:
     """
     This method will make sure that __future__ references are resolved by
     the Any type. This is necessary because the signature model will be

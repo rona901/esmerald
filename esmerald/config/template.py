@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import List, Type, Union
 
 from pydantic import BaseModel, ConfigDict, DirectoryPath

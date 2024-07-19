@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from datetime import datetime
 from typing import Any, Dict, Optional, cast
 
@@ -21,7 +23,7 @@ def scheduler(
     extra_args: Optional[Any] = None,
     extra_kwargs: Optional[Dict[str, Any]] = None,
     is_enabled: bool = True,
-) -> "Task":
+) -> Task:
 
     def wrapper(func: Any) -> Task:
         task = Task(

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from lilya.middleware.clickjacking import XFrameOptionsMiddleware as LilyaXFrameOptionsMiddleware
 
 from esmerald.conf import settings

@@ -176,7 +176,7 @@ features = ["all", "testing"]
 test = "ESMERALD_SETTINGS_MODULE='tests.settings.TestSettings' pytest {args}"
 test_man = "ESMERALD_SETTINGS_MODULE='tests.settings.TestSettings' pytest {args} -s -vv"
 coverage = "ESMERALD_SETTINGS_MODULE='tests.settings.TestSettings' pytest --cov=esmerald --cov=tests --cov-report=term-missing:skip-covered --cov-report=html tests {args}"
-check_types = "mypy -p esmerald"
+check_types = "mypy -p esmerald --show-traceback"
 
 [tool.hatch.envs.hatch-test]
 features = ["all"]
@@ -222,10 +222,10 @@ strict_optional = false
 line-length = 99
 
 [tool.ruff.lint]
-select = ["E", "W", "F", "C", "B", "I"]
-ignore = ["E501", "B008", "C901", "B026"]
-
+select = ["E", "W", "F", "C", "B", "I", "FA", "UP"]
+ignore = ["E501", "B008", "C901", "B026", "UP006"]
 exclude = ["docs_src/*"]
+
 
 [tool.coverage.run]
 parallel = true

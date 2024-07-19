@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Any, ClassVar, List, Set, Tuple, Type, cast
 
 if TYPE_CHECKING:
@@ -71,7 +73,7 @@ class ListAPIMeta(SimpleAPIMeta):
     """
 
     def __new__(cls, name: str, bases: Tuple, attrs: Any) -> Any:
-        view: "ListAPIView" = super().__new__(cls, name, bases, attrs)
+        view: ListAPIView = super().__new__(cls, name, bases, attrs)
 
         if not hasattr(view, "__filtered_handlers__"):
             return view

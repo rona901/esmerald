@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING, Any, Iterator, Optional
 
@@ -52,7 +54,7 @@ class Pluggable:
     ```
     """
 
-    def __init__(self, cls: "Extension", **options: Any):
+    def __init__(self, cls: Extension, **options: Any):
         self.cls = cls
         self.options = options
 
@@ -75,7 +77,7 @@ class BaseExtension(ABC, ExtensionProtocol):  # pragma: no cover
     def __init__(
         self,
         app: Annotated[
-            Optional["Esmerald"],
+            Optional[Esmerald],
             Doc(
                 """
                 An `Esmerald` application instance or subclasses of Esmerald.
@@ -91,7 +93,7 @@ class BaseExtension(ABC, ExtensionProtocol):  # pragma: no cover
         self.app = app
 
     @abstractmethod
-    def extend(self, **kwargs: "Any") -> None:
+    def extend(self, **kwargs: Any) -> None:
         raise NotImplementedError("plug must be implemented by the subclasses.")
 
 

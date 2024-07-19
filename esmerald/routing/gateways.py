@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import re
 from typing import TYPE_CHECKING, Any, Callable, List, Optional, Sequence, Union, cast
 
@@ -23,12 +25,12 @@ if TYPE_CHECKING:  # pragma: no cover
 
 class BaseMiddleware:
     def handle_middleware(
-        self, handler: Any, base_middleware: List["Middleware"]
-    ) -> List["Middleware"]:
+        self, handler: Any, base_middleware: List[Middleware]
+    ) -> List[Middleware]:
         """
         Handles both types of middlewares for Gateway and WebSocketGateway
         """
-        _middleware: List["Middleware"] = []
+        _middleware: List[Middleware] = []
 
         if not is_class_and_subclass(handler, View) and not isinstance(handler, View):
             base_middleware += handler.middleware or []
@@ -44,15 +46,15 @@ class BaseMiddleware:
 class GatewayUtil:
 
     def is_class_based(
-        self, handler: Union["HTTPHandler", "WebSocketHandler", "ParentType"]
+        self, handler: Union[HTTPHandler, WebSocketHandler, ParentType]
     ) -> bool:
         return bool(is_class_and_subclass(handler, View) or isinstance(handler, View))
 
-    def is_handler(self, handler: Union["HTTPHandler", "WebSocketHandler", "ParentType"]) -> bool:
+    def is_handler(self, handler: Union[HTTPHandler, WebSocketHandler, ParentType]) -> bool:
         return bool(not is_class_and_subclass(handler, View) and not isinstance(handler, View))
 
     def generate_operation_id(
-        self, name: Union[str, None], handler: Union["HTTPHandler", "WebSocketHandler", View]
+        self, name: Union[str, None], handler: Union[HTTPHandler, WebSocketHandler, View]
     ) -> str:
         """
         Generates an unique operation if for the handler.
@@ -139,7 +141,7 @@ class Gateway(LilyaPath, Dispatcher, BaseMiddleware, GatewayUtil):
         ] = None,
         *,
         handler: Annotated[
-            Union["HTTPHandler", View],
+            Union[HTTPHandler, View],
             Doc(
                 """
             An instance of [handler](https://esmerald.dev/routing/handlers/#http-handlers).
@@ -163,7 +165,7 @@ class Gateway(LilyaPath, Dispatcher, BaseMiddleware, GatewayUtil):
             ),
         ] = True,
         parent: Annotated[
-            Optional["ParentType"],
+            Optional[ParentType],
             Doc(
                 """
                 Who owns the Gateway. If not specified, the application automatically it assign it.
@@ -173,7 +175,7 @@ class Gateway(LilyaPath, Dispatcher, BaseMiddleware, GatewayUtil):
             ),
         ] = None,
         dependencies: Annotated[
-            Optional["Dependencies"],
+            Optional[Dependencies],
             Doc(
                 """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -181,7 +183,7 @@ class Gateway(LilyaPath, Dispatcher, BaseMiddleware, GatewayUtil):
             ),
         ] = None,
         middleware: Annotated[
-            Optional[List["Middleware"]],
+            Optional[List[Middleware]],
             Doc(
                 """
                 A list of middleware to run for every request. The middlewares of a Gateway will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -189,7 +191,7 @@ class Gateway(LilyaPath, Dispatcher, BaseMiddleware, GatewayUtil):
             ),
         ] = None,
         interceptors: Annotated[
-            Optional[Sequence["Interceptor"]],
+            Optional[Sequence[Interceptor]],
             Doc(
                 """
                 A list of [interceptors](https://esmerald.dev/interceptors/) to serve the application incoming requests (HTTP and Websockets).
@@ -197,7 +199,7 @@ class Gateway(LilyaPath, Dispatcher, BaseMiddleware, GatewayUtil):
             ),
         ] = None,
         permissions: Annotated[
-            Optional[Sequence["Permission"]],
+            Optional[Sequence[Permission]],
             Doc(
                 """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -205,7 +207,7 @@ class Gateway(LilyaPath, Dispatcher, BaseMiddleware, GatewayUtil):
             ),
         ] = None,
         exception_handlers: Annotated[
-            Optional["ExceptionHandlerMap"],
+            Optional[ExceptionHandlerMap],
             Doc(
                 """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -231,7 +233,7 @@ class Gateway(LilyaPath, Dispatcher, BaseMiddleware, GatewayUtil):
             ),
         ] = False,
         security: Annotated[
-            Optional[Sequence["SecurityScheme"]],
+            Optional[Sequence[SecurityScheme]],
             Doc(
                 """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -281,7 +283,7 @@ class Gateway(LilyaPath, Dispatcher, BaseMiddleware, GatewayUtil):
 
         # Handle middleware
         self.middleware = middleware or []
-        self._middleware: List["Middleware"] = self.handle_middleware(
+        self._middleware: List[Middleware] = self.handle_middleware(
             handler=handler, base_middleware=self.middleware
         )
         super().__init__(
@@ -298,12 +300,12 @@ class Gateway(LilyaPath, Dispatcher, BaseMiddleware, GatewayUtil):
         Since the default Lilya Route handler does not understand the Esmerald handlers,
         the Gateway bridges both functionalities and adds an extra "flair" to be compliant with both class based views and decorated function views.
         """
-        self._interceptors: Union[List["Interceptor"], "VoidType"] = Void
+        self._interceptors: Union[List[Interceptor], VoidType] = Void
         self.name = name
         self.handler = cast("Callable", handler)
         self.dependencies = dependencies or {}
-        self.interceptors: Sequence["Interceptor"] = interceptors or []
-        self.permissions: Sequence["Permission"] = permissions or []  # type: ignore
+        self.interceptors: Sequence[Interceptor] = interceptors or []
+        self.permissions: Sequence[Permission] = permissions or []  # type: ignore
         self.response_class = None
         self.response_cookies = None
         self.response_headers = None
@@ -323,7 +325,7 @@ class Gateway(LilyaPath, Dispatcher, BaseMiddleware, GatewayUtil):
                     name=self.name, handler=self.handler  # type: ignore
                 )
 
-    async def handle_dispatch(self, scope: "Scope", receive: "Receive", send: "Send") -> None:
+    async def handle_dispatch(self, scope: Scope, receive: Receive, send: Send) -> None:
         """
         Handles the interception of messages and calls from the API.
         """
@@ -398,7 +400,7 @@ class WebSocketGateway(LilyaWebSocketPath, Dispatcher, BaseMiddleware):
         ] = None,
         *,
         handler: Annotated[
-            Union["WebSocketHandler", View],
+            Union[WebSocketHandler, View],
             Doc(
                 """
             An instance of [handler](https://esmerald.dev/routing/handlers/#websocket-handler).
@@ -414,7 +416,7 @@ class WebSocketGateway(LilyaWebSocketPath, Dispatcher, BaseMiddleware):
             ),
         ] = None,
         parent: Annotated[
-            Optional["ParentType"],
+            Optional[ParentType],
             Doc(
                 """
                 Who owns the Gateway. If not specified, the application automatically it assign it.
@@ -424,7 +426,7 @@ class WebSocketGateway(LilyaWebSocketPath, Dispatcher, BaseMiddleware):
             ),
         ] = None,
         dependencies: Annotated[
-            Optional["Dependencies"],
+            Optional[Dependencies],
             Doc(
                 """
                 A dictionary of string and [Inject](https://esmerald.dev/dependencies/) instances enable application level dependency injection.
@@ -432,7 +434,7 @@ class WebSocketGateway(LilyaWebSocketPath, Dispatcher, BaseMiddleware):
             ),
         ] = None,
         middleware: Annotated[
-            Optional[List["Middleware"]],
+            Optional[List[Middleware]],
             Doc(
                 """
                 A list of middleware to run for every request. The middlewares of a Gateway will be checked from top-down or [Lilya Middleware](https://www.lilya.dev/middleware/) as they are both converted internally. Read more about [Python Protocols](https://peps.python.org/pep-0544/).
@@ -440,7 +442,7 @@ class WebSocketGateway(LilyaWebSocketPath, Dispatcher, BaseMiddleware):
             ),
         ] = None,
         interceptors: Annotated[
-            Optional[Sequence["Interceptor"]],
+            Optional[Sequence[Interceptor]],
             Doc(
                 """
                 A list of [interceptors](https://esmerald.dev/interceptors/) to serve the application incoming requests (HTTP and Websockets).
@@ -448,7 +450,7 @@ class WebSocketGateway(LilyaWebSocketPath, Dispatcher, BaseMiddleware):
             ),
         ] = None,
         permissions: Annotated[
-            Optional[Sequence["Permission"]],
+            Optional[Sequence[Permission]],
             Doc(
                 """
                 A list of [permissions](https://esmerald.dev/permissions/) to serve the application incoming requests (HTTP and Websockets).
@@ -456,7 +458,7 @@ class WebSocketGateway(LilyaWebSocketPath, Dispatcher, BaseMiddleware):
             ),
         ] = None,
         exception_handlers: Annotated[
-            Optional["ExceptionHandlerMap"],
+            Optional[ExceptionHandlerMap],
             Doc(
                 """
                 A dictionary of [exception types](https://esmerald.dev/exceptions/) (or custom exceptions) and the handler functions on an application top level. Exception handler callables should be of the form of `handler(request, exc) -> response` and may be be either standard functions, or async functions.
@@ -491,7 +493,7 @@ class WebSocketGateway(LilyaWebSocketPath, Dispatcher, BaseMiddleware):
 
         # Handle middleware
         self.middleware = middleware or []
-        self._middleware: List["Middleware"] = self.handle_middleware(
+        self._middleware: List[Middleware] = self.handle_middleware(
             handler=handler, base_middleware=self.middleware
         )
         self.is_middleware: bool = False
@@ -508,7 +510,7 @@ class WebSocketGateway(LilyaWebSocketPath, Dispatcher, BaseMiddleware):
         Since the default Lilya Route handler does not understand the Esmerald handlers,
         the Gateway bridges both functionalities and adds an extra "flair" to be compliant with both class based views and decorated function views.
         """
-        self._interceptors: Union[List["Interceptor"], "VoidType"] = Void
+        self._interceptors: Union[List[Interceptor], VoidType] = Void
         self.handler = cast("Callable", handler)
         self.dependencies = dependencies or {}
         self.interceptors = interceptors or []
@@ -519,7 +521,7 @@ class WebSocketGateway(LilyaWebSocketPath, Dispatcher, BaseMiddleware):
             self.path
         )
 
-    async def handle_dispatch(self, scope: "Scope", receive: "Receive", send: "Send") -> None:
+    async def handle_dispatch(self, scope: Scope, receive: Receive, send: Send) -> None:
         """
         Handles the interception of messages and calls from the API.
         if self._middleware:
@@ -562,7 +564,7 @@ class WebhookGateway(LilyaPath, Dispatcher, GatewayUtil):
         self,
         *,
         handler: Annotated[
-            Union["WebhookHandler", View],
+            Union[WebhookHandler, View],
             Doc(
                 """
                 An instance of [handler](https://esmerald.dev/routing/webhooks/#handlers).
@@ -586,7 +588,7 @@ class WebhookGateway(LilyaPath, Dispatcher, GatewayUtil):
             ),
         ] = True,
         parent: Annotated[
-            Optional["ParentType"],
+            Optional[ParentType],
             Doc(
                 """
                 Who owns the Gateway. If not specified, the application automatically it assign it.
@@ -605,7 +607,7 @@ class WebhookGateway(LilyaPath, Dispatcher, GatewayUtil):
             ),
         ] = None,
         security: Annotated[
-            Optional[Sequence["SecurityScheme"]],
+            Optional[Sequence[SecurityScheme]],
             Doc(
                 """
                 Used by OpenAPI definition, the security must be compliant with the norms.
@@ -650,11 +652,11 @@ class WebhookGateway(LilyaPath, Dispatcher, GatewayUtil):
         self.handler = cast("Callable", handler)
         self.include_in_schema = include_in_schema
 
-        self._interceptors: Union[List["Interceptor"], "VoidType"] = Void
+        self._interceptors: Union[List[Interceptor], VoidType] = Void
         self.name = name
         self.dependencies: Any = {}
-        self.interceptors: Sequence["Interceptor"] = []
-        self.permissions: Sequence["Permission"] = []  # type: ignore
+        self.interceptors: Sequence[Interceptor] = []
+        self.permissions: Sequence[Permission] = []  # type: ignore
         self.middleware: Any = []
         self.exception_handlers: Any = {}
         self.response_class = None

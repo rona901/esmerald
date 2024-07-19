@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Union
 
 from lilya.context import Context as LilyaContext
@@ -39,7 +41,7 @@ class Context(LilyaContext):
     def __init__(
         self,
         __handler__: Annotated[
-            Union["HTTPHandler", "WebSocketHandler"],
+            Union[HTTPHandler, WebSocketHandler],
             Doc(
                 """
                 The [handler](https://esmerald.dev/routing/handlers/) where the context will be. placed.
@@ -50,7 +52,7 @@ class Context(LilyaContext):
             ),
         ],
         __request__: Annotated[
-            "Request",
+            Request,
             Doc(
                 """
                 A [Request](https://esmerald.dev/references/request/) class object.

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import re
 from inspect import Parameter as InspectParameter, Signature as InspectSignature
 from typing import (
@@ -37,7 +39,7 @@ if TYPE_CHECKING:
 object_setattr = object.__setattr__
 
 
-def is_server_error(error: Any, klass: Type["SignatureModel"]) -> bool:
+def is_server_error(error: Any, klass: Type[SignatureModel]) -> bool:
     """
     Determines if the given error is classified as a server error.
 
@@ -126,7 +128,7 @@ class SignatureModel(ArbitraryBaseModel):
 
     dependency_names: ClassVar[Set[str]]
     return_annotation: ClassVar[Any]
-    encoders: ClassVar[Dict["Encoder", Any]]
+    encoders: ClassVar[Dict[Encoder, Any]]
 
     @classmethod
     def parse_encoders(cls, kwargs: Dict[str, Any]) -> Dict[str, Any]:
@@ -144,7 +146,7 @@ class SignatureModel(ArbitraryBaseModel):
             Dict[str, Any]: The parsed keyword arguments with appropriate encoding applied.
         """
 
-        def encode_value(encoder: "Encoder", annotation: Any, value: Any) -> Any:
+        def encode_value(encoder: Encoder, annotation: Any, value: Any) -> Any:
             """
             Encodes a value using the given encoder and annotation.
 
@@ -162,8 +164,8 @@ class SignatureModel(ArbitraryBaseModel):
 
         for key, value in kwargs.items():
             if key in cls.encoders:
-                encoder_info: Dict[str, "Encoder"] = cls.encoders[key]  # type: ignore
-                encoder: "Encoder" = encoder_info["encoder"]
+                encoder_info: Dict[str, Encoder] = cls.encoders[key]  # type: ignore
+                encoder: Encoder = encoder_info["encoder"]
                 annotation = encoder_info["annotation"]
                 kwargs[key] = encode_value(encoder, annotation, value)
 
@@ -248,7 +250,7 @@ class SignatureModel(ArbitraryBaseModel):
     @classmethod
     def build_base_system_exception(
         cls, connection: Union[Request, WebSocket], exception: ValidationError
-    ) -> Union["InternalServerError", "ValidationErrorException", "Exception"]:
+    ) -> Union[InternalServerError, ValidationErrorException, Exception]:
         """
         Constructs a system exception based on validation errors, categorizing them
         as server or client errors, and providing detailed context.
@@ -320,7 +322,7 @@ class SignatureFactory(ArbitraryExtraBaseModel):
         - `field_definitions` is used to define fields for the signature model.
     """
 
-    def __init__(self, fn: "AnyCallable", dependency_names: Set[str], **kwargs: Any) -> None:
+    def __init__(self, fn: AnyCallable, dependency_names: Set[str], **kwargs: Any) -> None:
         """
         Initializes a SignatureFactory instance.
 
@@ -389,7 +391,7 @@ class SignatureFactory(ArbitraryExtraBaseModel):
             self.defaults[param.name] = param.default
 
     @property
-    def parameters(self) -> Generator["Parameter", None, None]:
+    def parameters(self) -> Generator[Parameter, None, None]:
         """
         Yields parameters of the function signature, excluding any special class-specific words.
 
@@ -401,7 +403,7 @@ class SignatureFactory(ArbitraryExtraBaseModel):
                 continue
             yield Parameter(self.fn_name, name, param)
 
-    def skip_parameter_validation(self, param: "Parameter") -> bool:
+    def skip_parameter_validation(self, param: Parameter) -> bool:
         """
         Determines whether validation should be skipped for the given parameter.
 
@@ -414,7 +416,7 @@ class SignatureFactory(ArbitraryExtraBaseModel):
         return param.name in VALIDATION_NAMES or should_skip_dependency_validation(param.default)
 
     def extract_arguments(
-        self, param: Union["Parameter", None] = None, argument_list: Union[List[Any], None] = None
+        self, param: Union[Parameter, None] = None, argument_list: Union[List[Any], None] = None
     ) -> List[Type[type]]:
         """
         Recursively extracts unique types from a parameter's type annotation.
@@ -477,7 +479,7 @@ class SignatureFactory(ArbitraryExtraBaseModel):
                     }
         return encoders
 
-    def _should_skip_parameter(self, param: "Parameter") -> bool:
+    def _should_skip_parameter(self, param: Parameter) -> bool:
         """
         Checks if validation should be skipped for the given parameter.
 

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Any, Dict, Optional, Type, Union
 
 from typing_extensions import Annotated, Doc
@@ -59,9 +61,9 @@ class OrJSON(ResponseContainer[ORJSONResponse]):
     def to_response(
         self,
         headers: Dict[str, Any],
-        media_type: Union["MediaType", str],
+        media_type: Union[MediaType, str],
         status_code: int,
-        app: Type["Esmerald"],
+        app: Type[Esmerald],
     ) -> ORJSONResponse:
         assert (
             ORJSONResponse is not None
@@ -117,9 +119,9 @@ class UJSON(ResponseContainer[UJSONResponse]):
     def to_response(
         self,
         headers: Dict[str, Any],
-        media_type: Union["MediaType", str],
+        media_type: Union[MediaType, str],
         status_code: int,
-        app: Type["Esmerald"],
+        app: Type[Esmerald],
     ) -> UJSONResponse:
         assert (
             UJSONResponse is not None

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from functools import cached_property
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Sequence, Union
 
@@ -736,7 +738,7 @@ class EsmeraldAPISettings(BaseSettings):
         ]
 
     @property
-    def routes(self) -> List[Union[APIGateHandler, "Include"]]:
+    def routes(self) -> List[Union[APIGateHandler, Include]]:
         """
         A global `list` of esmerald routes. Those routes may vary and those can
         be `Gateway`, `WebSocketGateWay` or even `Include`.
@@ -847,7 +849,7 @@ class EsmeraldAPISettings(BaseSettings):
         return AsyncExitConfig()
 
     @property
-    def template_config(self) -> Optional["TemplateConfig"]:
+    def template_config(self) -> Optional[TemplateConfig]:
         """
         An instance of [TemplateConfig](https://esmerald.dev/configurations/template/).
         This configuration is a simple set of configurations that when passed enables the template engine.
@@ -1310,7 +1312,7 @@ class EsmeraldAPISettings(BaseSettings):
         return None
 
     @property
-    def lifespan(self) -> Optional["Lifespan"]:
+    def lifespan(self) -> Optional[Lifespan]:
         """
         A `lifespan` context manager handler. This is an alternative
         to `on_startup` and `on_shutdown` and you **cannot used all combined**.
@@ -1320,7 +1322,7 @@ class EsmeraldAPISettings(BaseSettings):
         return None
 
     @property
-    def pluggables(self) -> Dict[str, "Pluggable"]:
+    def pluggables(self) -> Dict[str, Pluggable]:
         """
         A `list` of global pluggables from objects inheriting from
         `esmerald.interceptors.interceptor.EsmeraldInterceptor`.

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Any, cast
 
 from lilya._internal._connection import Connection as Connection  # noqa: F401
@@ -22,19 +24,19 @@ if TYPE_CHECKING:  # pragma: no cover
 class Request(LilyaRequest):
     def __init__(
         self,
-        scope: "Scope",
-        receive: "Receive" = empty_receive,
-        send: "Send" = empty_send,
+        scope: Scope,
+        receive: Receive = empty_receive,
+        send: Send = empty_send,
     ):
         super().__init__(scope, receive, send)
         self._json: Any = Void
 
     @property
-    def app(self) -> "Esmerald":
+    def app(self) -> Esmerald:
         return cast("Esmerald", self.scope["app"])
 
     @property
-    def method(self) -> "HTTPMethod":
+    def method(self) -> HTTPMethod:
         return cast("HTTPMethod", self.scope["method"])
 
     @property

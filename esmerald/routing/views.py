@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from .apis import APIView, SimpleAPIView
 from .apis.base import View
 

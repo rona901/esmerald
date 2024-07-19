@@ -2,6 +2,8 @@
 Functions to use with the Factory dependency injection.
 """
 
+from __future__ import annotations
+
 from typing import Any, Callable, Tuple, cast
 
 from lilya._internal._module_loading import import_string

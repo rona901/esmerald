@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from esmerald.routing.apis._metaclasses import ListAPIMeta, SimpleAPIMeta
 from esmerald.routing.apis._mixins import MethodMixin
 from esmerald.routing.apis.base import View

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import (
     TYPE_CHECKING,
     Any,
@@ -42,9 +44,9 @@ class Stream(ResponseContainer[StreamingResponse]):
     def to_response(
         self,
         headers: Dict[str, Any],
-        media_type: Union["MediaType", str],
+        media_type: Union[MediaType, str],
         status_code: int,
-        app: Type["Esmerald"],
+        app: Type[Esmerald],
     ) -> StreamingResponse:  # pragma: no cover
         return StreamingResponse(
             background=self.background,

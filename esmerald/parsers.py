@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from contextlib import suppress
 from json import JSONDecodeError, loads
 from typing import TYPE_CHECKING, Any, Dict, List, get_args, get_origin
@@ -76,7 +78,7 @@ def flatten(values: List[Any]) -> List[Any]:
 
 
 def parse_form_data(
-    media_type: "EncodingType", form_data: "FormData", field: "FieldInfo"
+    media_type: EncodingType, form_data: FormData, field: FieldInfo
 ) -> Any:  # pragma: no cover
     """
     Converts, parses and transforms a multidict into a dict and tries to load them all into

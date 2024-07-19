@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from inspect import Signature as InspectSignature
 
 from esmerald.typing import Undefined

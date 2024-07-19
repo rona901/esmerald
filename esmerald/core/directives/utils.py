@@ -2,6 +2,8 @@
 Utils used by the Esmerald core management.
 """
 
+from __future__ import annotations
+
 import functools
 import importlib
 import os
@@ -60,7 +62,7 @@ def load_directive_class(app_name: str, name: str) -> Any:
     """
     Loads the directive class from native Esmerald.
     """
-    module = import_module("{}.directives.operations.{}".format(app_name, name))
+    module = import_module(f"{app_name}.directives.operations.{name}")
     return module.Directive()
 
 

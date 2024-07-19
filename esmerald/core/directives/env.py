@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 import sys
 import typing
@@ -39,7 +41,7 @@ class DirectiveEnv:
     app: typing.Optional[typing.Union[Esmerald, ChildEsmerald]] = None
     command_path: typing.Optional[str] = None
 
-    def load_from_env(self, path: typing.Optional[str] = None) -> "DirectiveEnv":
+    def load_from_env(self, path: typing.Optional[str] = None) -> DirectiveEnv:
         """
         Loads the environment variables into the scaffold.
         """
@@ -77,9 +79,7 @@ class DirectiveEnv:
         """
         return [directory.path for directory in os.scandir(path) if directory.is_dir()]
 
-    def _find_app_in_folder(
-        self, path: Path, cwd: Path
-    ) -> typing.Union[Scaffold, None]:
+    def _find_app_in_folder(self, path: Path, cwd: Path) -> typing.Union[Scaffold, None]:
         """
         Iterates inside the folder and looks up to the DISCOVERY_FILES.
         """

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import ClassVar, List
 
 from typing_extensions import Annotated, Doc

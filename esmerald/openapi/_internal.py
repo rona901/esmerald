@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from inspect import Signature
 from typing import Any, Optional, Union
 

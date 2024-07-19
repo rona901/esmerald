@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING, Any
 
@@ -13,19 +15,19 @@ SAFE_METHODS = ("GET", "HEAD", "OPTIONS")
 
 
 class BaseOperationHolder:  # pragma: no cover
-    def __and__(self, other: Any) -> "OperandHolder":
+    def __and__(self, other: Any) -> OperandHolder:
         return OperandHolder(AND, self, other)
 
-    def __or__(self, other: "Any") -> "OperandHolder":
+    def __or__(self, other: Any) -> OperandHolder:
         return OperandHolder(OR, self, other)
 
-    def __rand__(self, other: Any) -> "OperandHolder":
+    def __rand__(self, other: Any) -> OperandHolder:
         return OperandHolder(AND, other, self)
 
-    def __ror__(self, other: "BasePermission") -> "OperandHolder":
+    def __ror__(self, other: BasePermission) -> OperandHolder:
         return OperandHolder(OR, other, self)
 
-    def __invert__(self) -> "SingleOperand":
+    def __invert__(self) -> SingleOperand:
         return SingleOperand(NOT, self)
 
 
@@ -52,14 +54,14 @@ class OperandHolder(BaseOperationHolder):
 
 
 class AND:
-    def __init__(self, op1: "BasePermission", op2: "BasePermission") -> None:
+    def __init__(self, op1: BasePermission, op2: BasePermission) -> None:
         self.op1 = op1
         self.op2 = op2
 
     def has_permission(
         self,
-        request: "Request",
-        apiview: "APIGateHandler",
+        request: Request,
+        apiview: APIGateHandler,
     ) -> bool:
         return self.op1.has_permission(request, apiview) and self.op2.has_permission(
             request, apiview
@@ -67,14 +69,14 @@ class AND:
 
 
 class OR:
-    def __init__(self, op1: "BasePermission", op2: "BasePermission") -> None:
+    def __init__(self, op1: BasePermission, op2: BasePermission) -> None:
         self.op1 = op1
         self.op2 = op2
 
     def has_permission(
         self,
-        request: "Request",
-        apiview: "APIGateHandler",
+        request: Request,
+        apiview: APIGateHandler,
     ) -> bool:
         return self.op1.has_permission(request, apiview) or self.op2.has_permission(
             request, apiview
@@ -82,13 +84,13 @@ class OR:
 
 
 class NOT:
-    def __init__(self, op1: "BasePermission") -> None:
+    def __init__(self, op1: BasePermission) -> None:
         self.op1 = op1
 
     def has_permission(
         self,
-        request: "Request",
-        apiview: "APIGateHandler",
+        request: Request,
+        apiview: APIGateHandler,
     ) -> bool:
         return not self.op1.has_permission(request, apiview)
 
@@ -126,7 +128,7 @@ class BasePermission(metaclass=BasePermissionMetaclass):
     def has_permission(
         self,
         request: Annotated[
-            "Request",
+            Request,
             Doc(
                 """
                 The request object being passed through the request.
@@ -134,7 +136,7 @@ class BasePermission(metaclass=BasePermissionMetaclass):
             ),
         ],
         apiview: Annotated[
-            "APIGateHandler",
+            APIGateHandler,
             Doc(
                 """
                 A [handler](https://esmerald.dev/routing/handlers/) usually
@@ -198,8 +200,8 @@ class BaseAbstractUserPermission(ABC):
 
     def has_permission(
         self,
-        request: "Request",
-        apiview: "APIGateHandler",
+        request: Request,
+        apiview: APIGateHandler,
     ) -> bool:
         try:
             return hasattr(request, "user")
@@ -207,7 +209,7 @@ class BaseAbstractUserPermission(ABC):
             return False
 
     @abstractmethod
-    def is_user_authenticated(self, request: "Request") -> bool:
+    def is_user_authenticated(self, request: Request) -> bool:
         """
         This method must be overridden by subclasses.
 
@@ -220,7 +222,7 @@ class BaseAbstractUserPermission(ABC):
         raise NotImplementedError("is_user_uthenticated() must be implemented.")
 
     @abstractmethod
-    def is_user_staff(self, request: "Request") -> bool:
+    def is_user_staff(self, request: Request) -> bool:
         """
         This method must be overridden by subclasses.
 
@@ -243,8 +245,8 @@ class AllowAny(BasePermission):
 
     def has_permission(
         self,
-        request: "Request",
-        apiview: "APIGateHandler",
+        request: Request,
+        apiview: APIGateHandler,
     ) -> bool:
         return True
 
@@ -259,8 +261,8 @@ class DenyAll(BasePermission):
 
     def has_permission(
         self,
-        request: "Request",
-        apiview: "APIGateHandler",
+        request: Request,
+        apiview: APIGateHandler,
     ) -> bool:
         return False
 
@@ -273,8 +275,8 @@ class IsAuthenticated(BaseAbstractUserPermission):
 
     def has_permission(
         self,
-        request: "Request",
-        apiview: "APIGateHandler",
+        request: Request,
+        apiview: APIGateHandler,
     ) -> bool:
         """
         Args:
@@ -295,8 +297,8 @@ class IsAdminUser(BaseAbstractUserPermission):
 
     def has_permission(
         self,
-        request: "Request",
-        apiview: "APIGateHandler",
+        request: Request,
+        apiview: APIGateHandler,
     ) -> bool:
         """
         Args:
@@ -317,8 +319,8 @@ class IsAuthenticatedOrReadOnly(BaseAbstractUserPermission):
 
     def has_permission(
         self,
-        request: "Request",
-        apiview: "APIGateHandler",
+        request: Request,
+        apiview: APIGateHandler,
     ) -> bool:
         """
         Args:

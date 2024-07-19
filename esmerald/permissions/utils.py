@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Callable, Optional
 
 from esmerald.exceptions import PermissionDenied
@@ -10,9 +12,9 @@ if TYPE_CHECKING:  # pragma: no cover
 
 
 async def continue_or_raise_permission_exception(
-    request: "Request",
-    apiview: "APIGateHandler",
-    permission: "BasePermission",
+    request: Request,
+    apiview: APIGateHandler,
+    permission: BasePermission,
 ) -> None:
     """
     Check if the request has permission to access the API view.
@@ -35,7 +37,7 @@ async def continue_or_raise_permission_exception(
             )
 
 
-def permission_denied(request: "Request", message: Optional[str] = None) -> None:
+def permission_denied(request: Request, message: Optional[str] = None) -> None:
     """
     If request is not permitted, determine what kind of exception to raise.
     """

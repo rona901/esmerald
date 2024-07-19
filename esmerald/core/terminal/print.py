@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from esmerald.core.terminal.base import Base, OutputColour
 
 
