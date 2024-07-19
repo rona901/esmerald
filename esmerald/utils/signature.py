@@ -44,8 +44,6 @@ class Signature(InspectSignature):
             return super().from_callable(
                 obj,
                 follow_wrapped=follow_wrapped,
-                globals=globals,
-                locals=locals,
             )
         return super().from_callable(
             obj, follow_wrapped=follow_wrapped, globals=globals, locals=locals, eval_str=eval_str
