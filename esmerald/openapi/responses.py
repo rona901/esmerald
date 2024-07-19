@@ -16,10 +16,8 @@ if TYPE_CHECKING:  # pragma: no cover
     from esmerald.typing import AnyCallable
 
 
-def create_internal_response(
-    handler: HTTPHandler | Any
-) -> InternalResponse:  # pragma: no cover
-    signature = Signature.from_callable(cast("AnyCallable", handler.fn))
+def create_internal_response(handler: HTTPHandler | Any) -> InternalResponse:  # pragma: no cover
+    signature = Signature.from_callable(cast("AnyCallable", handler.fn), eval_str=True)
     default_descriptions: Dict[Any, str] = {
         Stream: "Stream Response",
         Redirect: "Redirect Response",

@@ -2410,7 +2410,7 @@ class WebSocketHandler(Dispatcher, LilyaWebSocketPath):
             raise ImproperlyConfigured(
                 "Cannot call check_handler_function without first setting self.fn"
             )
-        signature = Signature.from_callable(self.fn)
+        signature = Signature.from_callable(self.fn, eval_str=True)
         self.validate_reserved_words(signature=signature)
 
         if SOCKET not in signature.parameters:

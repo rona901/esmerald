@@ -6,18 +6,7 @@ from enum import Enum
 from functools import partial
 from inspect import Signature, isawaitable
 from pathlib import Path
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    Awaitable,
-    Callable,
-    Dict,
-    List,
-    Set,
-    Type,
-    TypeVar,
-    cast,
-)
+from typing import TYPE_CHECKING, Any, Awaitable, Callable, Dict, List, Set, Type, TypeVar, cast
 from uuid import UUID
 
 from lilya._internal._connection import Connection
@@ -508,7 +497,7 @@ class Dispatcher(BaseSignature, BaseDispatcher, OpenAPIDefinitionMixin):
         - The `from_callable` method takes a callable object (in this case, the handler function) as input and returns a Signature object.
         - The Signature object can be used to inspect the parameters and return type of the handler function.
         """
-        return Signature.from_callable(cast("AnyCallable", self.fn))
+        return Signature.from_callable(cast("AnyCallable", self.fn), eval_str=True)
 
     @property
     def path_parameters(self) -> Set[str]:

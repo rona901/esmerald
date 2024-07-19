@@ -334,7 +334,7 @@ class SignatureFactory(ArbitraryExtraBaseModel):
         """
         super().__init__(**kwargs)
         self.fn = fn
-        self.signature = InspectSignature.from_callable(self.fn)
+        self.signature = InspectSignature.from_callable(self.fn, eval_str=True)
         self.fn_name = fn.__name__ if hasattr(fn, "__name__") else "anonymous"
         self.defaults: Dict[str, Any] = {}
         self.dependency_names = dependency_names

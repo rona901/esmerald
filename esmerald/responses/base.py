@@ -1,15 +1,6 @@
 from __future__ import annotations
 
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    Dict,
-    Generic,
-    NoReturn,
-    Sequence,
-    TypeVar,
-    cast,
-)
+from typing import TYPE_CHECKING, Any, Dict, Generic, NoReturn, Sequence, TypeVar, cast
 
 from lilya import status
 from lilya.responses import (
